@@ -2,6 +2,6 @@ from handlers import Passport
 
 
 
-handlers = [
+urls = [
     (r"/",Passport.IndexHandler),
 ]

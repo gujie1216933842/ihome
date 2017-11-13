@@ -5,11 +5,11 @@ import tornado.ioloop
 import tornado.options
 import tornado.httpserver
 import config
-
+import redis
 from tornado.options import define,options
 from urls import urls
 
-import
+
 
 
 
@@ -19,13 +19,16 @@ class Application(tornado.web.Application):
     def __init__(self,*args,**kwargs):
         super(Application,self).__init__()
         self.db = tornado.Connection(
-            host = "192.168.116.128",
-            database = "ihome",
-            user = "root",
-            password = "123"
+            host = config.mysql_options['host'],
+            database = config.mysql_options['database'],
+            user = config.mysql_options['user'],
+            password = config.mysql_options['password'],
         )
 
-         self.redis =
+        self.redis = redis.StrictRedis(
+             host=config.redis_options['host'],
+             port = config.redis_options['port'],
+         )
 
 
 
@@ -34,8 +37,9 @@ class Application(tornado.web.Application):
 
 def main():
     tornado.options.parse_command_line()
+
     app = tornado.web.Application(
-        handlers,**config.setting
+        urls,**config.setting
     )
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)

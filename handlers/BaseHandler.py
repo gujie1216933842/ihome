@@ -7,6 +7,16 @@ class BaseHandler(RequestHandler):
     '''
        handler的基础类
     '''
+    @property
+    def db(self):
+        return self.application.db
+
+    @property
+    def redis(self):
+        return self.application.redis
+
+
+
     def prepare(self):
         pass
     def write_error(self):
