@@ -12,7 +12,7 @@ from handlers import Passport
 from tornado.options import define, options
 from urls import urls
 
-define('prot', default=8000, type=int, help='run serve on the given port')
+define('port', default=8000, type=int, help='run serve on the given port')
 
 
 class Application(tornado.web.Application):
