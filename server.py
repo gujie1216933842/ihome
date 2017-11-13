@@ -18,17 +18,23 @@ define('prot',type = int ,default=8000,help='run serve on the given port')
 class Application(tornado.web.Application):
     def __init__(self,*args,**kwargs):
         super(Application,self).__init__()
-        self.db = tornado.Connection(
+        self.db = tornado.Connection(**config.mysql_options)
+        self.db = tornado.Connection(**config.redis_options)
+
+        '''self.db = tornado.Connection(
             host = config.mysql_options['host'],
             database = config.mysql_options['database'],
             user = config.mysql_options['user'],
             password = config.mysql_options['password'],
-        )
+            
+        )'''
 
-        self.redis = redis.StrictRedis(
-             host=config.redis_options['host'],
-             port = config.redis_options['port'],
-         )
+        """ self.redis = redis.StrictRedis(
+                 host=config.redis_options['host'],
+                 port = config.redis_options['port'],
+             )
+           
+        """
 
 
 
