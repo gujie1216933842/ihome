@@ -4,8 +4,11 @@ import tornado.web
 import tornado.ioloop
 import tornado.options
 import tornado.httpserver
+import os
 import config
 import redis
+
+from handlers import Passport
 from tornado.options import define,options
 from urls import urls
 
@@ -42,8 +45,9 @@ class Application(tornado.web.Application):
 
 
 def main():
+    options.log_file_prefix = config.log_path
+    options.logging = config.log_level
     tornado.options.parse_command_line()
-
     app = tornado.web.Application(
         urls,**config.setting
     )
