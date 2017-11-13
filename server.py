@@ -1,4 +1,4 @@
-#Author:Bob
+# Author:Bob
 
 import tornado.web
 import tornado.ioloop
@@ -9,18 +9,15 @@ import config
 import redis
 
 from handlers import Passport
-from tornado.options import define,options
+from tornado.options import define, options
 from urls import urls
 
+define('prot', default=8000, type=int, help='run serve on the given port')
 
-
-
-
-define('prot',type = int ,default=8000,help='run serve on the given port')
 
 class Application(tornado.web.Application):
-    def __init__(self,*args,**kwargs):
-        super(Application,self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(Application, self).__init__()
         self.db = tornado.Connection(**config.mysql_options)
         self.db = tornado.Connection(**config.redis_options)
 
@@ -40,41 +37,17 @@ class Application(tornado.web.Application):
         """
 
 
-
-
-
-
 def main():
     options.log_file_prefix = config.log_path
     options.logging = config.log_level
     tornado.options.parse_command_line()
     app = tornado.web.Application(
-        urls,**config.setting
+        urls, **config.setting
     )
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
 
+
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
