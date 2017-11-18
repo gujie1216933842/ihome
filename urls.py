@@ -1,6 +1,6 @@
-from handlers import Passport,IndexHandlers
+from handlers import Passport,IndexHandler
 
 urls = [
     (r"/", Passport.IndexHandler),
-    (r"/index", IndexHandlers.index),
+    (r"/index", IndexHandler.Indexhandler),
 ]
