@@ -1,5 +1,5 @@
 # Author:Bob
-from tornado.web import RequestHandler
+from tornado.web import RequestHandler,StaticFileHandler
 
 
 class BaseHandler(RequestHandler):
@@ -29,3 +29,10 @@ class BaseHandler(RequestHandler):
 
     def on_finish(self):
         pass
+
+
+class StaticFileBaseHandler(StaticFileHandler):
+    """自定义静态文件处理类, 在用户获取html页面的时候设置_xsrf的cookie"""
+    def __init__(self, *args, **kwargs):
+        super(StaticFileBaseHandler, self).__init__(*args, **kwargs)
+        self.xsrf_token
