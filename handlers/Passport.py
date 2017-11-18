@@ -10,5 +10,5 @@ class IndexHandler(BaseHandler):
         logging.warning('warning msg')
         logging.error('error msg')
 
-
+        self.render()
         self.write('欢迎来到tornado的世界!')
