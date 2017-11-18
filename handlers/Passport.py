@@ -5,9 +5,9 @@ import logging
 class IndexHandler(BaseHandler):
     def get(self):
 
-        logging.debug('dug msg')
-        logging.info('info msg')
-        logging.warning('warning msg')
+        # logging.debug('dug msg')
+        # logging.info('info msg')
+        # logging.warning('warning msg')
         logging.error('error msg')
 
         self.render()
