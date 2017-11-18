@@ -1,4 +1,5 @@
 from .BaseHandler import BaseHandler
+
 class Indexhandler(BaseHandler):
-    def index(self):
+    def get(self):
         self.render('index.html')
