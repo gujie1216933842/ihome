@@ -6,7 +6,7 @@ from handlers.BaseHandler import StaticFileBaseHandler as StaticFileHandler
 
 urls = [
     (r"/", Passport.IndexHandler),
-    (r"/index", House.BaseHandler),
+    (r"/index", House.Indexhandler),
 
     (r"/(.*)", StaticFileHandler,
     dict(path=os.path.join(os.path.dirname(__file__), "html"), default_filename="index.html"))
