@@ -8,6 +8,8 @@ class ImageCodeHandler(BaseHandler):
     def get(self):
         code_id = self.get_argument('code_id')  #本条验证码
         pcode_id = self.get_argument('pcode_id')  #上一条验证码
+        logging.info(code_id)
+        logging.info(pcode_id)
         if pcode_id:
             try:
                 self.redis.delete('')
@@ -17,12 +19,15 @@ class ImageCodeHandler(BaseHandler):
             #name:验证码名称
             #text:验证码内容
             #image:验证码二进制数据
-            name,text,image =  captcha.captcha.generate_captcha()
-        #存入redis
-            try:
-                self.redis.setex("image_code_%s" % code_id,constant.IMAGE_CODE_EXPIRES_SECONDS,text)
-            except Exception as e:
-                logging.error(e)
-                self.write('')
-            #如果redis存入正常
-            self.write(image)
+        name,text,image =  captcha.captcha.generate_captcha()
+        logging.info(name)
+        logging.info(text)
+        logging.info(image)
+    #存入redis
+        try:
+            self.redis.setex("image_code_%s" % code_id,constant.IMAGE_CODE_EXPIRES_SECONDS,text)
+        except Exception as e:
+            logging.error(e)
+            self.write('')
+        #如果redis存入正常
+        self.write(image)
