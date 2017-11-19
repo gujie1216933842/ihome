@@ -7,7 +7,7 @@ import constant
 class ImageCodeHandler(BaseHandler):
     def get(self):
         code_id = self.get_argument('code_id')  #本条验证码
-        pcode_id = self.get_argument('pcode-id')  #上一条验证码
+        pcode_id = self.get_argument('pcode_id')  #上一条验证码
         if pcode_id:
             try:
                 self.redis.delete('')
