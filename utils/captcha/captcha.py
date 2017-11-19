@@ -99,7 +99,7 @@ class Captcha(object):
         dx, height = image.size
         dx /= number
         path = [(dx * i, random.randint(0, height))
-                for i in xrange(1, number)]
+                for i in range(1, number)]
         bcoefs = self._bezier.make_bezier(number - 1)
         points = []
         for coefs in bcoefs:
@@ -115,7 +115,7 @@ class Captcha(object):
         dy = height / 10
         height -= dy
         draw = Draw(image)
-        for i in xrange(number):
+        for i in range(number):
             x = int(random.uniform(dx, width))
             y = int(random.uniform(dy, height))
             draw.line(((x, y), (x + level, y)), fill=color if color else self._color, width=level)
@@ -206,7 +206,7 @@ class Captcha(object):
         image = self.curve(image)
         image = self.noise(image)
         image = self.smooth(image)
-        name = "".join(random.sample(string.lowercase + string.uppercase + '3456789', 24))
+        name = "".join(random.sample(string.ascii_lowercase + string.ascii_uppercase + '3456789', 24))
         text = "".join(self._text)
         out = StringIO()
         image.save(out, format=fmt)
