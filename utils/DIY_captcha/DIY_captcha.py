@@ -4,6 +4,9 @@ from handlers.BaseHandler import BaseHandler
 
 
 class DIY_Verifycode(BaseHandler):
+    def get(self):
+        self.veri_code()
+    
     '''
     生成随机码
     '''
