@@ -5,8 +5,8 @@ from handlers.BaseHandler import BaseHandler
 
 class DIY_Verifycode(BaseHandler):
     def get(self):
-        self.veri_code()
-    
+        self.veri_code(self,160,40)
+
     '''
     生成随机码
     '''
