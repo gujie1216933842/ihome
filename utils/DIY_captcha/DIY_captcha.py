@@ -37,7 +37,7 @@ class DIY_Verifycode(BaseHandler):
         # 随机颜色填充每一个像素
         for x in range(width):
             for y in range(height):
-                draw.point((x, y), fill=random(64, 255))
+                draw.point((x, y), fill=random.random(64, 255))
         # 验证码
         code = self.randon_code()
         # 随机颜色验证码写到图片上
