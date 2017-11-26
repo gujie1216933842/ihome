@@ -42,7 +42,7 @@ class DIY_Verifycode(BaseHandler):
         code = self.randon_code()
         # 随机颜色验证码写到图片上
         for t in range(6):
-            draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color())
+            draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32,127))
         # 模糊滤镜
         image = image.filter(ImageFilter.BLUR)
         return code, image
