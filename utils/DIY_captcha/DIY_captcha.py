@@ -3,6 +3,7 @@ import random
 from handlers.BaseHandler import BaseHandler
 
 
+
 class DIY_Verifycode(BaseHandler):
     def get(self):
         self.veri_code(160,40)
@@ -29,7 +30,8 @@ class DIY_Verifycode(BaseHandler):
         # 创建image对象
         image = Image.new('RGB', (width, height), (255, 255, 0))
         # 创建font对象
-        font = ImageFont.truetype('/fonts/Arial.ttf', 32)
+        ttf = '/home/gujie/project/utils/DIY_captcha/fonts/Arial.ttf'
+        font = ImageFont.truetype(ttf, 32)
         # 创建画布对象
         draw = ImageDraw.Draw(image)
         # 随机颜色填充每一个像素
