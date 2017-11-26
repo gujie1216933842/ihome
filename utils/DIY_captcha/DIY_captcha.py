@@ -29,7 +29,7 @@ class DIY_Verifycode(BaseHandler):
         # 创建image对象
         image = Image.new('RGB', (width, height), (255, 255, 0))
         # 创建font对象
-        font = ImageFont.truetype('Arial.ttf', 32)
+        font = ImageFont.truetype( 32)
         # 创建画布对象
         draw = ImageDraw.Draw(image)
         # 随机颜色填充每一个像素
