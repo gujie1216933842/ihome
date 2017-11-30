@@ -47,5 +47,4 @@ class DIY_Verifycode(BaseHandler):
         image = image.filter(ImageFilter.BLUR)
         image = image.tobytes()
         self.set_header('Content-Type','image/jpg')
-        print(code,image)
-        return code, image
+        self.write(image)
