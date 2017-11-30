@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 from handlers.BaseHandler import BaseHandler
-
+import logging
 
 
 class DIY_Verifycode(BaseHandler):
@@ -18,7 +18,7 @@ class DIY_Verifycode(BaseHandler):
             index = random.randint(0, 55)
             code += char[index]
 
-        self.write(code)
+        return code
     '''
     随机颜色
     '''
