@@ -45,4 +45,7 @@ class DIY_Verifycode(BaseHandler):
             draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32,127))
         # 模糊滤镜
         image = image.filter(ImageFilter.BLUR)
+        image = image.tobytes()
+        self.set_header('Content-Type','image/jpg')
+        print(code,image)
         return code, image
