@@ -48,6 +48,8 @@ class DIY_Verifycode(BaseHandler):
 
         image.save('/home/yanzhengma.jpg')
 
-        image = image.tobytes()
+        image_out = Image.open('/home/yanzhengma.jpg')
+
         self.set_header("Content-Type", "image/jpg")
-        self.write(image)
+        self.write(image_out)
+    
