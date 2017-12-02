@@ -44,12 +44,13 @@ class DIY_Verifycode(BaseHandler):
         for t in range(6):
             draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32,127))
         # 模糊滤镜
-        image = image.filter(ImageFilter.BLUR)
+        # image = image.filter(ImageFilter.BLUR)
 
-        image.save('/home/yanzhengma.jpg')
+        image.save('/home/yanzhengma.png')
 
-        image_out = Image.open('/home/yanzhengma.jpg')
+        image_out = open('/home/yanzhengma.png', 'rb')
+        image_outs = image_out.read()
+        self.write(image_outs)
 
-        self.set_header("Content-Type", "image/jpg")
-        self.write(image_out)
-    
+        self.set_header("Content-Type", "image/png")
+
