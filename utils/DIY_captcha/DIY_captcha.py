@@ -28,7 +28,7 @@ class DIY_Verifycode(BaseHandler):
     # 生成图片
     def veri_code(self, width=160, height=40):
         # 创建image对象
-        image = Image.new('RGB', (width, height), (255, 255, 0))
+        image = Image.new('RGB', (width, height), (255, 255, 255))
         # 创建font对象
         ttf = '/home/gujie/project/utils/DIY_captcha/fonts/Arial.ttf'
         font = ImageFont.truetype(ttf, 32)
