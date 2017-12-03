@@ -6,11 +6,12 @@ import logging
 
 class DIY_Verifycode(BaseHandler):
     def get(self):
-        self.veri_code(160,40)
+        self.veri_code(160, 40)
 
     '''
     生成随机码
     '''
+
     def randon_code(self, length=6):
         code = ''
         char = '23456789abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
@@ -19,11 +20,13 @@ class DIY_Verifycode(BaseHandler):
             code += char[index]
 
         return code
+
     '''
     随机颜色
     '''
-    def randon_color(self,begin,end):
-        return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+
+    def randon_color(self, begin, end):
+        return (random.randint(begin, end), random.randint(begin, end), random.randint(begin, end))
 
     # 生成图片
     def veri_code(self, width=160, height=40):
@@ -34,15 +37,17 @@ class DIY_Verifycode(BaseHandler):
         font = ImageFont.truetype(ttf, 32)
         # 创建画布对象
         draw = ImageDraw.Draw(image)
+        '''
         # 随机颜色填充每一个像素
         for x in range(0,width,10):
             for y in range(0,height,10):
                 draw.point((x, y), fill=self.randon_color(64, 255))
+        '''
         # 验证码
         code = self.randon_code()
         # 随机颜色验证码写到图片上
         for t in range(6):
-            draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32,127))
+            draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32, 127))
         # 模糊滤镜
         # image = image.filter(ImageFilter.BLUR)
 
@@ -53,4 +58,3 @@ class DIY_Verifycode(BaseHandler):
         self.write(image_outs)
 
         self.set_header("Content-Type", "image/png")
-
