@@ -35,8 +35,8 @@ class DIY_Verifycode(BaseHandler):
         # 创建画布对象
         draw = ImageDraw.Draw(image)
         # 随机颜色填充每一个像素
-        for x in range(width):
-            for y in range(height):
+        for x in range(0,width,10):
+            for y in range(0,height,10):
                 draw.point((x, y), fill=self.randon_color(64, 255))
         # 验证码
         code = self.randon_code()
