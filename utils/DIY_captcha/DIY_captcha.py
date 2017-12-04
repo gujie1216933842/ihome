@@ -29,7 +29,7 @@ class DIY_Verifycode(BaseHandler):
         return (random.randint(begin, end), random.randint(begin, end), random.randint(begin, end))
 
     # 生成图片
-    def veri_code(self, width=160, height=40):
+    def veri_code(self, width=160, height=40, length=6):
         # 创建image对象
         image = Image.new('RGB', (width, height), (255, 255, 255))
         # 创建font对象
@@ -44,10 +44,10 @@ class DIY_Verifycode(BaseHandler):
                 draw.point((x, y), fill=self.randon_color(64, 255))
         '''
         # 验证码
-        code = self.randon_code()
-        logging.info('验证码code:'+code)
+        code = self.randon_code(length)
+        logging.info('验证码code:' + code)
         # 随机颜色验证码写到图片上
-        for t in range(6):
+        for t in range(length):
             draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32, 127))
         # 模糊滤镜
         # image = image.filter(ImageFilter.BLUR)
