@@ -6,7 +6,10 @@ import logging
 
 class DIY_Verifycode(BaseHandler):
     def get(self):
-        self.veri_code(160, 40)
+        width = 200  # 验证码图片长度
+        height = 40  # 验证码图片宽度
+        width = 6  # 验证码个数
+        self.veri_code(width, height, width)
 
     '''
     生成随机码
@@ -57,5 +60,4 @@ class DIY_Verifycode(BaseHandler):
         image_out = open('/home/yanzhengma.png', 'rb')
         image_outs = image_out.read()
         self.write(image_outs)
-
         self.set_header("Content-Type", "image/png")
