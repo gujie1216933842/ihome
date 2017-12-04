@@ -61,3 +61,5 @@ class DIY_Verifycode(BaseHandler):
         image_outs = image_out.read()
         self.write(image_outs)
         self.set_header("Content-Type", "image/png")
+
+        
