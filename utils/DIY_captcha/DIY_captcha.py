@@ -56,7 +56,7 @@ class DIY_Verifycode(BaseHandler):
             draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32, 127))
             code_lower += code[t].lower()
 
-        logging.info('验证码code_lower:'+code_lower)
+
         # 模糊滤镜
         # image = image.filter(ImageFilter.BLUR)
 
@@ -64,5 +64,6 @@ class DIY_Verifycode(BaseHandler):
 
         image_out = open('/home/yanzhengma.png', 'rb')
         image_outs = image_out.read()
-        self.write(image_outs)
-        self.set_header("Content-Type", "image/png")
+        return code_lower,image_outs
+        # self.write(image_outs)
+        # self.set_header("Content-Type", "image/png")
