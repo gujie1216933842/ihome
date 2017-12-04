@@ -1,7 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-import random
+import random,os
 from handlers.BaseHandler import BaseHandler
 import logging
+
 
 
 class DIY_Verifycode(BaseHandler):
@@ -36,6 +37,7 @@ class DIY_Verifycode(BaseHandler):
         # 创建image对象
         image = Image.new('RGB', (width, height), (255, 255, 255))
         # 创建font对象
+        logging.info('系统路径:'+os.path)
         ttf = '/home/gujie/project/utils/DIY_captcha/fonts/Arial.ttf'
         font = ImageFont.truetype(ttf, 32)
         # 创建画布对象
@@ -62,4 +64,4 @@ class DIY_Verifycode(BaseHandler):
         self.write(image_outs)
         self.set_header("Content-Type", "image/png")
 
-        
+
