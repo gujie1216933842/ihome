@@ -3,7 +3,7 @@ import logging
 from utils.captcha import captcha
 from .BaseHandler import BaseHandler
 import constant
-from utils.DIY_captcha import DIY_captcha
+from utils.DIY_captcha.DIY_captcha import DIY_Verifycode
 
 
 class ImageCodeHandler(BaseHandler):
@@ -21,7 +21,7 @@ class ImageCodeHandler(BaseHandler):
                 # name:验证码名称
                 # text:验证码内容
                 # image:验证码二进制数据
-        code, image = DIY_captcha.DIY_Verifycode().get()
+        code, image = DIY_Verifycode.get()
         logging.info('验证码code_lower:' + code)
         # 存入redis
         try:
