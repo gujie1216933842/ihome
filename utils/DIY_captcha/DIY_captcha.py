@@ -5,6 +5,13 @@ import logging
 
 
 class DIY_Verifycode(BaseHandler):
+
+    def __init__(self):
+        width = 200  # 验证码图片长度
+        height = 40  # 验证码图片宽度
+        numbers = 5  # 验证码个数
+        self.veri_code(width, height, numbers)
+
     def get(self):
         width = 200  # 验证码图片长度
         height = 40  # 验证码图片宽度
