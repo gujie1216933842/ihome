@@ -17,7 +17,7 @@ define('port', default=8000, type=int, help='run serve on the given port')
 
 class Application(tornado.web.Application):
     def __init__(self, *args, **kwargs):
-        super(Application, self).__init__()
+        super(Application, self).__init__(*args, **kwargs)
         self.db = tornado.Connection(**config.mysql_options)
         self.server_redis = redis.StrictRedis(**config.redis_options)
 
