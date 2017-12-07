@@ -26,7 +26,7 @@ class ImageCodeHandler(BaseHandler):
         logging.info('验证码code_lower:' + code)
         # 存入redis
         try:
-            self.redis.setex("image_code_%s" % code_id, constant.IMAGE_CODE_EXPIRES_SECONDS, code)
+            self.myredis.setex("image_code_%s" % code_id, constant.IMAGE_CODE_EXPIRES_SECONDS, code)
         except Exception as e:
             logging.error(e)
             self.write('')

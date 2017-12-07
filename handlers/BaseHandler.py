@@ -8,11 +8,11 @@ class BaseHandler(RequestHandler):
     '''
 
     @property
-    def db(self):
+    def mydb(self):
         return self.application.db
 
     @property
-    def redis(self):
+    def myredis(self):
         return self.application.redis
 
     def prepare(self):
