@@ -21,7 +21,8 @@ class ImageCodeHandler(BaseHandler):
                 # name:验证码名称
                 # text:验证码内容
                 # image:验证码二进制数据
-        code, image = DIY_Verifycode()
+        Verifycode = DIY_Verifycode()
+        code, image = Verifycode.get()
         logging.info('验证码code_lower:' + code)
         # 存入redis
         try:
