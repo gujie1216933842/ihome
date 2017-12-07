@@ -24,9 +24,10 @@ class ImageCodeHandler(BaseHandler):
         Verifycode = DIY_Verifycode()
         code, image = Verifycode.get()
         logging.info('验证码code_lower:' + code)
+        self.redis.setex("image_code_%s" % code_id, constant.IMAGE_CODE_EXPIRES_SECONDS, code)
         # 存入redis
         try:
-            self.myredis.setex("image_code_%s" % code_id, constant.IMAGE_CODE_EXPIRES_SECONDS, code)
+            self.redis.setex("image_code_%s" % code_id, constant.IMAGE_CODE_EXPIRES_SECONDS, code)
         except Exception as e:
             logging.error(e)
             self.write('')

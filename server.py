@@ -19,7 +19,7 @@ class Application(tornado.web.Application):
     def __init__(self, *args, **kwargs):
         super(Application, self).__init__(*args, **kwargs)
         self.db = tornado.Connection(**config.mysql_options)
-        self.server_redis = redis.StrictRedis(**config.redis_options)
+        self.redis = redis.StrictRedis(**config.redis_options)
 
         '''self.db = tornado.Connection(
             host = config.mysql_options['host'],

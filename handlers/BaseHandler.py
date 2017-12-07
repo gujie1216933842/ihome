@@ -12,8 +12,8 @@ class BaseHandler(RequestHandler):
         return self.application.db
 
     @property
-    def myredis(self):
-        return self.application.server_redis
+    def redis(self):
+        return self.application.redis
 
     def prepare(self):
         pass
