@@ -13,7 +13,7 @@ class BaseHandler(RequestHandler):
 
     @property
     def myredis(self):
-        return self.application.redis
+        return self.application.server_redis
 
     def prepare(self):
         pass
