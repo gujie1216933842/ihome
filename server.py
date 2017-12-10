@@ -42,7 +42,7 @@ def main():
     options.log_file_prefix = config.log_path
     options.logging = config.log_level
     tornado.options.parse_command_line()
-    app = tornado.web.Application(
+    app = Application(
         urls, **config.setting
     )
     http_server = tornado.httpserver.HTTPServer(app)
