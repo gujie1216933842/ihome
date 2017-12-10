@@ -4,6 +4,7 @@ import tornado.web
 import tornado.ioloop
 import tornado.options
 import tornado.httpserver
+import torndb
 import os
 import config
 import redis
@@ -18,7 +19,7 @@ define('port', default=8000, type=int, help='run serve on the given port')
 class Application(tornado.web.Application):
     def __init__(self, *args, **kwargs):
         super(Application, self).__init__(*args, **kwargs)
-        self.db = tornado.Connection(**config.mysql_options)
+        self.db = torndb.Connection(**config.mysql_options)
         self.redis = redis.StrictRedis(**config.redis_options)
 
         '''self.db = tornado.Connection(
