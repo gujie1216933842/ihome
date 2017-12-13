@@ -33,3 +33,14 @@ class ImageCodeHandler(BaseHandler):
         # 如果redis存入正常
         self.write(image)
         self.set_header("Content-Type", "image/png")
+
+
+class regiser(BaseHandler):
+    def post(self):
+        #获取参数
+        #判断图片验证码,如果不成功,返回错误信息,如果成功,判断密码
+        #判断两次密码是否相同,如果相同提示注册成功,如果不成功,提示错误信息
+        mobile = self.get_argument('mobile')
+        code = self.get_argument('code')
+        pwd = self.get_argument('pwd')
+        dpwd = self.get_argument('dpwd')
