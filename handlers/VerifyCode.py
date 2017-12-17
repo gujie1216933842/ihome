@@ -47,5 +47,7 @@ class regiser(BaseHandler):
         password = self.get_argument('password')
         password2 = self.get_argument('password2')
 
+
+
         return self.write(dict(code = 'haha'))
 
