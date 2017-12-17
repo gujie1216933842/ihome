@@ -43,9 +43,9 @@ class regiser(BaseHandler):
         #查看手机号是否存在,如果存在,提示已经注册的提示信息
         #判断两次密码是否相同,如果相同提示注册成功,把数据插入数据库,如果不成功,提示错误信息
         mobile = self.get_argument('mobile')
-        code = self.get_argument('code')
-        pwd = self.get_argument('pwd')
-        dpwd = self.get_argument('dpwd')
+        imagecode = self.get_argument('imagecode')
+        password = self.get_argument('password')
+        password2 = self.get_argument('password2')
 
         return self.write(dict(code = 'haha'))
 
