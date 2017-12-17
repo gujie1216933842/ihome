@@ -47,6 +47,11 @@ class regiser(BaseHandler):
         password = self.get_argument('password')
         password2 = self.get_argument('password2')
 
+        logging.info('mobile:'+mobile)
+        logging.info('imagecode:'+imagecode)
+        logging.info('password:'+password)
+        logging.info('password2:'+password2)
+
 
 
         return self.write(dict(code = 'haha'))
