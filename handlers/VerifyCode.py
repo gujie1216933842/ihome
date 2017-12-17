@@ -4,6 +4,7 @@ from utils.captcha import captcha
 from .BaseHandler import BaseHandler
 import constant
 from utils.DIY_captcha.DIY_captcha import DIY_Verifycode
+import json
 
 
 class ImageCodeHandler(BaseHandler):
@@ -39,8 +40,12 @@ class regiser(BaseHandler):
     def post(self):
         #获取参数
         #判断图片验证码,如果不成功,返回错误信息,如果成功,判断密码
-        #判断两次密码是否相同,如果相同提示注册成功,如果不成功,提示错误信息
+        #查看手机号是否存在,如果存在,提示已经注册的提示信息
+        #判断两次密码是否相同,如果相同提示注册成功,把数据插入数据库,如果不成功,提示错误信息
         mobile = self.get_argument('mobile')
         code = self.get_argument('code')
         pwd = self.get_argument('pwd')
         dpwd = self.get_argument('dpwd')
+
+        return self.write(dict(code = 'haha'))
+
