@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="error-msg" id="password2-err"><i class="fa fa-exclamation-circle"></i><span></span></div>
-            <button type="button" class="btn btn-lg btn-theme btn-block">立即注册</button>
+            <button type="button" class="btn btn-lg btn-theme btn-block" id="btn-register">立即注册</button>
             <p class="login-a">已有账号，<a href="/login.html">立即登陆</a></p>
         </form>
     </div>
@@ -67,18 +67,16 @@
 
 <script>
 
-    $('#btn').click(function () {
+    $('#btn-register').click(function () {
         $.ajax({
             'type':'post',
             'url':'/register_new',
             'data':$('#form_register').serialize(),
             'dataType':'json',
             'success':function (data) {
+                console.log(data);
                 alert(100);
             }
-
-
-
 
     })
 
