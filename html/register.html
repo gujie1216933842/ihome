@@ -74,7 +74,7 @@
             'data': $('#form_register').serialize(),
             'dataType': 'json',
             'headers': {
-                "X-XSRFTOKEN": getCookie("_xsrf")
+                "X-Xsrftoken": getCookie("_xsrf")
             },
             'success': function (data) {
                 console.log(data);
