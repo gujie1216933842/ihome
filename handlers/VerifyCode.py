@@ -83,8 +83,8 @@ class regiser(BaseHandler):
 
         # 输入的图片验证码和redis中的比较
         if real_piccode != imagecode:
-            logging.log('real_piccode:'+real_piccode)
-            logging.log('imagecode:'+imagecode)
+            logging.info('real_piccode:'+real_piccode)
+            logging.info('imagecode:'+imagecode)
 
             return self.write(dict(code='09', msg='输入的验证码不正确'))
 
