@@ -44,6 +44,7 @@ class regiser(BaseHandler):
         # 查看手机号是否存在,如果存在,提示已经注册的提示信息
         # 判断两次密码是否相同,如果相同提示注册成功,把数据插入数据库,如果不成功,提示错误信息
         mobile = self.get_argument('mobile')
+        code_id = self.get_argument('code_id')
         imagecode = self.get_argument('imagecode')
         password = self.get_argument('password')
         password2 = self.get_argument('password2')
@@ -79,6 +80,10 @@ class regiser(BaseHandler):
 
         if not real_piccode:
             return self.write(dict(code='04', msg='redis中图片验证码过期'))
+
+        # 输入的图片验证码和redis中的比较
+        if real_piccode != imagecode:
+            return self.write(dict(code='09', msg='输入的验证码不正确'))
 
         # 如果redis是存在的,需要删除redis中的相关的key
         try:
