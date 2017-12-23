@@ -71,7 +71,7 @@
     $('#btn-register').click(function () {
 
         var url = $('#pic_code').attr('src');
-        pic_code = GetQueryString('code_id');
+        pic_code = GetQueryString(url,'code_id');
         console.log(pic_code);
         console.log($('#form_register').serialize());
         $.ajax({
@@ -91,10 +91,10 @@
     });
 
 /*js获取url参数*/
-function GetQueryString(name)
+function GetQueryString(url,name)      //如果是当前网址,url = window.location
 {
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-     var r = window.location.search.substr(1).match(reg);
+     var r = url.search.substr(1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
 }
 </script>
