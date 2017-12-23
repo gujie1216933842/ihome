@@ -61,7 +61,7 @@ class regiser(BaseHandler):
         if not all((mobile, imagecode, password, password2)):
             # all()方法等价于   if mobile  and imagecode and password and password2
             return self.write(dict(code='01', msg='参数缺失'))
-        if re.match(r"^1\d{10}$", mobile):
+        if not re.match(r"^1\d{10}$", mobile):
             return self.write(dict(code='02', msg='手机号格式不对'))
 
         # 开始验证图片验证码
