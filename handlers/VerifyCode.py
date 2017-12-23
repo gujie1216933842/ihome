@@ -82,7 +82,7 @@ class regiser(BaseHandler):
             return self.write(dict(code='04', msg='redis中图片验证码过期'))
 
         # 输入的图片验证码和redis中的比较
-        if real_piccode != imagecode:
+        if real_piccode.decode() != imagecode:
             logging.info('real_piccode:'+real_piccode)
             logging.info('imagecode:'+imagecode)
 
@@ -105,6 +105,7 @@ class regiser(BaseHandler):
             ret = self.db.get(sql, mobile)
         except Exception as e:
             logging.error(e)
+            return self.write(dict(code='10', msg='查询数据库出错'))
         else:
             if 0 != ret['n']:
                 return self.write(dict(code='07', msg='手机号已经注册'))
