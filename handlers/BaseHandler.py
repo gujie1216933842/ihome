@@ -8,7 +8,7 @@ class BaseHandler(RequestHandler):
     '''
 
     @property
-    def mydb(self):
+    def db(self):
         return self.application.db
 
     @property
