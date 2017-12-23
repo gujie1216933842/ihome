@@ -77,7 +77,7 @@
         $.ajax({
             'type': 'post',
             'url': '/register_new',
-            'data': $('#form_register').serialize(),
+            'data': $('#form_register').serialize()+'&code_id='+pic_code,
             'dataType': 'json',
             'headers': {
                 "X-Xsrftoken": getCookie("_xsrf")

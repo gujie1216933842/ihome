@@ -73,7 +73,7 @@ class regiser(BaseHandler):
         4.与前台传入的图片验证码做比较,注:都是转为小写字母比较
         '''
         try:
-            real_piccode = self.redis.get('image_code_' + imagecode)
+            real_piccode = self.redis.get('image_code_' + code_id)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code='03', msg='查询redis出错'))
