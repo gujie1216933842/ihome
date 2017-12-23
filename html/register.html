@@ -91,10 +91,10 @@
     });
 
 /*js获取url参数*/
-function GetQueryString(url,name)      //如果是当前网址,url = window.location
+function GetQueryString(url,name)      //如果是当前网址,url = window.location.search
 {
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-     var r = url.search.substr(1).match(reg);
+     var r = url.substr(1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
 }
 </script>
