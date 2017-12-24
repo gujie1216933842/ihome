@@ -83,8 +83,8 @@ class regiser(BaseHandler):
 
         # 输入的图片验证码和redis中的比较
         if real_piccode.decode() != imagecode:
-            logging.info('real_piccode:'+real_piccode)
-            logging.info('imagecode:'+imagecode)
+            logging.info('real_piccode:' + real_piccode)
+            logging.info('imagecode:' + imagecode)
 
             return self.write(dict(code='09', msg='输入的验证码不正确'))
 
@@ -112,9 +112,9 @@ class regiser(BaseHandler):
             else:
                 # 插入数据库
                 sql = "insert into ih_user_profile (up_mobile,up_passwd,up_ctime)" \
-                      "VALUES(%s,%s,now()) "
+                      "VALUES(%(up_mobile)s,%(up_passwd)s,now()) "
                 try:
-                    self.db.execute(sql, mobile, password, )
+                    self.db.execute(sql, up_mobile=mobile, up_passwd=password, )
                 except Exception as e:
                     logging.error(e)
                     return self.write(dict(code='08', msg='sql插入出错'))
