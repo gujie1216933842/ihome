@@ -108,10 +108,10 @@ class regiser(BaseHandler):
                 return self.write(dict(code='07', msg='手机号已经注册'))
             else:
                 # 插入数据库
-                sql = "insert into ih_user_profile (up_mobile,up_passwd,up_ctime)" \
-                      "VALUES(%(up_mobile)s,%(up_passwd)s,now()) "
+                sql = "insert into ih_user_profile (up_name,up_mobile,up_passwd,up_ctime)" \
+                      "VALUES(%(up_name)s,%(up_mobile)s,%(up_passwd)s,now()) "
                 try:
-                    self.db.execute(sql, up_mobile=mobile, up_passwd=password, )
+                    self.db.execute(sql, up_name = mobile,up_mobile=mobile, up_passwd=password, )
                 except Exception as e:
                     logging.error(e)
                     return self.write(dict(code='08', msg='sql插入出错'))
