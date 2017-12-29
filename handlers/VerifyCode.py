@@ -115,6 +115,7 @@ class regiser(BaseHandler):
             if 0 != ret['n']:
                 return self.write(dict(code='07', msg='手机号已经注册'))
             else:
+                #把用户密码sha1加密
                 psw = sha1()
                 psw.update(password.encode('utf8'))
                 spwdSha1 = psw.hexdigest()
