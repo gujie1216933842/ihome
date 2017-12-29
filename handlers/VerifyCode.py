@@ -81,8 +81,13 @@ class regiser(BaseHandler):
         if not real_piccode:
             return self.write(dict(code='04', msg='redis中图片验证码过期'))
 
+        #把输入的图片验证码都变成小写
+        lower_picocde = ''
+        for i in range(len(imagecode)):
+            lower_picocde += real_piccode.decode()[i]
+
         # 输入的图片验证码和redis中的比较
-        if real_piccode.decode() != imagecode:
+        if lower_picocde != imagecode:
             return self.write(dict(code='09', msg='输入的验证码不正确'))
 
         # 如果redis是存在的,需要删除redis中的相关的key
