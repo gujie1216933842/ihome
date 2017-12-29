@@ -84,10 +84,10 @@ class regiser(BaseHandler):
         #把输入的图片验证码都变成小写
         lower_picocde = ''
         for i in range(len(imagecode)):
-            lower_picocde += imagecode[i]
+            lower_picocde += imagecode[i].lower()
 
         logging.info('输入的小写验证码:'+lower_picocde)
-        logging.info('redis中的验证码'+imagecode)
+        logging.info('redis中的验证码'+real_piccode)
 
         # 输入的图片验证码和redis中的比较
         if real_piccode != lower_picocde:
