@@ -49,10 +49,7 @@ class regiser(BaseHandler):
         password = self.get_argument('password')
         password2 = self.get_argument('password2')
 
-        logging.info('mobile:' + mobile)
-        logging.info('imagecode:' + imagecode)
-        logging.info('password:' + password)
-        logging.info('password2:' + password2)
+
         '''
         1.比较验证码是否正确
         2.比较两次密码是否一致
@@ -86,8 +83,6 @@ class regiser(BaseHandler):
         for i in range(len(imagecode)):
             lower_picocde += imagecode[i].lower()
 
-        logging.info('输入的小写验证码:'+lower_picocde)
-        logging.info('redis中的验证码'+real_piccode.decode())
 
         # 输入的图片验证码和redis中的比较
         if real_piccode.decode() != lower_picocde:
