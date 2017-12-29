@@ -87,10 +87,10 @@ class regiser(BaseHandler):
             lower_picocde += imagecode[i].lower()
 
         logging.info('输入的小写验证码:'+lower_picocde)
-        logging.info('redis中的验证码'+real_piccode)
+        logging.info('redis中的验证码'+real_piccode.decode())
 
         # 输入的图片验证码和redis中的比较
-        if real_piccode != lower_picocde:
+        if real_piccode.decode() != lower_picocde:
             return self.write(dict(code='09', msg='输入的图片验证码不正确'))
 
         # 如果redis是存在的,需要删除redis中的相关的key
