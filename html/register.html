@@ -83,7 +83,10 @@
                 "X-Xsrftoken": getCookie("_xsrf")
             },
             'success': function (data) {
-                alert(data.msg)
+                alert(data.msg);
+                if(data.code == '00'){
+                    window.location.href = "/login";
+                }
             }
 
         })

@@ -123,4 +123,4 @@ class regiser(BaseHandler):
                     logging.error(e)
                     return self.write(dict(code='08', msg='sql插入出错'))
                 else:
-                    return self.write(dict(code='00', msg='恭喜,注册成功'))
+                    return self.write(dict(code='00', msg='恭喜,注册成功,跳往登录页面'))
