@@ -11,6 +11,7 @@ urls = [
     (r"/index", IndexHandler.IndexHandler),
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
+    (r"/tologin", IndexHandler.ToLoginHandler),
     (r"/register_new", VerifyCode.regiser),
     (r"/api/imagecode", VerifyCode.ImageCodeHandler), #注册页面的验证码的路由
     (r"/api/new_imagecode", DIY_captcha.DIY_Verifycode), #注册页面的验证码的路由

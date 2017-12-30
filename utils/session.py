@@ -5,7 +5,7 @@ import logging
 import config
 
 
-class session(object):
+class Session(object):
     def __init__(self, request_handler_object):
         # 先判断用户是否有session_id
         self._request_handler = request_handler_object

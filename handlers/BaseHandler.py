@@ -1,5 +1,6 @@
 # Author:Bob
-from tornado.web import RequestHandler,StaticFileHandler
+from tornado.web import RequestHandler, StaticFileHandler
+from utils import session
 
 
 class BaseHandler(RequestHandler):
@@ -18,7 +19,7 @@ class BaseHandler(RequestHandler):
     def prepare(self):
         pass
 
-    def write_error(self):
+    def write_error(self, status_code, **kwargs):
         pass
 
     def set_default_handlers(self):
@@ -30,9 +31,14 @@ class BaseHandler(RequestHandler):
     def on_finish(self):
         pass
 
+    def get_current_user(self):
+        self.session = session.Session(self)
+        return self.session.data
+
 
 class StaticFileBaseHandler(StaticFileHandler):
     """自定义静态文件处理类, 在用户获取html页面的时候设置_xsrf的cookie"""
+
     def __init__(self, *args, **kwargs):
         super(StaticFileBaseHandler, self).__init__(*args, **kwargs)
         self.xsrf_token
