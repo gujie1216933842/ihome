@@ -2,6 +2,7 @@
 import uuid  # UUID是128位的全局唯一标识符，通常由32字节的字母串表示。它可以保证时间和空间的唯一性，也称为GUID。
 import json
 import logging
+import config
 
 
 class session(object):
@@ -39,7 +40,7 @@ class session(object):
         # 先把数据序列化成json字符串
         json_data = json.dumps(self.data)
         try:
-            self._request_handler.redis.setex("sess_" + self.session_id, SESSION_EXPIRES_SECONDS, json_data)
+            self._request_handler.redis.setex("sess_" + self.session_id, config.session_expires, json_data)
         except Exception as e:
             logging.error(e)
             raise e

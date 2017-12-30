@@ -23,6 +23,8 @@ redis_options = dict(
     port=6379,
 )
 
+session_expires = 86400    #session过期时间一天
+
 # 日志配置
 log_path = os.path.join(os.path.dirname(__file__), "logs/log")
 log_level = "debug"
