@@ -19,7 +19,7 @@ class ToLoginHandler(BaseHandler):
         '''
         mobile = self.get_argument('mobile')
         pwd = self.get_argument('pwd')
-        if not all(mobile, pwd):
+        if not all((mobile, pwd)):
             return self.write(dict(code='01', msg='参数缺失'))
 
         if not re.match(r"^1\d{10}$", mobile):
