@@ -8,7 +8,7 @@ from utils.DIY_captcha import DIY_captcha
 
 urls = [
     (r"/", Passport.IndexHandler),
-    (r"/index", House.Indexhandler),
+    (r"/index", IndexHandler.IndexHandler),
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
     (r"/register_new", VerifyCode.regiser),
