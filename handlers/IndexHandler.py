@@ -29,7 +29,7 @@ class ToLoginHandler(BaseHandler):
         sha.update(pwd.encode('utf-8'))
         pwdsha1 = sha.hexdigest()
         # 开始查询数据库
-        sql = 'select id from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
+        sql = 'select up_user_id from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
         try:
             ret = self.db.get(sql, up_mobile=mobile, up_passwd=pwd)
         except Exception as e:
