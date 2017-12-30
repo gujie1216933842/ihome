@@ -20,7 +20,7 @@ class Session(object):
         # 如果存在session_id就去redis中去取出data
         else:
             try:
-                json_data = request_handler_object.redis.get("sess_" + self.session_id)
+                json_data = request_handler_object.redis.get("sess_" + self.session_id.decode())
             # 取redis过程出错
             except Exception as e:
                 logging.error(e)
