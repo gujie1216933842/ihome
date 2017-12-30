@@ -42,8 +42,6 @@
     $('#btn').click(function () {
         var mobile = $('#mobile').val();
         var pwd = $('#password').val();
-        console.log(mobile);
-        console.log(pwd);
         $.ajax({
             'type': 'post',
             'url': '/tologin',
@@ -53,7 +51,10 @@
                 "X-Xsrftoken": getCookie("_xsrf")
             },
             'success': function (data) {
-                alert(data.msg)
+                alert(data.msg);
+                if(data.code == '00'){
+                    window.location.href = '/index'
+                }
             }
         })
     })
