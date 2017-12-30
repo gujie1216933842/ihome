@@ -31,7 +31,7 @@ class ToLoginHandler(BaseHandler):
         # 开始查询数据库
         sql = 'select up_user_id from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
         try:
-            ret = self.db.get(sql, up_mobile=mobile, up_passwd=pwd)
+            ret = self.db.get(sql, up_mobile=mobile, up_passwd=pwdsha1)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code='03', msg='数据查询失败'))
