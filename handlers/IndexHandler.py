@@ -5,6 +5,7 @@ import logging
 from utils.common import require_logined
 from utils import session
 
+
 class LoginHandler(BaseHandler):
     def get(self):
         self.render('login.html')
@@ -30,7 +31,7 @@ class ToLoginHandler(BaseHandler):
         sha.update(pwd.encode('utf-8'))
         pwdsha1 = sha.hexdigest()
         # 开始查询数据库
-        sql = 'select up_user_id from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
+        sql = 'select up_user_id ,up_name from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
         try:
             ret = self.db.get(sql, up_mobile=mobile, up_passwd=pwdsha1)
         except Exception as e:
@@ -40,15 +41,14 @@ class ToLoginHandler(BaseHandler):
             if not ret:
                 return self.write(dict(code='04', msg='您输入的用户名和密码有误,请重新输入!'))
             else:
-                #把用户名,昵称,手机号保存入session
+                # 把用户名,昵称,手机号保存入session
                 self.session = session.Session(self)
-                self.data = {'user_id':ret['up_user_id'],'nickname':ret['up_name'],'mobile':ret['up_mobile']}
+                self.data = {'user_id': ret['up_user_id'], 'nickname': ret['up_name'], 'mobile': mobile}
                 self.session.save(self)
                 return self.write(dict(code="00", msg='登录成功!'))
 
 
 class IndexHandler(BaseHandler):
-
     def get(self):
         '''
         1.判断用户是否有登录态
