@@ -16,7 +16,7 @@ class ProfileHandler(BaseHandler):
         4.给前端返回json数据
         :return:
         '''
-        logging.info(self.session)
+        logging.info(self.session.data)
         #user_id = self.session.data['user_id']
 
         sql = "select up_name , up_mobile , up_avatar from ih_user_profile where up_user_id = %s"
