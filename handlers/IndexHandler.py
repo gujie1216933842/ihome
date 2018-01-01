@@ -3,6 +3,7 @@ import re
 from hashlib import sha1
 import logging
 from utils.common import require_logined
+from utils import session
 
 class LoginHandler(BaseHandler):
     def get(self):
@@ -39,6 +40,10 @@ class ToLoginHandler(BaseHandler):
             if not ret:
                 return self.write(dict(code='04', msg='您输入的用户名和密码有误,请重新输入!'))
             else:
+                #把用户名,昵称,手机号保存入session
+                self.session = session.Session(self)
+                self.data = {'user_id':ret['up_user_id'],'nickname':ret['up_name'],'mobile':ret['up_mobile']}
+                self.session.save(self)
                 return self.write(dict(code="00", msg='登录成功!'))
 
 
