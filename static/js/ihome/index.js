@@ -58,15 +58,15 @@ function goToSearchPage(th) {
 }
 
 $(document).ready(function(){
-    $.get("/api/check_login", function(data) {
-        if ("0" == data.errcode) {
+    $.get("/checklogin", function(data) {
+        if ("00" == data.code) {
             $(".top-bar>.user-info>.user-name").html(data.data.name);
             $(".top-bar>.user-info").show();
         } else {
             $(".top-bar>.register-login").show();
         }
     }, "json");
-    $.get("/api/house/index", function(data){
+   /** $.get("/api/house/index", function(data){
         if ("0" == data.errcode) {
             $(".swiper-wrapper").html(template("swiper-houses-tmpl", {houses:data.houses}));
             $(".area-list").html(template("area-list-tmpl", {areas:data.areas}));
@@ -84,7 +84,7 @@ $(document).ready(function(){
                 $("#area-modal").modal("hide");
             });
         }
-    });
+    });*/
     $('.modal').on('show.bs.modal', centerModals);      //当模态框出现的时候
     $(window).on('resize', centerModals);               //当窗口大小变化的时候
     $("#start-date").datepicker({

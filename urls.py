@@ -1,4 +1,4 @@
-from handlers import Passport, IndexHandler,House,RegisterHandler,VerifyCode
+from handlers import Passport, IndexHandler,House,RegisterHandler,VerifyCode,ProfileHandler
 from config import setting
 import os
 
@@ -13,6 +13,7 @@ urls = [
     (r"/login", IndexHandler.LoginHandler),
     (r"/tologin", IndexHandler.ToLoginHandler),
     (r"/register_new", VerifyCode.regiser),
+    (r"/checklogin",ProfileHandler.ProfileHandler ),
     (r"/api/imagecode", VerifyCode.ImageCodeHandler), #注册页面的验证码的路由
     (r"/api/new_imagecode", DIY_captcha.DIY_Verifycode), #注册页面的验证码的路由
 

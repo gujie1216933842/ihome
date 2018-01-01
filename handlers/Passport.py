@@ -18,6 +18,4 @@ class CheckLoginHandler(BaseHandler):
         if not self.get_current_user():
             return self.write(dict(code='01', msg='false'))
         else:
-            return self.write(dict(code='00', msg="true"))
-
-
+            return self.write(dict(code='00', msg="true", data=dict(name=self.session.data.get('name'))))

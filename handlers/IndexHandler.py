@@ -2,7 +2,7 @@ from .BaseHandler import BaseHandler
 import re
 from hashlib import sha1
 import logging
-
+from utils.common import require_logined
 
 class LoginHandler(BaseHandler):
     def get(self):
@@ -43,6 +43,7 @@ class ToLoginHandler(BaseHandler):
 
 
 class IndexHandler(BaseHandler):
+
     def get(self):
         '''
         1.判断用户是否有登录态
