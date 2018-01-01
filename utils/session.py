@@ -40,7 +40,7 @@ class Session(object):
         # 先把数据序列化成json字符串
         json_data = json.dumps(self.data)
         try:
-            self._request_handler.redis.setex("sess_" + self.session_id, config.session_expires, json_data)
+            self._request_handler.redis.setex("sess_" + self.session_id.decode(), config.session_expires, json_data)
         except Exception as e:
             logging.error(e)
             raise e
