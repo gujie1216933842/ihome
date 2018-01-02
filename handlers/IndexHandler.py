@@ -43,12 +43,11 @@ class ToLoginHandler(BaseHandler):
                 return self.write(dict(code='04', msg='您输入的用户名和密码有误,请重新输入!'))
             else:
                 # 把用户名,昵称,手机号保存入session
-                self.session = session.Session(self)
                 self.data = {'user_id': ret['up_user_id'], 'nickname': ret['up_name'], 'mobile': mobile}
+                self.session = session.Session(self)
                 logging.info('调用save()方法前的session保存的对象:'+json.dumps(self.data))
                 self.session.save()
                 return self.write(dict(code="00", msg='登录成功!'))
-
 
 class IndexHandler(BaseHandler):
     def get(self):
