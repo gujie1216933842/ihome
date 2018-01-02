@@ -30,7 +30,7 @@ class Session(object):
                 self.data = {}
             else:
                 # 可以顺利在redis中取到想要的值
-                self.data = json.loads(json_data)  # 将redis中的数据序列化
+                self.data = json.loads(json_data.decode())  # 将redis中的数据序列化
 
     def save(self):
         '''
