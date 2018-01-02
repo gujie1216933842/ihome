@@ -37,6 +37,7 @@ class Session(object):
         保存session方法
         :return:
         '''
+        logging.log('需要保存的session对象:'+self.data.decode())
         # 先把数据序列化成json字符串
         json_data = json.dumps(self.data)
         try:
