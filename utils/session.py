@@ -37,9 +37,10 @@ class Session(object):
         保存session方法
         :return:
         '''
-        logging.log('需要保存的session对象:'+self.data.decode())
+
         # 先把数据序列化成json字符串
         json_data = json.dumps(self.data)
+        logging.info('需要保存的session对象:' + json_data)
         try:
             self._request_handler.redis.setex("sess_" + self.session_id.decode(), config.session_expires, json_data)
         except Exception as e:

@@ -4,6 +4,7 @@ from hashlib import sha1
 import logging
 from utils.common import require_logined
 from utils import session
+import json
 
 
 class LoginHandler(BaseHandler):
@@ -44,6 +45,7 @@ class ToLoginHandler(BaseHandler):
                 # 把用户名,昵称,手机号保存入session
                 self.session = session.Session(self)
                 self.data = {'user_id': ret['up_user_id'], 'nickname': ret['up_name'], 'mobile': mobile}
+                logging.info('调用save()方法前的session保存的对象:'+json.dumps(self.data))
                 self.session.save()
                 return self.write(dict(code="00", msg='登录成功!'))
 
