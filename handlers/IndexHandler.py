@@ -45,6 +45,10 @@ class ToLoginHandler(BaseHandler):
                 # 把用户名,昵称,手机号保存入session
                 self.data = {'user_id': ret['up_user_id'], 'nickname': ret['up_name'], 'mobile': mobile}
                 self.session = session.Session(self)
+                self.session.data['user_id'] = ret['up_user_id']
+                self.session.data['nickname'] = ret['up_name']
+                self.session.data['mobile'] = mobile
+
                 logging.info('调用save()方法前的session保存的对象:'+json.dumps(self.data))
                 self.session.save()
                 return self.write(dict(code="00", msg='登录成功!'))
