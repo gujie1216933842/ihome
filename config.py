@@ -11,7 +11,7 @@ setting = {
 
 # mysql
 mysql_options = dict(
-    host="47.94.165.75",
+    host="47.97.165.75",
     database="ihome",
     user='root',
     password='123',
@@ -19,7 +19,7 @@ mysql_options = dict(
 
 # redis
 redis_options = dict(
-    host='47.94.165.75',
+    host='47.97.165.75',
     port=6379,
 )
 
