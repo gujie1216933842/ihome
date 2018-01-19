@@ -17,7 +17,7 @@ class ProfileHandler(BaseHandler):
         :return:
         '''
         logging.info(self.session.data)
-        #user_id = self.session.data['user_id']
+        user_id = self.session.data['user_id']
 
         sql = "select up_name , up_mobile , up_avatar from ih_user_profile where up_user_id = %s"
         try:
