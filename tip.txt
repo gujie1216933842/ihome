@@ -1,0 +1,2 @@
+linux查看进程是否启动
+ps  -ef | grep redis    以linux为例
