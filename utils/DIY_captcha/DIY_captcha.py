@@ -45,7 +45,7 @@ class DIY_Verifycode(BaseHandler):
         image = Image.new('RGB', (width, height), (255, 255, 255))
         # 创建font对象
         logging.info('系统路径:' + os.path.dirname(__file__))
-        ttf = '/home/gujie/project/utils/DIY_captcha/fonts/Arial.ttf'
+        ttf = '/home/gujie/project/ihome/utils/DIY_captcha/fonts/Arial.ttf'
         font = ImageFont.truetype(ttf, 32)
         # 创建画布对象
         draw = ImageDraw.Draw(image)
