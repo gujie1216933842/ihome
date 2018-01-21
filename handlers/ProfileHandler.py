@@ -34,5 +34,9 @@ class ProfileHandler(BaseHandler):
 
 
 class UcenterHander(BaseHandler):
+    '''
+    ihome个人中心
+    '''
+    @require_logined
     def get(self):
         self.render("my.html")
