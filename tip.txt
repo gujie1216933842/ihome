@@ -5,3 +5,5 @@ ps -aux | grep python   以python为例
 root      7900  0.4  2.5 237752 26492 pts/1    S+   17:21   1:00 python3 server.py
 7900进程
 kill -9 7900
+
+七牛注册邮箱     gujientsy@163.com
