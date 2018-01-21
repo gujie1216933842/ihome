@@ -7,7 +7,7 @@ function logout() {
 }
 
 $(document).ready(function(){
-    $.get("/api/profile", function(data) {
+    $.get("/profile/ucenter", function(data) {
         if ("aa" == data.errcode) {
             location.href = "/login.html";
         }
