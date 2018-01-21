@@ -32,3 +32,7 @@ class ProfileHandler(BaseHandler):
         self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_avatar']
                                                        , mobile=ret['up_mobile'], avatar=img_url)))
 
+
+class UcenterHander(BaseHandler):
+    def get(self):
+        self.render("my.html")

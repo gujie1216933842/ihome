@@ -16,6 +16,7 @@ urls = [
     (r"/checklogin",ProfileHandler.ProfileHandler ),
     (r"/api/imagecode", VerifyCode.ImageCodeHandler), #注册页面的验证码的路由
     (r"/api/new_imagecode", DIY_captcha.DIY_Verifycode), #注册页面的验证码的路由
+    (r"/profile/ucenter", ProfileHandler.UcenterHander), #个人中心路由
 
 
 
