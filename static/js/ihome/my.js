@@ -8,7 +8,7 @@ function logout() {
 
 $(document).ready(function(){
     $.get("/api/profile", function(data) {
-        if ("4101" == data.errcode) {
+        if ("aa" == data.errcode) {
             location.href = "/login.html";
         }
         else if ("0" == data.errcode) {
