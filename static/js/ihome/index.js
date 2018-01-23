@@ -59,7 +59,7 @@ function goToSearchPage(th) {
 
 $(document).ready(function(){
     $.get("/checklogin", function(data) {
-        if ("aa" == data.code) {
+        if ("00" == data.code) {
             $(".top-bar>.user-info>.user-name").html(data.data.name);
             $(".top-bar>.user-info").show();
         } else {
