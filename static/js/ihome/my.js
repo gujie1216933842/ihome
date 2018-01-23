@@ -8,7 +8,7 @@ function logout() {
 
 $(document).ready(function(){
     $.get("/profile/ucenter", function(data) {
-        if ("aa" == data.errcode) {
+        if ("aa" == data.code) {
             location.href = "/login.html";
         }
         else if ("0" == data.errcode) {
