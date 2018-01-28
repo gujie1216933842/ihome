@@ -11,7 +11,7 @@ $(document).ready(function(){
         if ("aa" == data.code) {
             location.href = "/login.html";
         }
-        else if ("0" == data.errcode) {
+        else if ("00" == data.errcode) {
             $("#user-name").html(data.data.name);
             $("#user-mobile").html(data.data.mobile);
             if (data.data.avatar) {
