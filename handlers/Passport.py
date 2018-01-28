@@ -9,8 +9,8 @@ class IndexHandler(BaseHandler):
         # logging.info('info msg')
         # logging.warning('warning msg')
         logging.error('error msg')
-
-        self.write('欢迎来到tornado的世界!')
+        self.render('index.html')
+        #self.write('欢迎来到tornado的世界!')
 
 
 class CheckLoginHandler(BaseHandler):
