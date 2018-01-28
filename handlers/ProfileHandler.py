@@ -3,10 +3,12 @@ from handlers.BaseHandler import BaseHandler
 import logging
 from utils.common import require_logined
 
+
 class ProfileHandler(BaseHandler):
     '''
     需要判断登录态的页面刷新时需要异步调用的后台接口
     '''
+
     @require_logined
     def get(self):
         '''
@@ -37,6 +39,21 @@ class UcenterHander(BaseHandler):
     '''
     ihome个人中心
     '''
+
     @require_logined
     def get(self):
-        self.render("my.html")
+        user_id = self.session.data['user_id']  # 在session中获取用户id
+        sql = "select up_name , up_mobile , up_avatar from ih_user_profile where up_user_id = %s"
+        try:
+            ret = self.db.get(sql, user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code='01', msg='查询数据库出错!'))
+        if ret['up_avatar']:
+            img_url = ret['up_avatar']
+        else:
+            img_url = None
+        self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_mobile']
+                                                       , mobile=ret['up_mobile'], avatar=img_url)))
+
+
