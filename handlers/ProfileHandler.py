@@ -53,6 +53,7 @@ class UcenterHander(BaseHandler):
         if ret['up_avatar']:
             logging.info('七牛:' + config.qiniu_url)
             img_url = config.qiniu_url + ret['up_avatar']
+            logging.info('img_url:' + img_url)
         else:
             img_url = None
         self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_mobile']
