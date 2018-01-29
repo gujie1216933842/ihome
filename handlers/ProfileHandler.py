@@ -51,6 +51,7 @@ class UcenterHander(BaseHandler):
             logging.error(e)
             return self.write(dict(code='01', msg='查询数据库出错!'))
         if ret['up_avatar']:
+            logging.info('七牛:' + config.qiniu_url)
             img_url = config.qiniu_url + ret['up_avatar']
         else:
             img_url = None
