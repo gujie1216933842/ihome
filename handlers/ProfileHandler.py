@@ -3,6 +3,7 @@ from handlers.BaseHandler import BaseHandler
 import logging
 from utils.common import require_logined
 import config
+from utils.image_storage import storage
 
 
 class ProfileHandler(BaseHandler):
@@ -56,3 +57,24 @@ class UcenterHander(BaseHandler):
             img_url = None
         self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_mobile']
                                                        , mobile=ret['up_mobile'], avatar=img_url)))
+
+class ProfileShowEdit(BaseHandler):
+    @require_logined
+    def get(self):
+        '''
+           展示图片和用户名修改页面的初始化数据接口
+        :return:
+        '''
+        userinfo_data = self.session.data
+        logging.log(userinfo_data)
+
+
+class UploadHandler(BaseHandler):
+    '''
+
+    '''
+    @require_logined
+    def post(self, *args, **kwargs):
+        pass
+
+
