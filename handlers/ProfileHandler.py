@@ -66,7 +66,7 @@ class ProfileShowEdit(BaseHandler):
         :return:
         '''
         userinfo_data = self.session.data
-        logging.info(userinfo_data)
+        logging.info('session中的用户信息:'+userinfo_data)
         return self.write(dict(code='00',msg='ok',data=dict()))
 
 
