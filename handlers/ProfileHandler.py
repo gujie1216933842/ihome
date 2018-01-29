@@ -66,7 +66,8 @@ class ProfileShowEdit(BaseHandler):
         :return:
         '''
         userinfo_data = self.session.data
-        logging.log(userinfo_data)
+        logging.info(userinfo_data)
+        return self.write(dict(code='00',msg='ok',data=dict()))
 
 
 class UploadHandler(BaseHandler):
