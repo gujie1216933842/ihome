@@ -2,6 +2,7 @@
 from handlers.BaseHandler import BaseHandler
 import logging
 from utils.common import require_logined
+import config
 
 
 class ProfileHandler(BaseHandler):
@@ -50,10 +51,8 @@ class UcenterHander(BaseHandler):
             logging.error(e)
             return self.write(dict(code='01', msg='查询数据库出错!'))
         if ret['up_avatar']:
-            img_url = ret['up_avatar']
+            img_url = config.qiniu_url + ret['up_avatar']
         else:
             img_url = None
         self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_mobile']
                                                        , mobile=ret['up_mobile'], avatar=img_url)))
-
-
