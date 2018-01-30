@@ -68,7 +68,7 @@ class ProfileShowEdit(BaseHandler):
         userinfo_data = self.session.data
         logging.info('session中的用户信息:')
         logging.info(userinfo_data)
-        return self.write(dict(code='00',msg='ok',data=dict()))
+        return self.write(dict(code='00',msg='ok',data=userinfo_data))
 
 
 class UploadHandler(BaseHandler):
