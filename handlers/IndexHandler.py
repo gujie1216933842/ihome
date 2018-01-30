@@ -5,6 +5,7 @@ import logging
 from utils.common import require_logined
 from utils import session
 import json
+from config import qiniu_url
 
 
 class LoginHandler(BaseHandler):
@@ -32,7 +33,7 @@ class ToLoginHandler(BaseHandler):
         sha.update(pwd.encode('utf-8'))
         pwdsha1 = sha.hexdigest()
         # 开始查询数据库
-        sql = 'select up_user_id ,up_name from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
+        sql = 'select up_user_id ,up_name,up_avatar from ih_user_profile where up_mobile = %(up_mobile)s and  up_passwd = %(up_passwd)s'
         try:
             ret = self.db.get(sql, up_mobile=mobile, up_passwd=pwdsha1)
         except Exception as e:
@@ -48,10 +49,12 @@ class ToLoginHandler(BaseHandler):
                 self.session.data['user_id'] = ret['up_user_id']
                 self.session.data['nickname'] = ret['up_name']
                 self.session.data['mobile'] = mobile
+                self.session.data['avatar'] = qiniu_url + ret['up_avatar']
 
-                logging.info('调用save()方法前的session保存的对象:'+json.dumps(self.data))
+                logging.info('调用save()方法前的session保存的对象:' + json.dumps(self.data))
                 self.session.save()
                 return self.write(dict(code="00", msg='登录成功!'))
+
 
 class IndexHandler(BaseHandler):
     def get(self):
