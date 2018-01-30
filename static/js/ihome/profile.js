@@ -17,12 +17,12 @@ $(document).ready(function () {
             location.href = "/login.html";
         }
         else if ("00" == data.code) {
-            $("#user-name").val(data.data.name);
+            $("#user-name").val(data.data.nickname);
             if (data.data.avatar) {
                 $("#user-avatar").attr("src", data.data.avatar);
             }
         }
-    })
+    });
     $("#form-avatar").submit(function (e) {
         // 组织浏览器对于表单的默认行为
         e.preventDefault();
