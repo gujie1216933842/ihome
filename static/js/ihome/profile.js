@@ -13,10 +13,10 @@ function getCookie(name) {
 
 $(document).ready(function () {
     $.get("/profile/ProfileShowEdit", function(data){
-        if ("aa" == data.errcode) {
+        if ("aa" == data.code) {
             location.href = "/login.html";
         }
-        else if ("00" == data.errcode) {
+        else if ("00" == data.code) {
             $("#user-name").val(data.data.name);
             if (data.data.avatar) {
                 $("#user-avatar").attr("src", data.data.avatar);
