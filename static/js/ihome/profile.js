@@ -28,17 +28,17 @@ $(document).ready(function () {
         e.preventDefault();
         $('.image_uploading').fadeIn('fast');
         var options = {
-            url: "/api/profile/avatar",
+            url: "/profile/UploadHandler",
             method: "post",
             dataType: "json",
             headers: {
                 "X-XSRFTOKEN": getCookie("_xsrf")
             },
             success: function (data) {
-                if ("0" == data.errcode) {
+                if ("0" == data.code) {
                     $('.image_uploading').fadeOut('fast');
                     $("#user-avatar").attr("src", data.data)
-                } else if ("4101" == data.errcode) {
+                } else if ("4101" == data.code) {
                     location.href = "/login.html";
                 }
             }

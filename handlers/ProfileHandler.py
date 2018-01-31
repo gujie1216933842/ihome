@@ -72,11 +72,10 @@ class ProfileShowEdit(BaseHandler):
 
 
 class UploadHandler(BaseHandler):
-    '''
-
-    '''
-    @require_logined
     def post(self, *args, **kwargs):
-        pass
+        '''
+        头像上传接口
+        '''
+
 
 
