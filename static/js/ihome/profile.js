@@ -56,7 +56,7 @@ $(document).ready(function () {
             type:"post",
             //data: jsonData,
             data: {name:name},
-            //contentType: "application/json",
+            //contentType: "application/json", 注:这段代码一定要注释,否则ajax请求会报400错误
             dataType: "json",
             headers:{
                 "X-XSRFTOKEN":getCookie("_xsrf"),

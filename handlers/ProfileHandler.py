@@ -118,7 +118,7 @@ class NickNameEdit(BaseHandler):
         user_id = self.session.data['user_id']
         sql = "update ih_user_profile up_name = %(name)s where up_user_id = %(user_id)s "
         try:
-            self.execute_rowcount(sql, name=nickName, user_id=user_id)
+            self.db.execute_rowcount(sql, name=nickName, user_id=user_id)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code='bb', msg="数据库修改昵称出错"))
