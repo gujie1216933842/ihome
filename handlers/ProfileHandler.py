@@ -116,7 +116,7 @@ class NickNameEdit(BaseHandler):
         nickName = self.get_argument('name')
         # 在session中获取user_id,在数据库中修改
         user_id = self.session.data['user_id']
-        sql = "update ih_user_profile up_name = %(name)s where up_user_id = %(user_id)s "
+        sql = "update ih_user_profile set up_name = %(name)s where up_user_id = %(user_id)s "
         try:
             self.db.execute_rowcount(sql, name=nickName, user_id=user_id)
         except Exception as e:
