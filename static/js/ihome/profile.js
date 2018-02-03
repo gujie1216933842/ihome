@@ -44,16 +44,18 @@ $(document).ready(function () {
             }
         };
         $(this).ajaxSubmit(options);
-    })
+    });
     $("#form-name").submit(function(e){
         e.preventDefault();
-        var data = {};
-        $(this).serializeArray().map(function(x){data[x.name] = x.value;});
-        var jsonData = JSON.stringify(data);
+        //var data = {};
+        //$(this).serializeArray().map(function(x){data[x.name] = x.value;});
+        //var jsonData = JSON.stringify(data);
+        name = $("#user-name").val();
         $.ajax({
             url:"/profile/NickNameEdit",
             type:"POST",
-            data: jsonData,
+            //data: jsonData,
+            data: {"name":name},
             contentType: "application/json",
             dataType: "json",
             headers:{
