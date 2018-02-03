@@ -55,7 +55,7 @@ $(document).ready(function () {
             url:"/profile/NickNameEdit",
             type:"POST",
             //data: jsonData,
-            data: {"name":name},
+            data: {name:name},
             contentType: "application/json",
             dataType: "json",
             headers:{
