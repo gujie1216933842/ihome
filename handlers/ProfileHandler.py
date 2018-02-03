@@ -109,23 +109,19 @@ class UploadHandler(BaseHandler):
         return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
 
 
-
-class  NickNameEdit(BaseHandler):
+class NickNameEdit(BaseHandler):
     @require_logined
-    def post(self):
-        #获取前台传过来的昵称
+    def post(self, *args, **kwargs):
+        # 获取前台传过来的昵称
         nickName = self.get_argument('name')
-        #在session中获取user_id,在数据库中修改
+        # 在session中获取user_id,在数据库中修改
         user_id = self.session.data['user_id']
         sql = "update ih_user_profile up_name = %(name)s where up_user_id = %(user_id)s "
         try:
-            self.execute_rowcount(sql,name=nickName,user_id=user_id)
+            self.execute_rowcount(sql, name=nickName, user_id=user_id)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code='bb',msg="数据库修改昵称出错"))
-        #如果是成功,则在session中把昵称修改,并且返回给前端
+            return self.write(dict(code='bb', msg="数据库修改昵称出错"))
+        # 如果是成功,则在session中把昵称修改,并且返回给前端
         self.session.data['nickname'] = nickName
-        return self.write(dict(code='00',msg='ok',data=nickName))
-
-
-
+        return self.write(dict(code='00', msg='ok', data=nickName))
