@@ -73,13 +73,14 @@ class ProfileShowEdit(BaseHandler):
 
 
 class UploadHandler(BaseHandler):
+    @require_logined
     def post(self, *args, **kwargs):
         '''
         头像上传接口
         '''
         # 接受上传的数据
         try:
-            image_data = self.request.files[0]['avatar'][0]['body']
+            image_data = self.request.files['avatar'][0]['body']
         except Exception as e:
             logging.error(e)
             return self.write(dict(code='bb', msg='前端向后台传输图片失败'))
