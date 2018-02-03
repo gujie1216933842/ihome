@@ -53,10 +53,10 @@ $(document).ready(function () {
         var name = $("#user-name").val();
         $.ajax({
             url:"/profile/NickNameEdit",
-            type:"POST",
+            type:"post",
             //data: jsonData,
             data: {name:name},
-            contentType: "application/json",
+            //contentType: "application/json",
             dataType: "json",
             headers:{
                 "X-XSRFTOKEN":getCookie("_xsrf"),
