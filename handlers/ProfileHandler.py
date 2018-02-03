@@ -98,5 +98,6 @@ class UploadHandler(BaseHandler):
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="dd", msg="更新数据库图片失败"))
-        # 保存成功
+        # 保存成功,修改session中的头像图片
+        self.session.data['avatar'] = "%s%s" % (config.qiniu_url, key)
         return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
