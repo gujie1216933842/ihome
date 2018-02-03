@@ -94,7 +94,7 @@ class UploadHandler(BaseHandler):
         user_id = self.session.data['user_id']
         sql = "update ih_user_profile set up_avatar = %(avatar)s where up_user_id = %(user_id)s "
         try:
-            row_count = self.db.excute_rowcount(sql, avatar=key, user_id=user_id)
+            row_count = self.db.execute_rowcount(sql, avatar=key, user_id=user_id)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="dd", msg="更新数据库图片失败"))
