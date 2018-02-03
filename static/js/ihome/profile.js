@@ -51,7 +51,7 @@ $(document).ready(function () {
         $(this).serializeArray().map(function(x){data[x.name] = x.value;});
         var jsonData = JSON.stringify(data);
         $.ajax({
-            url:"/api/profile/name",
+            url:"/profile/NickNameEdit",
             type:"POST",
             data: jsonData,
             contentType: "application/json",
@@ -60,12 +60,12 @@ $(document).ready(function () {
                 "X-XSRFTOKEN":getCookie("_xsrf"),
             },
             success: function (data) {
-                if ("0" == data.errcode) {
+                if ("00" == data.code) {
                     $(".error-msg").hide();
                     showSuccessMsg(); // 展示保存成功的页面效果
-                } else if ("4001" == data.errcode) {
+                } else if ("cc" == data.code) {
                     $(".error-msg").show();
-                } else if ("4101" == data.errcode) { // 4101代表用户未登录，强制跳转到登录页面
+                } else if ("aa" == data.code) { // 4101代表用户未登录，强制跳转到登录页面
                     location.href = "/login.html";
                 }
             }

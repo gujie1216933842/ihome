@@ -19,6 +19,7 @@ urls = [
     (r"/profile/ucenter", ProfileHandler.UcenterHander), #个人中心路由
     (r"/profile/ProfileShowEdit", ProfileHandler.ProfileShowEdit), #修改用户头像和用户名初始化页面显示接口
     (r"/profile/UploadHandler", ProfileHandler.UploadHandler), #用户修改头像上传图片接口
+    (r"/profile/NickNameEdit", ProfileHandler.NickNameEdit), #用户修改昵称接口
 
 
 
