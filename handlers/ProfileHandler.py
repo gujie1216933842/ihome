@@ -99,5 +99,11 @@ class UploadHandler(BaseHandler):
             logging.error(e)
             return self.write(dict(code="dd", msg="更新数据库图片失败"))
         # 保存成功,修改session中的头像图片
+        logging.info("修改前的session信息")
+        logging.info(self.session.data)
+        logging.info("需要修改的值: %s%s" % (config.qiniu_url, key))
         self.session.data['avatar'] = "%s%s" % (config.qiniu_url, key)
+        logging.info("修改后的session信息")
+        logging.info(self.session.data)
+
         return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
