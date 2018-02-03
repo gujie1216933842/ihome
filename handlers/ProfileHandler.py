@@ -112,7 +112,7 @@ class UploadHandler(BaseHandler):
 
 class  NickNameEdit(BaseHandler):
     @require_logined
-    def post(self, *args, **kwargs):
+    def post(self):
         #获取前台传过来的昵称
         nickName = self.get_argument('name')
         #在session中获取user_id,在数据库中修改
