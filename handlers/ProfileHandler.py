@@ -154,7 +154,8 @@ class AuthHandler(BaseHandler):
             return self.write(dict(code='bb', msg="查询数据库出错"))
         if not ret:
             return self.write(dict(code='cc', msg="数据库中没用该用户的信息"))
-        return self.write(dict(code="00", msg="ok", data=ret))
+        return self.write(
+            dict(code="00", msg="ok", data=dict(real_name=ret['up_real_name'], id_card=ret['up_id_card'])))
 
     @require_logined
     def post(self, *args, **kwargs):
