@@ -53,7 +53,7 @@ class Session(object):
         :return:
         '''
         try:
-            self._request_handler.redis.delete("sess_" + self.session_id)
+            self._request_handler.redis.delete("sess_%s" % (self.session_id))
         except Exception as e:
             logging.error(e)
             raise e
