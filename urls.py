@@ -21,7 +21,7 @@ urls = [
     (r"/profile/UploadHandler", ProfileHandler.UploadHandler), #用户修改头像上传图片接口
     (r"/profile/NickNameEdit", ProfileHandler.NickNameEdit), #用户修改昵称接口
     (r"/profile/LogoutHandler", ProfileHandler.LogoutHandler), #用户退出登录接口
-    (r"/profile/AuthHandler", ProfileHandler.LogoutHandler), #用户实名认证接口
+    (r"/profile/AuthHandler", ProfileHandler.AuthHandler), #用户实名认证接口
 
 
 
