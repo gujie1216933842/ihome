@@ -167,7 +167,7 @@ class AuthHandler(BaseHandler):
         '''
         real_name = self.get_argument('real_name')
         id_card = self.get_argument('id_card')
-        if not all(real_name, id_card):
+        if not all((real_name, id_card)):
             return self.write(dict(code="01", msg="参数缺失"))
         # 判断提交身份证信息是否正确
         # /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
