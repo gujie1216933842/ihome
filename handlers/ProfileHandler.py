@@ -1,6 +1,7 @@
 # Author:Bob
 from handlers.BaseHandler import BaseHandler
 import logging
+import re
 from utils.common import require_logined
 import config
 from utils.image_storage import storage
@@ -153,7 +154,7 @@ class AuthHandler(BaseHandler):
             return self.write(dict(code='bb', msg="查询数据库出错"))
         if not ret:
             return self.write(dict(code='cc', msg="数据库中没用该用户的信息"))
-        return self.write(dict(code="00",msg="ok",data=ret))
+        return self.write(dict(code="00", msg="ok", data=ret))
 
     @require_logined
     def post(self, *args, **kwargs):
@@ -163,3 +164,21 @@ class AuthHandler(BaseHandler):
         :param kwargs:
         :return:
         '''
+        real_name = self.get_argument('real_name')
+        id_card = self.get_argument('id_card')
+        if not all(real_name, id_card):
+            return self.write(dict(code="01", msg="参数缺失"))
+        # 判断提交身份证信息是否正确
+        # /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+        if not re.match("/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/", id_card):
+            return self.write(dict(code="02", msg="身份证格式不正确,请重新输入"))
+        # 把用户信息存入数据库
+        user_id = self.session.data['user_id']
+        sql = " update ih_user_profile set up_real_name = %(real_name)s , up_id_card = %(id_card)s  where up_user_id = %(user_id) "
+        try:
+            self.db.execute_rowcount(sql, real_name=real_name, id_card=id_card, user_id=user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code="bb", msg="查询数据库出错!"))
+        # 实名认证成功,返回信息
+        return self.write(dict(code="00", msg="ok,实名认证成功", data=dict(real_name=real_name, id_card=id_card)))

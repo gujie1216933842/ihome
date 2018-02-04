@@ -13,10 +13,10 @@ function getCookie(name) {
 
 $(document).ready(function(){
     $.get("/api/profile/auth", function(data){
-        if ("4101" == data.errcode) {
+        if ("aa" == data.code) {
             location.href = "/login.html";
         }
-        else if ("0" == data.errcode) {
+        else if ("00" == data.code) {
             if (data.data.real_name && data.data.id_card) {
                 $("#real-name").val(data.data.real_name);
                 $("#id-card").val(data.data.id_card);
