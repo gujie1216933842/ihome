@@ -1,13 +1,13 @@
 function logout() {
     $.get("/profile/LogoutHandler", function(data){
-        if ("00" == data.errcode) {
+        if ("00" == data.code) {
             location.href = "/";
         }
     })
 }
 
 $(document).ready(function(){
-    $.get("/profile/LogoutHandler", function(data) {
+    $.get("/profile/ProfileShowEdit", function(data) {
         if ("aa" == data.code) {
             location.href = "/login.html";
         }
