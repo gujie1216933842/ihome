@@ -35,8 +35,8 @@ $(document).ready(function () {
         //var data = {};
         //$(this).serializeArray().map(function(x){data[x.name] = x.value;});
         //var jsonData = JSON.stringify(data);
-        var real_name = $("#real_name").val();
-        var id_card = $("#id_card").val();
+        var real_name = $("#real-name").val();
+        var id_card = $("#id-card").val();
         $.ajax({
             url: "/profile/AuthHandler",
             type: "POST",
