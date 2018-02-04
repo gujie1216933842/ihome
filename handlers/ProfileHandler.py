@@ -45,7 +45,7 @@ class UcenterHander(BaseHandler):
     @require_logined
     def get(self):
         user_id = self.session.data['user_id']  # 在session中获取用户id
-        sql = "select up_name , up_mobile , up_avatar from ih_user_profile where up_user_id = %s"
+        sql = "select up_name , up_mobile ,up_name, up_avatar from ih_user_profile where up_user_id = %s"
         try:
             ret = self.db.get(sql, user_id)
         except Exception as e:
@@ -55,7 +55,7 @@ class UcenterHander(BaseHandler):
             img_url = config.qiniu_url + ret['up_avatar']
         else:
             img_url = None
-        self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['nickname']
+        self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_name']
                                                        , mobile=ret['up_mobile'], avatar=img_url)))
 
 
