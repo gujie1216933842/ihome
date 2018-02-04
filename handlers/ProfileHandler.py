@@ -171,7 +171,7 @@ class AuthHandler(BaseHandler):
             return self.write(dict(code="01", msg="参数缺失"))
         # 判断提交身份证信息是否正确
         # /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
-        if not re.match("/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/", id_card):
+        if not re.match("^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$", id_card):
             return self.write(dict(code="02", msg="身份证格式不正确,请重新输入"))
         # 把用户信息存入数据库
         user_id = self.session.data['user_id']
