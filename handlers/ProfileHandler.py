@@ -127,5 +127,5 @@ class NickNameEdit(BaseHandler):
         logging.info(self.session.data)
         logging.info("需要修改的值: %s" % (nickName))
         self.session.data['nickname'] = nickName
-        logging.info("修改后的session信息")
+        logging.info("修改后的session信息: %s" % (self.session.data))
         return self.write(dict(code='00', msg='ok', data=nickName))
