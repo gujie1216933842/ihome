@@ -99,13 +99,8 @@ class UploadHandler(BaseHandler):
             logging.error(e)
             return self.write(dict(code="dd", msg="更新数据库图片失败"))
         # 保存成功,修改session中的头像图片
-        logging.info("修改前的session信息")
-        logging.info(self.session.data)
-        logging.info("需要修改的值: %s%s" % (config.qiniu_url, key))
         self.session.data['avatar'] = "%s%s" % (config.qiniu_url, key)
-        logging.info("修改后的session信息")
-        logging.info(self.session.data)
-
+        self.session.save()
         return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
 
 
@@ -123,9 +118,6 @@ class NickNameEdit(BaseHandler):
             logging.error(e)
             return self.write(dict(code='bb', msg="数据库修改昵称出错"))
         # 如果是成功,则在session中把昵称修改,把修改的值保存在redis中,并且返回给前端
-        logging.info("修改前的session信息: %s" % (self.session.data))
-        logging.info("需要修改的昵称值: %s" % (nickName))
         self.session.data['nickname'] = nickName
-        logging.info("修改后的session信息: %s" % (self.session.data))
         self.session.save()
         return self.write(dict(code='00', msg='ok', data=nickName))
