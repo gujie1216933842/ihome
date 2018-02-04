@@ -1,8 +1,9 @@
 function showSuccessMsg() {
-    $('.popup_con').fadeIn('fast', function() {
-        setTimeout(function(){
-            $('.popup_con').fadeOut('fast',function(){}); 
-        },1000) 
+    $('.popup_con').fadeIn('fast', function () {
+        setTimeout(function () {
+            $('.popup_con').fadeOut('fast', function () {
+            });
+        }, 1000)
     });
 }
 
@@ -11,8 +12,8 @@ function getCookie(name) {
     return r ? r[1] : undefined;
 }
 
-$(document).ready(function(){
-    $.get("/profile/AuthHandler", function(data){
+$(document).ready(function () {
+    $.get("/profile/AuthHandler", function (data) {
         if ("aa" == data.code) {
             location.href = "/login.html";
         }
@@ -26,25 +27,27 @@ $(document).ready(function(){
             }
         }
     }, "json");
-    $("#form-auth").submit(function(e){
+    $("#form-auth").submit(function (e) {
         e.preventDefault();
-        if ($("#real-name").val()=="" || $("#id-card").val() == "") {
+        if ($("#real-name").val() == "" || $("#id-card").val() == "") {
             $(".error-msg").show();
         }
-        var data = {};
-        $(this).serializeArray().map(function(x){data[x.name] = x.value;});
-        var jsonData = JSON.stringify(data);
+        //var data = {};
+        //$(this).serializeArray().map(function(x){data[x.name] = x.value;});
+        //var jsonData = JSON.stringify(data);
+        var real_name = $("#real_name").val();
+        var id_card = $("#id_card").val();
         $.ajax({
-            url:"/profile/AuthHandler",
-            type:"POST",
-            data: jsonData,
+            url: "/profile/AuthHandler",
+            type: "POST",
+            data: {real_name: real_name, id_card: id_card},
             //contentType: "application/json",
             dataType: "json",
-            headers:{
-                "X-XSRFTOKEN":getCookie("_xsrf"),
+            headers: {
+                "X-XSRFTOKEN": getCookie("_xsrf")
             },
             success: function (data) {
-                if ("0" == data.errcode) {
+                if ("00" == data.code) {
                     $(".error-msg").hide();
                     showSuccessMsg();
                     $("#real-name").prop("disabled", true);
