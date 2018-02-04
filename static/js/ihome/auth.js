@@ -12,7 +12,7 @@ function getCookie(name) {
 }
 
 $(document).ready(function(){
-    $.get("/api/profile/auth", function(data){
+    $.get("/profile/AuthHandler", function(data){
         if ("aa" == data.code) {
             location.href = "/login.html";
         }
@@ -35,7 +35,7 @@ $(document).ready(function(){
         $(this).serializeArray().map(function(x){data[x.name] = x.value;});
         var jsonData = JSON.stringify(data);
         $.ajax({
-            url:"/api/profile/auth",
+            url:"/profile/AuthHandler",
             type:"POST",
             data: jsonData,
             contentType: "application/json",
