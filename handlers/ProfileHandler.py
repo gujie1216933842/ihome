@@ -175,11 +175,11 @@ class AuthHandler(BaseHandler):
             return self.write(dict(code="02", msg="身份证格式不正确,请重新输入"))
         # 把用户信息存入数据库
         user_id = self.session.data['user_id']
-        sql = " update ih_user_profile set up_real_name = %(real_name)s , up_id_card = %(id_card)s  where up_user_id = %(user_id) "
+        sql = " update ih_user_profile set up_real_name = %(real_name)s , up_id_card = %(id_card)s  where up_user_id = %(user_id)s "
         try:
             self.db.execute_rowcount(sql, real_name=real_name, id_card=id_card, user_id=user_id)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code="bb", msg="查询数据库出错!"))
+            return self.write(dict(code="bb", msg="数据库执行出错!"))
         # 实名认证成功,返回信息
         return self.write(dict(code="00", msg="ok,实名认证成功", data=dict(real_name=real_name, id_card=id_card)))
