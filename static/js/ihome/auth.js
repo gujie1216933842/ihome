@@ -53,6 +53,8 @@ $(document).ready(function () {
                     $("#real-name").prop("disabled", true);
                     $("#id-card").prop("disabled", true);
                     $("#form-auth>input[type=submit]").hide();
+                }else{
+                    alert(data.msg);
                 }
             }
         });
