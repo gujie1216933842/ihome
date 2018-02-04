@@ -123,9 +123,8 @@ class NickNameEdit(BaseHandler):
             logging.error(e)
             return self.write(dict(code='bb', msg="数据库修改昵称出错"))
         # 如果是成功,则在session中把昵称修改,并且返回给前端
-        logging.info("修改前的session信息")
-        logging.info(self.session.data)
-        logging.info("需要修改的值: %s" % (nickName))
+        logging.info("修改前的session信息: %s" % (self.session.data))
+        logging.info("需要修改的昵称值: %s" % (nickName))
         self.session.data['nickname'] = nickName
         logging.info("修改后的session信息: %s" % (self.session.data))
         return self.write(dict(code='00', msg='ok', data=nickName))
