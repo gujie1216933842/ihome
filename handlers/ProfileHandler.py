@@ -130,6 +130,36 @@ class LogoutHandler(BaseHandler):
         用户退出登录接口
         :return:
         '''
-        #调用session中封装的clear方法
+        # 调用session中封装的clear方法
         self.session.clear()
-        return self.write(dict(code="00",msg="ok,退出成功"))
+        return self.write(dict(code="00", msg="ok,退出成功"))
+
+
+class AuthHandler(BaseHandler):
+    @require_logined
+    def get(self):
+        '''
+        进入实名认证页面加载的接口
+        :return:
+        '''
+        # 在session中获取用户的user_id
+        # 通过user_id在数据库中查询用户实名信息(是否已经实名过了)
+        user_id = self.session.data['user_id']
+        sql = " select up_real_name , up_id_card from ih_user_profile where up_user_id = %s "
+        try:
+            ret = self.db.get(sql, user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code='bb', msg="查询数据库出错"))
+        if not ret:
+            return self.write(dict(code='cc', msg="数据库中没用该用户的信息"))
+        return self.write(dict(code="00",msg="ok",data=ret))
+
+    @require_logined
+    def post(self, *args, **kwargs):
+        '''
+        如果用户还没有进行实名注册,实名注册的接口,需要提交用户的真实姓名和身份证信息,
+        :param args:
+        :param kwargs:
+        :return:
+        '''
