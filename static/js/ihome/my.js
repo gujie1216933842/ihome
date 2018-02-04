@@ -1,13 +1,13 @@
 function logout() {
     $.get("/api/logout", function(data){
-        if (0 == data.errcode) {
+        if ("00" == data.errcode) {
             location.href = "/";
         }
     })
 }
 
 $(document).ready(function(){
-    $.get("/profile/ucenter", function(data) {
+    $.get("/profile/LogoutHandler", function(data) {
         if ("aa" == data.code) {
             location.href = "/login.html";
         }

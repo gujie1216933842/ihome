@@ -121,3 +121,15 @@ class NickNameEdit(BaseHandler):
         self.session.data['nickname'] = nickName
         self.session.save()
         return self.write(dict(code='00', msg='ok', data=nickName))
+
+
+class LogoutHandler(BaseHandler):
+    @require_logined
+    def get(self):
+        '''
+        用户退出登录接口
+        :return:
+        '''
+        #调用session中封装的clear方法
+        self.session.clear()
+        return self.write(dict(code="00",msg="ok,退出成功"))
