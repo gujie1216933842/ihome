@@ -22,10 +22,6 @@ urls = [
     (r"/profile/NickNameEdit", ProfileHandler.NickNameEdit), #用户修改昵称接口
     (r"/profile/LogoutHandler", ProfileHandler.LogoutHandler), #用户退出登录接口
     (r"/profile/AuthHandler", ProfileHandler.AuthHandler), #用户实名认证接口
-
-
-
-
     (r"/(.*)", StaticFileHandler,
     dict(path=os.path.join(os.path.dirname(__file__), "html"), default_filename="index.html"))
 ]

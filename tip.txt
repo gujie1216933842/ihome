@@ -7,3 +7,17 @@ root      7900  0.4  2.5 237752 26492 pts/1    S+   17:21   1:00 python3 server.
 kill -9 7900
 
 七牛注册邮箱     gujientsy@163.com
+
+windows下安装了python,但是没有pip
+安装pip流程
+先去官网下载https://pypi.python.org/pypi/pip#downloads
+pip-9.0.1.tar.gz (md5, pgp)	   Source
+下载到本地,解压,进入先关文件夹
+在当前目录下,打开cmd,   输入  python setup.py install
+可以安装成功
+
+然后配置pip环境变量,   C:\Python34\Scripts;  假定个人电脑装的python在C下版本3.4
+如果图省事,可直接进script目录,用pip下载
+
+
+
