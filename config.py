@@ -30,3 +30,5 @@ qiniu_url='http://p2yatani0.bkt.clouddn.com/'
 # 日志配置
 log_path = os.path.join(os.path.dirname(__file__), "logs/log")
 log_level = "debug"
+
+HOME_PAGE_MAX_HOUSES = 3
