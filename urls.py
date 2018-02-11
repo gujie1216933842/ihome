@@ -1,14 +1,10 @@
 from handlers import Passport, IndexHandler,House,RegisterHandler,VerifyCode,ProfileHandler
 from config import setting
 import os
-
 from handlers.BaseHandler import StaticFileBaseHandler as StaticFileHandler
-
 from utils.DIY_captcha import DIY_captcha
 
 urls = [
-    (r"/", Passport.IndexHandler),
-    (r"/index", IndexHandler.IndexHandler),
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
     (r"/tologin", IndexHandler.ToLoginHandler),
