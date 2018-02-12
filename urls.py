@@ -5,7 +5,7 @@ from handlers.BaseHandler import StaticFileBaseHandler as StaticFileHandler
 from utils.DIY_captcha import DIY_captcha
 
 urls = [
-    (r"/home/index", House.Indexhandler),  #加载首页信息的接口
+    (r"/house/index", House.Indexhandler),  #加载首页信息的接口
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
