@@ -23,9 +23,9 @@ class Indexhandler(BaseHandler):
         else:
             # redis中没有数据,需要去数据库中捞取
             sql = " select hi_house_id,hi_title,hi_order_count,hi_index_image_url from ih_house_info " \
-                  "order by hi_order_count desc limit %s"
+                  " order by hi_order_count desc limit %s"
             try:
-                house_ret = self.db.get(sql, str(config.HOME_PAGE_MAX_HOUSES))
+                house_ret = self.db.query(sql, config.HOME_PAGE_MAX_HOUSES)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="02", msg="get data error from database"))
