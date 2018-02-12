@@ -68,7 +68,7 @@ class Indexhandler(BaseHandler):
                 # 如果过为空,需要在数据库中取
                 sql = " select ai_area_id,ai_name from ih_area_info "
                 try:
-                    area_ret = self.db.get(sql)
+                    area_ret = self.db.query(sql)
                 except Exception as e:
                     logging.error(e)
                     area_ret = None
