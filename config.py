@@ -32,3 +32,6 @@ log_path = os.path.join(os.path.dirname(__file__), "logs/log")
 log_level = "debug"
 
 HOME_PAGE_MAX_HOUSES = 3
+
+HOME_PAGE_DATA_REDIS_EXPIRE_SECOND = 86400  #首页图片redis有效期
+REDIS_AREA_INFO_EXPIRES_SECONDES = 86400  #首页城区信息redis有效期
