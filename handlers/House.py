@@ -33,7 +33,7 @@ class Indexhandler(BaseHandler):
                 # 数据中取出的数据为空
                 return self.write(dict(code="03", msg="get empty from database"))
             # 成功在数据库中取出数据,遍历,如果其中一项数据为空,则加入图片
-            houses = []  #列表.append(字典) 把字典添加到列表中  ,  最终需要保存在redis中的数据(需要转成json数据)
+            houses = []  # 列表.append(字典) 把字典添加到列表中  ,  最终需要保存在redis中的数据(需要转成json数据)
             for value in house_ret:
                 if not value['hi_index_image_url']:
                     continue
@@ -44,16 +44,53 @@ class Indexhandler(BaseHandler):
                     "img_url": config.qiniu_url + value['hi_index_image_url']
                 }
                 houses.append(house)
-            #列表转成json数据
-            json_houses = json.jump()
-            #把数据保存在redis中
+            # 列表转成json数据
+            json_houses = json.dumps(houses)
+            # 把数据保存在redis中
             try:
-                self.redis.setex("home_page_data",config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND,json_houses)
+                self.redis.setex("home_page_data", config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, json_houses)
             except Exception as e:
                 logging.error(e)
-                return self.write(dict(code="02",msg="set redis error"))
-            #成功设置redis
+                return self.write(dict(code="02", msg="set redis error"))
+            # 成功设置redis
 
-            #首页城区数据
-
-
+            # 首页城区数据
+            # 在redis中取数据
+            try:
+                ret = self.redis.get("area_info")
+            except Exception as e:
+                logging.error(e)
+                ret = None
+            # 如果取出数据,遍历
+            if ret:
+                json_areas = ret
+            else:
+                # 如果过为空,需要在数据库中取
+                sql = " select ai_area_id,ai_name from ih_area_info "
+                try:
+                    area_ret = self.db.get(sql)
+                except Exception as e:
+                    logging.error(e)
+                    area_ret = None
+                areas = []
+                if area_ret:
+                    for item in area_ret:
+                        area = {
+                            "area_id": item['ai_area_id'],
+                            "name": item['ai_name']
+                        }
+                        areas.append(area)
+                json_areas = json.dumps(areas)
+                # 信息存入redis
+                try:
+                    self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
+                except Exception as e:
+                    logging.error(e)
+                    return self.write(dict(code="01", msg="get error from redis"))
+                data_info = {
+                    "code": "00",
+                    "msg": "ok",
+                    "houses": json_houses,
+                    "areas": json_areas
+                }
+                return self.write(data_info)
