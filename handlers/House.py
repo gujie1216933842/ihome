@@ -19,7 +19,7 @@ class Indexhandler(BaseHandler):
             logging.error(e)
             ret = None
         if ret:
-            json_houses = ret
+            houses = ret
         else:
             # redis中没有数据,需要去数据库中捞取
             sql = " select hi_house_id,hi_title,hi_order_count,hi_index_image_url from ih_house_info " \
@@ -45,10 +45,10 @@ class Indexhandler(BaseHandler):
                 }
                 houses.append(house)
             # 列表转成json数据
-            json_houses = json.dumps(houses)
+            # json_houses = json.dumps(houses)
             # 把数据保存在redis中
             try:
-                self.redis.setex("home_page_data", config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, json_houses)
+                self.redis.setex("home_page_data", config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, houses)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="02", msg="set redis error"))
@@ -63,7 +63,7 @@ class Indexhandler(BaseHandler):
             ret = None
         # 如果取出数据,遍历
         if ret:
-            json_areas = ret
+            areas = ret
         else:
             # 如果过为空,需要在数据库中取
             sql = " select ai_area_id,ai_name from ih_area_info "
@@ -80,17 +80,17 @@ class Indexhandler(BaseHandler):
                         "name": item['ai_name']
                     }
                     areas.append(area)
-            json_areas = json.dumps(areas)
+            # json_areas = json.dumps(areas)
             # 信息存入redis
             try:
-                self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
+                self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, areas)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg="get error from redis"))
-            data_info = {
-                "code": "00",
-                "msg": "ok",
-                "houses": json_houses,
-                "areas": json_areas
-            }
-            return self.write(data_info)
+        data_info = {
+            "code": "00",
+            "msg": "ok",
+            "houses": houses,
+            "areas": areas
+        }
+        return self.write(data_info)
