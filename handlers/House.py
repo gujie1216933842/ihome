@@ -90,7 +90,7 @@ class Indexhandler(BaseHandler):
         data_info = {
             "code": "00",
             "msg": "ok",
-            "houses": houses,
-            "areas": areas
+            "houses": houses.decode(),
+            "areas": areas.decode()
         }
         return self.write(data_info)
