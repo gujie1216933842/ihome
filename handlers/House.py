@@ -90,7 +90,7 @@ class Indexhandler(BaseHandler):
         data_info = {
             "code": "00",
             "msg": "ok",
-            "houses": json.loads(houses.decode()),   #python3中数据传递格式都是byte,所以从数据库或者是redis中取出的数据都是
-            "areas": json.loads(areas.decode())      #byte格式,先要通过decode()方法转换成str,然后在把字符串转成字典dict
+            "houses": houses,
+            "areas": areas
         }
         return self.write(data_info)
