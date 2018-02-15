@@ -52,9 +52,9 @@
                             <div class="area-list">
                             </div>
                             <script id="area-list-tmpl" type="text/html">
-
-                                <a href="#" area-id=""></a>
-
+                                {{ each areas as area }}
+                                <a href="#" area-id="{{area.area_id}}">{{area.name}}</a>
+                                {{ /each }}
                             </script>
                         </div>
                     </div>
