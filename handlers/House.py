@@ -45,10 +45,10 @@ class Indexhandler(BaseHandler):
                 }
                 houses.append(house)
             # 列表转成json数据
-            # json_houses = json.dumps(houses)
+            json_houses = json.dumps(houses)
             # 把数据保存在redis中
             try:
-                self.redis.setex("home_page_data", config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, houses)
+                self.redis.setex("home_page_data", config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, json_houses)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="02", msg="set redis error"))
@@ -80,23 +80,18 @@ class Indexhandler(BaseHandler):
                         "name": item['ai_name']
                     }
                     areas.append(area)
-            # json_areas = json.dumps(areas)
+            json_areas = json.dumps(areas)
             # 信息存入redis
             try:
-                self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, areas)
+                self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg=" get error from redis "))
         #data_info = dict(code="00", msg="ok", data=dict(houses=houses.decode(), areas=areas.decode()))
-        #data = {}
-        #data['houses'] = houses.decode()
-        #data['areas'] = areas.decode()
-        json_houses = json.dumps(houses.decode())
-        json_areas = json.dumps(areas.decode())
         data_info = {
             "code":"00",
             "msg":"ok",
-            "houses":json_houses.decode(),
-            "areas":json_areas.decode()
+            "houses":json_houses,
+            "areas":json_areas
         }
         return self.write(data_info)
