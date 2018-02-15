@@ -86,6 +86,17 @@ class Indexhandler(BaseHandler):
                 self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, areas)
             except Exception as e:
                 logging.error(e)
-                return self.write(dict(code="01", msg="get error from redis"))
-        data_info = dict(code="00", msg="ok", houses=json.loads(houses.decode()), areas=json.loads(areas.decode()))
+                return self.write(dict(code="01", msg=" get error from redis "))
+        #data_info = dict(code="00", msg="ok", data=dict(houses=houses.decode(), areas=areas.decode()))
+        #data = {}
+        #data['houses'] = houses.decode()
+        #data['areas'] = areas.decode()
+        json_houses = json.dumps(houses)
+        json_areas = json.dumps(areas)
+        data_info = {
+            "code":"00",
+            "msg":"ok",
+            "houses":json_houses,
+            "areas":json_areas
+        }
         return self.write(data_info)
