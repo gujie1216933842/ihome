@@ -19,7 +19,7 @@ class Indexhandler(BaseHandler):
             logging.error(e)
             ret = None
         if ret:
-            houses = ret
+            json_houses = ret
         else:
             # redis中没有数据,需要去数据库中捞取
             sql = " select hi_house_id,hi_title,hi_order_count,hi_index_image_url from ih_house_info " \
@@ -63,7 +63,7 @@ class Indexhandler(BaseHandler):
             ret = None
         # 如果取出数据,遍历
         if ret:
-            areas = ret
+            json_areas = ret
         else:
             # 如果过为空,需要在数据库中取
             sql = " select ai_area_id,ai_name from ih_area_info "
@@ -87,7 +87,6 @@ class Indexhandler(BaseHandler):
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg=" get error from redis "))
-        #data_info = dict(code="00", msg="ok", data=dict(houses=houses.decode(), areas=areas.decode()))
         data_info = {
             "code":"00",
             "msg":"ok",
