@@ -91,8 +91,8 @@ class Indexhandler(BaseHandler):
         #data = {}
         #data['houses'] = houses.decode()
         #data['areas'] = areas.decode()
-        json_houses = json.dumps(houses)
-        json_areas = json.dumps(areas)
+        json_houses = json.dumps(houses.decode())
+        json_areas = json.dumps(areas.decode())
         data_info = {
             "code":"00",
             "msg":"ok",
