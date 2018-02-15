@@ -87,5 +87,5 @@ class Indexhandler(BaseHandler):
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg="get error from redis"))
-        data_info = dict(code="00", msg="ok", houses=json.loads(houses), areas=json.loads(areas))
+        data_info = dict(code="00", msg="ok", houses=json.loads(houses.decode()), areas=json.loads(areas.decode()))
         return self.write(data_info)
