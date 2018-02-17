@@ -94,3 +94,72 @@ class Indexhandler(BaseHandler):
             "areas": json.loads(json_areas.decode())
         }
         return self.write(data_info)
+
+
+class HouseInfoHandle(BaseHandler):
+    '''
+    房屋信息
+    '''
+
+    def post(self):
+        """保存"""
+        # 获取参数
+        """{
+            "title":"",
+            "price":"",
+            "area_id":"1",
+            "address":"",
+            "room_count":"",
+            "acreage":"",
+            "unit":"",
+            "capacity":"",
+            "beds":"",
+            "deposit":"",
+            "min_days":"",
+            "max_days":"",
+            "facility":["7","8"]
+        }"""
+
+        title = self.get_argument('title')
+        price = self.get_argument('price')
+        area_id = self.get_argument('area_id')
+        address = self.get_argument('address')
+        room_count = self.get_argument('room_count')  # 出租房间数目
+        acreage = self.get_argument('acreage')  # 房屋面积
+        unit = self.get_argument('unit')  # 户型描述
+        capacity = self.get_argument('capacity')  # 宜住人数
+        beds = self.get_argument('beds')  # 床数量
+        deposit = self.get_argument('deposit')  # 押金数额
+        min_days = self.get_argument('min_days')  # 最少入住天数
+        max_days = self.get_argument('max_days')  # 最多入住天数
+        # facility = self.get_argument('facility')  # 配套设施
+        # 校验数据问题
+        if not all((title, price, area_id, address, room_count, acreage, unit, capacity, beds, deposit, min_days,
+                    max_days)):
+            return self.write(dict(code="01", msg="参数缺失"))
+
+        # 价格和金额先取整*100
+        try:
+            price = int(price) * 100
+            deposit = int(deposit) * 100
+        except Exception as e:
+            return self.write(dict(code="02", msg="参数错误"))
+
+        # 开始插入数据
+        sql = " insert into ih_house_info (title,price,area_id,address,room_count,acreage," \
+              " unit,capacity,beds,deposit,min_days,max_days) " \
+              " VALUES ( %(title)s , %(price)s , %(area_id)s , %(address)s , %(room_count)s" \
+              " %(acreage)s , %(unit)s , %(capacity)s , %(beds)s , %(deposit)s , " \
+              " %(min_days)s , %(max_days)s )"
+        try:
+            house_id = self.db.excut(sql, title=title, price=price, area_id=area_id, address=address,
+                                     room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
+                                     deposit=deposit, min_days=min_days, max_days=max_days )
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code="03",msg="save data error"))
+
+
+
+
+        #配套设施
