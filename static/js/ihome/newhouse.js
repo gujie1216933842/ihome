@@ -4,7 +4,7 @@ function getCookie(name) {
 }
 
 $(document).ready(function(){
-    $.get("/house/area", function (data) {
+    $.get("/house/areas", function (data) {
         if ("00" == data.code) {
             // html = template("area-tmpl", {areas: data.data});
             // $("#area-id").html(html);
