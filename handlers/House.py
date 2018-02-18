@@ -288,7 +288,18 @@ class HouseInfoHandle(BaseHandler):
         if not ret:
             for comment in comments:
                 comments.append(dict(
-                     user_name= comment['up_name'] if  comment['up_name'] != comment['up_mobile'] else "匿名用户",
-                     content=  comment['oi_comment']  ,
-                     ctime=   comment['oi_utime'].stftime["%Y-%m-%d %H:%M:%S"]
+                    user_name=comment['up_name'] if comment['up_name'] != comment['up_mobile'] else "匿名用户",
+                    content=comment['oi_comment'],
+                    ctime=comment['oi_utime'].stftime["%Y-%m-%d %H:%M:%S"]
                 ))
+
+        data['comments'] = comments
+
+        # 存入redis
+        json_data = json.dumps(data)
+        try:
+            self.redis.setex("house_info_%s" % (house_id), config.REDIS_HOUSE_INFO_EXPIRES_SECONDES, json_data)
+        except Exception as e:
+            logging.error(e)
+        resp = '{"errcode":"0", "errmsg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
+        self.write(resp)
