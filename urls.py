@@ -7,6 +7,7 @@ from utils.DIY_captcha import DIY_captcha
 urls = [
     (r"/house/index", House.Indexhandler),  #加载首页信息的接口
     (r"/house/myhouse", House.MyHouseHandler),  #加载我的房源接口
+    (r"/house/areas", House.AreaInfoHandler),  #加载我的房源接口
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
