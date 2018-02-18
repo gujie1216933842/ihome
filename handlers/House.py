@@ -6,14 +6,16 @@ import config
 import json
 from utils.common import require_logined
 
+
 class MyHouseHandler(BaseHandler):
     '''
     先在session中查询用户的用户id
     再通过userid去数据库中查询用户的房屋信息
     '''
+
     @require_logined
     def get(self):
-        user_id = self.sessison.data['user_id']
+        user_id = self.session.data['user_id']
         sql = "select a.hi_house_id,a.hi_title,a.hi_price,a.hi_ctime,b.ai_name,a.hi_index_image_url " \
               "from ih_house_info a inner join ih_area_info b on a.hi_area_id=b.ai_area_id where a.hi_user_id=%s;"
         try:
