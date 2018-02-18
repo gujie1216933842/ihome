@@ -7,7 +7,7 @@ $(document).ready(function(){
                 $(".auth-warn").show();
                 return;
             }
-            $.get("/api/house/my", function(result){
+            $.get("/house/myhouse", function(result){
                 $("#houses-list").html(template("houses-list-tmpl", {houses:result.houses}));
             });
         }
