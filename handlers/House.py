@@ -169,8 +169,8 @@ class HouseInfoHandle(BaseHandler):
             sql_value.append("(%s,s%)")
             values.append(house_id)
             values.append(facility_id)
-        sql += ",".join(sql_value)
-        values = tuple(values)
+        sql += ",".join(sql_value)  # 把列表中的字符串元素用","拼接在一起
+        values = tuple(values)  # 把列表数据转换成元组数据
         try:
             self.db.excute(sql, values)
         except Exception as e:
@@ -187,5 +187,29 @@ class HouseInfoHandle(BaseHandler):
 
         # 两个表中的数据都插入成功,返回成功的信息
         return self.write(dict(code="00", msg="ok"))
+
+    def get(self):
+        '''
+        获取房屋信息
+        :return:
+        '''
+        # 获取user_id 和 house_id 作为参数信息, user_id 在session中取,house_id在get参数上获取
+        user_id = self.session.data['user_id']
+        house_id = self.get_argument('house_id')
+
+        # 校验参数
+        if not house_id:
+            return self.write(dict(code="01", msg="参数缺失"))
+        #先从redis中获取缓存信息
+        try:
+            ret = self.redis.get("house_info_%s" % (house_id) )
+        except Exception as e:
+            logging.error(e)
+            #return  self.write(dict(code="02",msg="get error from redis"))
+            ret = None
+        #把获取到的房屋信息数据返回给前端
+            resp = '{"errcode":"0", "errmsg":"OK", "data":%s, "user_id":%s}' % (ret, user_id)
+            return self.write(resp)
+
 
 
