@@ -183,3 +183,11 @@ class AuthHandler(BaseHandler):
             return self.write(dict(code="bb", msg="数据库执行出错!"))
         # 实名认证成功,返回信息
         return self.write(dict(code="00", msg="ok,实名认证成功", data=dict(real_name=real_name, id_card=id_card)))
+
+
+class AuthHandler(BaseHandler):
+    def
+
+
+
+

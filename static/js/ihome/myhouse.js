@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $.get("/api/profile/auth", function(data){
-        if ("4101" == data.errcode) {
+    $.get("/profile/AuthHandler", function(data){
+        if ("aa" == data.code) {
             location.href = "/login.html";
-        } else if ("0" == data.errcode) {
+        } else if ("00" == data.code) {
             if ("" == data.data.real_name || "" == data.data.id_card || null == data.data.real_name || null == data.data.id_card) {
                 $(".auth-warn").show();
                 return;
