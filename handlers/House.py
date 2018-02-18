@@ -38,6 +38,46 @@ class MyHouseHandler(BaseHandler):
         return self.write(dict(code="00", msg="ok", data=houses))
 
 
+class AreaInfoHandler(BaseHandler):
+    def get(self):
+        '''
+        先到redis中取出数据,如果有数据,直接返回给前端,如果没有数据,就在数据库中去取,取出数据后,存在redis中,方便下次再取,返回给前端
+        :return:
+        '''
+        try:
+            ret = self.redis.get("area_info")
+        except Exception as e:
+            logging.error(e)
+            ret = None
+        # 如果能取到数据(数据存在)
+        if ret:
+            logging.info(" hit redis: area_info ")
+            return self.write(dict(code="00", msg="ok", data=ret))
+
+        # 如果redis中数据为空,需要去数据库中去取
+        sql = " select ai_area_id,ai_name from ih_area_info "
+        try:
+            ret = self.db.query(sql)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code="01", msg="get error from database"))
+        if not ret:
+            return self.write(dict(code="02", msg="get no data from database"))
+
+        # 成功取出数据,转换数据
+        areas = []
+        for area in areas:
+            areas.append(dict(area_id=area['ai_area_id'], ai_name=area['ai_name']))
+
+        # 在给用户返回数据之前,先在redis中保存一下副本
+        json_area = json.dumps(areas)
+        try:
+            self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_area)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code="00", msg="ok", data=areas))
+
+
 class Indexhandler(BaseHandler):
     def get(self):
         '''
