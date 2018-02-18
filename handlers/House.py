@@ -303,3 +303,6 @@ class HouseInfoHandle(BaseHandler):
             logging.error(e)
         resp = '{"errcode":"0", "errmsg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
         self.write(resp)
+
+
+
