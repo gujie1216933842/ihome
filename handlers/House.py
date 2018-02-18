@@ -132,7 +132,7 @@ class HouseInfoHandle(BaseHandler):
         deposit = self.get_argument('deposit')  # 押金数额
         min_days = self.get_argument('min_days')  # 最少入住天数
         max_days = self.get_argument('max_days')  # 最多入住天数
-        # facility = self.get_argument('facility')  # 配套设施
+        facility = self.get_argument('facility')  # 配套设施,取出的是一个列表
         # 校验数据问题
         if not all((title, price, area_id, address, room_count, acreage, unit, capacity, beds, deposit, min_days,
                     max_days)):
@@ -154,12 +154,38 @@ class HouseInfoHandle(BaseHandler):
         try:
             house_id = self.db.excut(sql, title=title, price=price, area_id=area_id, address=address,
                                      room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
-                                     deposit=deposit, min_days=min_days, max_days=max_days )
+                                     deposit=deposit, min_days=min_days, max_days=max_days)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code="03",msg="save data error"))
+            return self.write(dict(code="03", msg="save data error"))
+
+        # 配套设施   插入的是ih_house_facility
+        # 多条记录同时插入
+        sql = " insert into ih_house_facility() VALUES "
+        sql_value = []  # 用来保存(%s,%s)部分,最终的形式['(%s,%s)','(%s,%s)']
+        values = []  # 用来保存具体绑定的变量值
+        # 前端传到后台的facility是一个列表[],遍历列表
+        for facility_id in facility:
+            sql_value.append("(%s,s%)")
+            values.append(house_id)
+            values.append(facility_id)
+        sql += ",".join(sql_value)
+        values = tuple(values)
+        try:
+            self.db.excute(sql, values)
+        except Exception as e:
+            logging.error(e)
+            # 执行失败,需要回滚,因为toradb.py自身没有带事务机制,需要手动回滚
+            # 这里手动回滚:就是把前面成功插入的数据要删除
+            try:
+                self.db.excute(" delete from ih_house_info WHERE  ih_house_id = %s", house_id)
+            except Exception as e:
+                logging.error(e)
+                return self.write(dict(code="03", msg="delete fail"))
+            else:
+                return self.write(dict(code="04", msg="rollback success"))
+
+        # 两个表中的数据都插入成功,返回成功的信息
+        return self.write(dict(code="00", msg="ok"))
 
 
-
-
-        #配套设施
