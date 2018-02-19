@@ -225,7 +225,7 @@ class HouseInfoHandle(BaseHandler):
 
         # 开始插入数据
         sql = " insert into ih_house_info (hi_title,hi_price,hi_area_id,hi_address,hi_room_count,hi_acreage," \
-              " hi_unit,hi_capacity,hi_beds,hi_deposit,hi_min_days,hi_max_days) " \
+              " hi_house_unit,hi_capacity,hi_beds,hi_deposit,hi_min_days,hi_max_days) " \
               " VALUES ( %(title)s , %(price)s , %(area_id)s , %(address)s , %(room_count)s," \
               " %(acreage)s , %(unit)s , %(capacity)s , %(beds)s , %(deposit)s , " \
               " %(min_days)s , %(max_days)s )"
