@@ -81,7 +81,7 @@ class AreaInfoHandler(BaseHandler):
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="03", msg="set redis error"))
-        return self.write(dict(code="00", msg="ok", data=json_areas))
+        return self.write(dict(code="00", msg="ok", data=areas))
 
 
 class Indexhandler(BaseHandler):
