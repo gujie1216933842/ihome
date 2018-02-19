@@ -36,7 +36,7 @@ $(document).ready(function(){
             url:"/house/info",
             type:"POST",
             data: jsonData,
-            contentType: "application/json",
+            //contentType: "application/json",
             dataType: "json",
             headers:{
                 "X-XSRFTOKEN":getCookie("_xsrf"),
