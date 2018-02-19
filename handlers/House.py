@@ -67,7 +67,7 @@ class AreaInfoHandler(BaseHandler):
 
         # 成功取出数据,转换数据
         areas = []
-        for area in areas:
+        for area in ret:
             areas.append(dict(area_id=area['ai_area_id'], ai_name=area['ai_name']))
 
         # 在给用户返回数据之前,先在redis中保存一下副本
