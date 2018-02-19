@@ -71,13 +71,13 @@ class AreaInfoHandler(BaseHandler):
             areas.append(dict(area_id=area['ai_area_id'], name=area['ai_name']))
 
         # 在给用户返回数据之前,先在redis中保存一下副本
-        json_area = json.dumps(areas)
+        json_areas = json.dumps(areas)
         try:
-            self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_area)
+            self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="03", msg="set redis error"))
-        return self.write(dict(code="00", msg="ok", data=areas))
+        return self.write(dict(code="00", msg="ok", data=json_areas))
 
 
 class Indexhandler(BaseHandler):
