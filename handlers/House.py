@@ -230,7 +230,7 @@ class HouseInfoHandle(BaseHandler):
               " %(acreage)s , %(unit)s , %(capacity)s , %(beds)s , %(deposit)s , " \
               " %(min_days)s , %(max_days)s )"
         try:
-            house_id = self.db.excute(sql, title=title, price=price, area_id=area_id, address=address,
+            house_id = self.db.execute(sql, title=title, price=price, area_id=area_id, address=address,
                                      room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
                                      deposit=deposit, min_days=min_days, max_days=max_days)
         except Exception as e:
@@ -251,13 +251,13 @@ class HouseInfoHandle(BaseHandler):
         sql += ",".join(sql_value)  # 把列表中的字符串元素用","拼接在一起
         values = tuple(values)  # 把列表数据转换成元组数据
         try:
-            self.db.excute(sql, values)
+            self.db.execute(sql, values)
         except Exception as e:
             logging.error(e)
             # 执行失败,需要回滚,因为toradb.py自身没有带事务机制,需要手动回滚
             # 这里手动回滚:就是把前面成功插入的数据要删除
             try:
-                self.db.excute(" delete from ih_house_info WHERE  ih_house_id = %s", house_id)
+                self.db.execute(" delete from ih_house_info WHERE  ih_house_id = %s", house_id)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="03", msg="delete fail"))
