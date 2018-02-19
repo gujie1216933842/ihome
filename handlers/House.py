@@ -241,7 +241,7 @@ class HouseInfoHandle(BaseHandler):
 
         # 配套设施   插入的是ih_house_facility
         # 多条记录同时插入
-        sql = " insert into ih_house_facility() VALUES "
+        sql = " insert into ih_house_facility( hf_house_id , hf_facility_id ) VALUES "
         sql_value = []  # 用来保存(%s,%s)部分,最终的形式['(%s,%s)','(%s,%s)']
         values = []  # 用来保存具体绑定的变量值
         # 前端传到后台的facility是一个列表[],遍历列表
@@ -255,16 +255,17 @@ class HouseInfoHandle(BaseHandler):
             self.db.execute(sql, values)
         except Exception as e:
             logging.error(e)
+            logging.info("rollback begin!")
             # 执行失败,需要回滚,因为toradb.py自身没有带事务机制,需要手动回滚
             # 这里手动回滚:就是把前面成功插入的数据要删除
             try:
                 self.db.execute(" delete from ih_house_info WHERE  ih_house_id = %s", house_id)
             except Exception as e:
                 logging.error(e)
-                return self.write(dict(code="03", msg="delete fail"))
+                return self.write(dict(code="03", msg="delete failed , rollback failed"))
             else:
                 return self.write(dict(code="04", msg="rollback success"))
-
+        logging.info(" ih_house_facility insert fail ")
         # 两个表中的数据都插入成功,返回成功的信息
         return self.write(dict(code="00", msg="ok"))
 
