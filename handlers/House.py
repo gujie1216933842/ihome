@@ -198,19 +198,19 @@ class HouseInfoHandle(BaseHandler):
             "facility":["7","8"]
         }"""
 
-        title = self.get_argument('title')
-        price = self.get_argument('price')
-        area_id = self.get_argument('area_id')
-        address = self.get_argument('address')
-        room_count = self.get_argument('room_count')  # 出租房间数目
-        acreage = self.get_argument('acreage')  # 房屋面积
-        unit = self.get_argument('unit')  # 户型描述
-        capacity = self.get_argument('capacity')  # 宜住人数
-        beds = self.get_argument('beds')  # 床数量
-        deposit = self.get_argument('deposit')  # 押金数额
-        min_days = self.get_argument('min_days')  # 最少入住天数
-        max_days = self.get_argument('max_days')  # 最多入住天数
-        facility = self.get_argument('facility')  # 配套设施,取出的是一个列表
+        title = self.json_args('title')
+        price = self.json_args('price')
+        area_id = self.json_args('area_id')
+        address = self.json_args('address')
+        room_count = self.json_args('room_count')  # 出租房间数目
+        acreage = self.json_args('acreage')  # 房屋面积
+        unit = self.json_args('unit')  # 户型描述
+        capacity = self.json_args('capacity')  # 宜住人数
+        beds = self.json_args('beds')  # 床数量
+        deposit = self.json_args('deposit')  # 押金数额
+        min_days = self.json_args('min_days')  # 最少入住天数
+        max_days = self.json_args('max_days')  # 最多入住天数
+        facility = self.json_args('facility')  # 配套设施,取出的是一个列表
         # 校验数据问题
         if not all((title, price, area_id, address, room_count, acreage, unit, capacity, beds, deposit, min_days,
                     max_days)):
