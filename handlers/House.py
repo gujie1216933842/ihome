@@ -178,7 +178,7 @@ class HouseInfoHandle(BaseHandler):
     '''
     房屋信息
     '''
-
+    @require_logined
     def post(self):
         """保存"""
         # 获取参数
@@ -222,17 +222,18 @@ class HouseInfoHandle(BaseHandler):
             deposit = int(deposit) * 100
         except Exception as e:
             return self.write(dict(code="02", msg="参数错误"))
-
+        #在session中获取用户id
+        user_id = self.session.data['user_id']
         # 开始插入数据
         sql = " insert into ih_house_info (hi_title,hi_price,hi_area_id,hi_address,hi_room_count,hi_acreage," \
-              " hi_house_unit,hi_capacity,hi_beds,hi_deposit,hi_min_days,hi_max_days) " \
+              " hi_house_unit,hi_capacity,hi_beds,hi_deposit,hi_min_days,hi_max_days,hi_user_id) " \
               " VALUES ( %(title)s , %(price)s , %(area_id)s , %(address)s , %(room_count)s," \
               " %(acreage)s , %(unit)s , %(capacity)s , %(beds)s , %(deposit)s , " \
-              " %(min_days)s , %(max_days)s )"
+              " %(min_days)s , %(max_days)s ,%(user_id)s)"
         try:
             house_id = self.db.execute(sql, title=title, price=price, area_id=area_id, address=address,
                                      room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
-                                     deposit=deposit, min_days=min_days, max_days=max_days)
+                                     deposit=deposit, min_days=min_days, max_days=max_days,user_id=user_id)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="03", msg="save data error"))
