@@ -230,12 +230,13 @@ class HouseInfoHandle(BaseHandler):
               " %(acreage)s , %(unit)s , %(capacity)s , %(beds)s , %(deposit)s , " \
               " %(min_days)s , %(max_days)s )"
         try:
-            house_id = self.db.excut(sql, title=title, price=price, area_id=area_id, address=address,
+            house_id = self.db.excute(sql, title=title, price=price, area_id=area_id, address=address,
                                      room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
                                      deposit=deposit, min_days=min_days, max_days=max_days)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="03", msg="save data error"))
+        logging.info("ih_house_info  insert success!")
 
         # 配套设施   插入的是ih_house_facility
         # 多条记录同时插入
