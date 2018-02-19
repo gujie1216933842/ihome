@@ -52,8 +52,12 @@ class AreaInfoHandler(BaseHandler):
         # 如果能取到数据(数据存在)
         if ret:
             logging.info(" hit redis: area_info ")
-            resp = '{"code":"00", "msg":"OK", "data":%s}' % ret
-            return self.write(json.dumps(resp))
+            resp = {
+                "code":"00",
+                "msg":"ok",
+                "data":json.loads(ret.decode())
+            }
+            return self.write(resp)
 
         # 如果redis中数据为空,需要去数据库中去取
         sql = " select ai_area_id,ai_name from ih_area_info "
