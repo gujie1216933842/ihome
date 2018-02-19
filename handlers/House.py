@@ -246,7 +246,7 @@ class HouseInfoHandle(BaseHandler):
         values = []  # 用来保存具体绑定的变量值
         # 前端传到后台的facility是一个列表[],遍历列表
         for facility_id in facility:
-            sql_value.append("(%s,s%)")
+            sql_value.append("(%s,%s)")
             values.append(house_id)
             values.append(facility_id)
         sql += ",".join(sql_value)  # 把列表中的字符串元素用","拼接在一起
