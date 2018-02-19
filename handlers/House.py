@@ -260,7 +260,7 @@ class HouseInfoHandle(BaseHandler):
             # 执行失败,需要回滚,因为toradb.py自身没有带事务机制,需要手动回滚
             # 这里手动回滚:就是把前面成功插入的数据要删除
             try:
-                self.db.execute(" delete from ih_house_info WHERE  ih_house_id = %s", house_id)
+                self.db.execute(" delete from ih_house_info WHERE  hi_house_id = %s", house_id)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="03", msg="delete failed , rollback failed"))
