@@ -53,7 +53,7 @@ class AreaInfoHandler(BaseHandler):
         if ret:
             logging.info(" hit redis: area_info ")
             resp = '{"code":"00", "msg":"OK", "data":%s}' % ret
-            return self.write(resp)
+            return self.write(json.dumps(resp))
 
         # 如果redis中数据为空,需要去数据库中去取
         sql = " select ai_area_id,ai_name from ih_area_info "
@@ -68,7 +68,7 @@ class AreaInfoHandler(BaseHandler):
         # 成功取出数据,转换数据
         areas = []
         for area in ret:
-            areas.append(dict(area_id=area['ai_area_id'], ai_name=area['ai_name']))
+            areas.append(dict(area_id=area['ai_area_id'], name=area['ai_name']))
 
         # 在给用户返回数据之前,先在redis中保存一下副本
         json_area = json.dumps(areas)
