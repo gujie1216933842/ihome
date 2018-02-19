@@ -253,7 +253,7 @@ class HouseInfoHandle(BaseHandler):
         values = tuple(values)  # 把列表数据转换成元组数据
         logging.info("sql语句: %s" % (sql))
         try:
-            self.db.execute(sql, values)
+            self.db.execute(sql, *values)
         except Exception as e:
             logging.error(e)
             logging.info("rollback begin!")
