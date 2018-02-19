@@ -76,7 +76,8 @@ class AreaInfoHandler(BaseHandler):
             self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_area)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code="00", msg="ok", data=areas))
+            return self.write(dict(code="03", msg="set redis error"))
+        return self.write(dict(code="00", msg="ok", data=areas))
 
 
 class Indexhandler(BaseHandler):
