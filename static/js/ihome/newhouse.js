@@ -33,7 +33,7 @@ $(document).ready(function(){
         data.facility = facility;
         var jsonData = JSON.stringify(data);
         $.ajax({
-            url:"/api/house/info",
+            url:"/house/info",
             type:"POST",
             data: jsonData,
             contentType: "application/json",
@@ -42,9 +42,9 @@ $(document).ready(function(){
                 "X-XSRFTOKEN":getCookie("_xsrf"),
             },
             success: function (data) {
-                if ("4101" == data.errcode) {
+                if ("aa" == data.code) {
                     location.href = "/login.html";
-                } else if ("0" == data.errcode) {
+                } else if ("00" == data.code) {
                     $("#house-id").val(data.house_id);
                     $(".error-msg").hide();
                     $("#form-house-info").hide();
