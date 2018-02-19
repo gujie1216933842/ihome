@@ -224,8 +224,8 @@ class HouseInfoHandle(BaseHandler):
             return self.write(dict(code="02", msg="参数错误"))
 
         # 开始插入数据
-        sql = " insert into ih_house_info (title,price,area_id,address,room_count,acreage," \
-              " unit,capacity,beds,deposit,min_days,max_days) " \
+        sql = " insert into ih_house_info (hi_title,hi_price,hi_area_id,hi_address,hi_room_count,hi_acreage," \
+              " hi_unit,hi_capacity,hi_beds,hi_deposit,hi_min_days,hi_max_days) " \
               " VALUES ( %(title)s , %(price)s , %(area_id)s , %(address)s , %(room_count)s" \
               " %(acreage)s , %(unit)s , %(capacity)s , %(beds)s , %(deposit)s , " \
               " %(min_days)s , %(max_days)s )"
