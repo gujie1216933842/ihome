@@ -6,12 +6,12 @@ function getCookie(name) {
 $(document).ready(function(){
     $.get("/house/areas", function (data) {
         if ("00" == data.code) {
-            // html = template("area-tmpl", {areas: data.data});
-            // $("#area-id").html(html);
-            // console.log(html);
-            for (var i=0; i<data.data.length; i++) {
+            html = template("area-tmpl", {areas: data.data});
+            $("#area-id").html(html);
+            //console.log(html);
+           /* for (var i=0; i<data.data.length; i++) {
                 $("#area-id").append('<option value="'+data.data[i].area_id+'">'+data.data[i].name+'</option>');
-            }
+            }*/
         }
     }, "json")
 
