@@ -57,16 +57,16 @@ $(document).ready(function(){
         e.preventDefault();
         $('.popup_con').fadeIn('fast');
         var options = {
-            url:"/api/house/image",
+            url:"/house/image",
             type:"POST",
             headers:{
                 "X-XSRFTOKEN":getCookie("_xsrf"),
             },
             success: function(data){
-                if ("4101" == data.errcode) {
+                if ("aa" == data.code) {
                     location.href = "/login.html";
-                } else if ("0" == data.errcode) {
-                    $(".house-image-cons").append('<img src="'+ data.url+'">');
+                } else if ("00" == data.code) {
+                    $(".house-image-cons").append('<img src="'+ data.data+'">');
                     $('.popup_con').fadeOut('fast');
                 }
             }

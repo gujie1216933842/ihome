@@ -5,6 +5,7 @@ import logging
 import config
 import json
 from utils.common import require_logined
+from utils.image_storage import storage
 
 
 class MyHouseHandler(BaseHandler):
@@ -36,6 +37,45 @@ class MyHouseHandler(BaseHandler):
                     "img_url": config.qiniu_url + house["hi_index_image_url"] if house["hi_index_image_url"] else ""
                 })
         return self.write(dict(code="00", msg="ok", data=houses))
+
+
+
+
+class HouseImageHandler(BaseHandler):
+    @require_logined
+    def post(self, *args, **kwargs):
+        '''
+        头像上传接口
+        '''
+        # 接受上传的数据
+        house_id = self.get_argument("house_id")
+        try:
+            image_data = self.request.files['house_image'][0]['body']
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code='bb', msg='前端向后台传输图片失败'))
+        # 如果后台接收到图片数据,把图片数据作为参数传递给封装好的七牛接口
+        try:
+            key = storage(image_data)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code='cc', msg="向七牛传递数据出错"))
+        # 七牛上传图片成功,拿到返回的key,把key保存到数据库
+        sql = "update ih_house_image set hi_url = %(hi_url)s where hi_house_id = %(house_id)s "
+        try:
+            row_count = self.db.execute_rowcount(sql, hi_url=key, house_id=house_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code="dd", msg="更新数据库图片失败"))
+        # 保存成功,修改session中的头像图片
+        self.session.data['avatar'] = "%s%s" % (config.qiniu_url, key)
+        self.session.save()
+        return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
+
+
+
+
+
 
 
 class AreaInfoHandler(BaseHandler):
