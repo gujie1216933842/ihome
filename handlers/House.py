@@ -251,6 +251,9 @@ class HouseInfoHandle(BaseHandler):
             values.append(facility_id)
         sql += ",".join(sql_value)  # 把列表中的字符串元素用","拼接在一起
         values = tuple(values)  # 把列表数据转换成元组数据
+        logging.info("sql语句: %s" % (sql))
+        logging.info("参数: %s" % (values))
+
         try:
             self.db.execute(sql, values)
         except Exception as e:
