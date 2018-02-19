@@ -20,7 +20,7 @@ class BaseHandler(RequestHandler):
     def prepare(self):
         """预解析json数据"""
         if self.request.headers.get("Content-Type", "").startswith("application/json"):
-            self.json_args = json.loads(self.request.body)
+            self.json_args = json.loads(self.request.body.decode())
         else:
             self.json_args = {}
 
