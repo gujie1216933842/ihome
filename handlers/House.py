@@ -39,8 +39,6 @@ class MyHouseHandler(BaseHandler):
         return self.write(dict(code="00", msg="ok", data=houses))
 
 
-
-
 class HouseImageHandler(BaseHandler):
     @require_logined
     def post(self, *args, **kwargs):
@@ -53,29 +51,40 @@ class HouseImageHandler(BaseHandler):
             image_data = self.request.files['house_image'][0]['body']
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code='bb', msg='前端向后台传输图片失败'))
+            return self.write(dict(code='01', msg='前端向后台传输图片失败'))
         # 如果后台接收到图片数据,把图片数据作为参数传递给封装好的七牛接口
         try:
             key = storage(image_data)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code='cc', msg="向七牛传递数据出错"))
+            return self.write(dict(code='02', msg="向七牛传递数据出错"))
         # 七牛上传图片成功,拿到返回的key,把key保存到数据库
-        sql = "update ih_house_image set hi_url = %(hi_url)s where hi_house_id = %(house_id)s "
+        # 两步操作,也要用到数据库回滚
+        # 1.在ih_house_image表中插入每一张的图片信息
+        sql = " insert into ih_house_image ( hi_house_id,hi_url) VALUES (%(house_id)s,%(url)s)"
         try:
-            row_count = self.db.execute_rowcount(sql, hi_url=key, house_id=house_id)
+            image_id = self.db.execute_rowcount(sql, house_id=house_id, url=key)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code="dd", msg="更新数据库图片失败"))
-        # 保存成功,修改session中的头像图片
-        self.session.data['avatar'] = "%s%s" % (config.qiniu_url, key)
-        self.session.save()
+            return self.write(dict(code="03", msg="表ih_house_image插入数据失败"))
+        logging.info("表ih_house_image数据插入成功")
+        # 表ih_house_info中的hi_index_image_url字段(房屋的主图片)插入数据
+        sql = " update ih_house_info set hi_index_image_url = %s where hi_house_id = %s and hi_index_image_url = null "
+        try:
+            self.db.execute(sql, key, house_id)
+        except Exception as e:
+            logging.error(e)
+            logging.info("表ih_house_info表图片字段insert failed  , rollback begin")
+            # 开始把第一次插入的数据删除
+            try:
+                self.db.execute(" delete from ih_house_image where hi_image_id = %s ", image_id)
+            except Exception as e:
+                logging.error(e)
+                logging.info(" rollback failed ,删除失败! ")
+                return self.write(dict(code="04",msg="rollback 失败"))
+            else:
+                logging.info(" rollback success! ")
         return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
-
-
-
-
-
 
 
 class AreaInfoHandler(BaseHandler):
@@ -93,9 +102,9 @@ class AreaInfoHandler(BaseHandler):
         if ret:
             logging.info(" hit redis: area_info ")
             resp = {
-                "code":"00",
-                "msg":"ok",
-                "data":json.loads(ret.decode())
+                "code": "00",
+                "msg": "ok",
+                "data": json.loads(ret.decode())
             }
             return self.write(resp)
 
@@ -218,6 +227,7 @@ class HouseInfoHandle(BaseHandler):
     '''
     房屋信息
     '''
+
     @require_logined
     def post(self):
         """保存"""
@@ -262,7 +272,7 @@ class HouseInfoHandle(BaseHandler):
             deposit = int(deposit) * 100
         except Exception as e:
             return self.write(dict(code="02", msg="参数错误"))
-        #在session中获取用户id
+        # 在session中获取用户id
         user_id = self.session.data['user_id']
         # 开始插入数据
         sql = " insert into ih_house_info (hi_title,hi_price,hi_area_id,hi_address,hi_room_count,hi_acreage," \
@@ -272,8 +282,8 @@ class HouseInfoHandle(BaseHandler):
               " %(min_days)s , %(max_days)s ,%(user_id)s)"
         try:
             house_id = self.db.execute(sql, title=title, price=price, area_id=area_id, address=address,
-                                     room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
-                                     deposit=deposit, min_days=min_days, max_days=max_days,user_id=user_id)
+                                       room_count=room_count, acreage=acreage, unit=unit, capacity=capacity, beds=beds,
+                                       deposit=deposit, min_days=min_days, max_days=max_days, user_id=user_id)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="03", msg="save data error"))
