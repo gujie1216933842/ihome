@@ -81,7 +81,7 @@ class HouseImageHandler(BaseHandler):
             except Exception as e:
                 logging.error(e)
                 logging.info(" rollback failed ,删除失败! ")
-                return self.write(dict(code="04",msg="rollback 失败"))
+                return self.write(dict(code="04", msg="rollback 失败"))
             else:
                 logging.info(" rollback success! ")
         return self.write(dict(code="00", msg="ok", data="%s%s" % (config.qiniu_url, key)))
