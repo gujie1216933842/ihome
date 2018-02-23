@@ -8,7 +8,7 @@ $(document).ready(function(){
                 return;
             }
             $.get("/house/myhouse", function(result){
-                $("#houses-list").html(template("houses-list-tmpl", {houses:result.houses}));
+                $("#houses-list").html(template("houses-list-tmpl", {houses:result.data}));
             });
         }
     });
