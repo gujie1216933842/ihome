@@ -45,7 +45,7 @@ $(document).ready(function(){
                 if ("aa" == data.code) {
                     location.href = "/login.html";
                 } else if ("00" == data.code) {
-                    $("#house-id").val(data.house_id);
+                    $("#house-id").val(data.data.house_id);
                     $(".error-msg").hide();
                     $("#form-house-info").hide();
                     $("#form-house-image").show();
