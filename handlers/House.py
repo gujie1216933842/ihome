@@ -330,6 +330,8 @@ class HouseInfoHandle(BaseHandler):
         # 获取user_id 和 house_id 作为参数信息, user_id 在session中取,house_id在get参数上获取
         user_id = self.session.data['user_id']
         house_id = self.get_argument('house_id')
+        logging.info("用户id: %s" % (user_id))
+        logging.info("房屋id: %s" % (house_id))
 
         # 校验参数
         if not house_id:
@@ -337,6 +339,7 @@ class HouseInfoHandle(BaseHandler):
         # 先从redis中获取缓存信息
         try:
             ret = self.redis.get("house_info_%s" % (house_id))
+            logging.info("redis中捞取的结果:%s" % (ret))
         except Exception as e:
             logging.error(e)
             # return  self.write(dict(code="02",msg="get error from redis"))
@@ -346,6 +349,7 @@ class HouseInfoHandle(BaseHandler):
             return self.write(resp)
 
         # 如果redis中没有数据,则需要去查看数据库 (连表)
+        logging.info("redis中没有数据,需要去数据库中查询")
         sql = "select hi_title,hi_price,hi_address,hi_room_count,hi_acreage,hi_house_unit,hi_capacity,hi_beds," \
               "hi_deposit,hi_min_days,hi_max_days,up_name,up_avatar,hi_user_id " \
               "from ih_house_info inner join ih_user_profile on hi_user_id=up_user_id where hi_house_id=%s "
