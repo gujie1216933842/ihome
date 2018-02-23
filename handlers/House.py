@@ -62,7 +62,7 @@ class HouseImageHandler(BaseHandler):
         # 七牛上传图片成功,拿到返回的key,把key保存到数据库
         # 两步操作,也要用到数据库回滚
         # 1.在ih_house_image表中插入每一张的图片信息
-        sql = " insert into ih_house_image ( hi_house_id,hi_url) VALUES (%(house_id)s,%(url)s)"
+        sql = " insert into ih_house_image ( hi_house_id,hi_url,hi_ctime) VALUES (%(house_id)s,%(url)s,now())"
         try:
             image_id = self.db.execute_rowcount(sql, house_id=house_id, url=key)
         except Exception as e:
