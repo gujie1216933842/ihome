@@ -319,7 +319,7 @@ class HouseInfoHandle(BaseHandler):
                 return self.write(dict(code="04", msg="rollback success"))
         logging.info(" ih_house_facility insert fail ")
         # 两个表中的数据都插入成功,返回成功的信息
-        return self.write(dict(code="00", msg="ok"))
+        return self.write(dict(code="00", msg="ok", house_id=house_id))
 
     def get(self):
         '''
