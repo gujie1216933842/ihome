@@ -18,7 +18,7 @@ class MyHouseHandler(BaseHandler):
     def get(self):
         user_id = self.session.data['user_id']
         sql = "select a.hi_house_id,a.hi_title,a.hi_price,a.hi_ctime,b.ai_name,a.hi_index_image_url " \
-              "from ih_house_info a inner join ih_area_info b on a.hi_area_id=b.ai_area_id where a.hi_user_id=%s;"
+              "from ih_house_info a inner join ih_area_info b on a.hi_area_id=b.ai_area_id where a.hi_user_id=%s"
         try:
             ret = self.db.query(sql, user_id)
         except Exception as e:
@@ -27,7 +27,7 @@ class MyHouseHandler(BaseHandler):
         # 如果能取出数据
         houses = []
         if ret:
-            for house in houses:
+            for house in ret:
                 houses.append({
                     "house_id": house["hi_house_id"],
                     "title": house["hi_title"],
