@@ -72,6 +72,7 @@ class HouseImageHandler(BaseHandler):
         # 表ih_house_info中的hi_index_image_url字段(房屋的主图片)插入数据
         sql = " update ih_house_info set hi_index_image_url = %s where hi_house_id = %s and hi_index_image_url = null "
         try:
+            logging.info("开始更新表ih_house_info里的hi_index_image_url字段")
             self.db.execute(sql, key, house_id)
         except Exception as e:
             logging.error(e)
