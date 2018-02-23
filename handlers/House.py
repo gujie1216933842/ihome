@@ -43,10 +43,11 @@ class HouseImageHandler(BaseHandler):
     @require_logined
     def post(self, *args, **kwargs):
         '''
-        头像上传接口
+        我的房屋图像上传接口
         '''
         # 接受上传的数据
         house_id = self.get_argument("house_id")
+        logging.info("house_id: %s" % (house_id))
         try:
             image_data = self.request.files['house_image'][0]['body']
         except Exception as e:
