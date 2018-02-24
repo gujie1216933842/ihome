@@ -26,8 +26,8 @@ function showErrorMsg(msg) {
 }
 
 $(document).ready(function(){
-    $.get("/api/check_login", function(data) {
-        if ("0" != data.errcode) {
+    $.get("/order/checklogin", function(data) {
+        if ("00" != data.code) {
             location.href = "/login.html";
         }
     }, "json");

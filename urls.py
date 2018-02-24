@@ -12,6 +12,7 @@ urls = [
     (r"/house/image", House.HouseImageHandler),  #上传房屋图片接口
 
     (r"/house/list", House.HouseList),  #搜索房屋列表
+    (r"/order/checklogin", Passport.CheckLoginHandler),  #订单页面检查是登录接口
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),

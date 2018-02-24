@@ -16,6 +16,6 @@ class IndexHandler(BaseHandler):
 class CheckLoginHandler(BaseHandler):
     def get(self):
         if not self.get_current_user():
-            return self.write(dict(code='01', msg='false'))
+            return self.write(dict(code='aa', msg='no login'))
         else:
-            return self.write(dict(code='00', msg="true", data=dict(name=self.session.data.get('name'))))
+            return self.write(dict(code='00', msg="ok", data=dict(name=self.session.data.get('name'))))
