@@ -37,7 +37,7 @@ function updateHouseData(action="append") {
         sk:sortKey,
         p:next_page
     };
-    $.get("/house/list2", params, function(data){
+    $.get("/house/list", params, function(data){
         house_data_querying = false;
         if ("00" == data.code) {
             if (0 == data.total_page) {
