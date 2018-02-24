@@ -10,7 +10,7 @@ class IndexHandler(BaseHandler):
         # logging.warning('warning msg')
         logging.error('error msg')
         self.render('index.html')
-        #self.write('欢迎来到tornado的世界!')
+        # self.write('欢迎来到tornado的世界!')
 
 
 class CheckLoginHandler(BaseHandler):
@@ -18,4 +18,4 @@ class CheckLoginHandler(BaseHandler):
         if not self.get_current_user():
             return self.write(dict(code='aa', msg='no login'))
         else:
-            return self.write(dict(code='00', msg="ok", data=dict(name=self.session.data.get('name'))))
+            return self.write(dict(code='00', msg="ok"))
