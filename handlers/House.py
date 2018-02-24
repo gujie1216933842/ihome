@@ -408,11 +408,11 @@ class HouseInfoHandle(BaseHandler):
             ret = None
 
         # 如果查到基本设施信息
-        facilitys = []
+        facilities = []
         if ret:
             for facility in ret:
-                facilitys.append(facility['hf_facility_id'])
-        data['facilitys'] = facilitys
+                facilities.append(facility['hf_facility_id'])
+        data['facilities'] = facilities
 
         # 查询评论信息
         sql = "select oi_comment,up_name,oi_utime,up_mobile from ih_order_info inner join ih_user_profile " \
