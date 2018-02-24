@@ -323,6 +323,7 @@ class HouseInfoHandle(BaseHandler):
         # 两个表中的数据都插入成功,返回成功的信息
         return self.write(dict(code="00", msg="ok", house_id=house_id))
 
+    @require_logined
     def get(self):
         '''
         获取房屋信息
