@@ -441,5 +441,5 @@ class HouseInfoHandle(BaseHandler):
             self.redis.setex("house_info_%s" % (house_id), config.REDIS_HOUSE_INFO_EXPIRES_SECONDES, json_data)
         except Exception as e:
             logging.error(e)
-        resp = '{"errcode":"0", "errmsg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
+        resp = '{"code":"00", "msg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
         self.write(resp)
