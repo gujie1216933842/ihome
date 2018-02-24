@@ -67,8 +67,8 @@ $(document).ready(function(){
     if (!areaName) areaName = "位置区域";
     $(".filter-title-bar>.filter-title").eq(1).children("span").eq(0).html(areaName);
 
-    $.get("/api/house/area", function(data){
-        if ("0" == data.errcode) {
+    $.get("/house/area", function(data){
+        if ("00" == data.code) {
             var areaId = queryData["aid"];
             if (areaId) {
                 for (var i=0; i<data.data.length; i++) {
