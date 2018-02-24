@@ -33,7 +33,7 @@ class MyHouseHandler(BaseHandler):
                     "house_id": house["hi_house_id"],
                     "title": house["hi_title"],
                     "price": house["hi_price"],
-                    "ctime": house["hi_ctime"],  # 将返回的Datatime类型格式化为字符串
+                    "ctime": datetime.datetime.strftime(house["hi_ctime"], "%Y-%m-%d %H:%M:%S"),
                     "area_name": house["ai_name"],
                     "img_url": config.qiniu_url + house["hi_index_image_url"] if house["hi_index_image_url"] else ""
                 })
