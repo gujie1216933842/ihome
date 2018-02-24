@@ -33,7 +33,7 @@ class MyHouseHandler(BaseHandler):
                     "house_id": house["hi_house_id"],
                     "title": house["hi_title"],
                     "price": house["hi_price"],
-                    "ctime": datetime.datetime.strptime(house["hi_ctime"], "%Y-%m-%d %H:%M:%S"),
+                    "ctime": house["hi_ctime"].strftime('%Y-%m-%d'),
                     "area_name": house["ai_name"],
                     "img_url": config.qiniu_url + house["hi_index_image_url"] if house["hi_index_image_url"] else ""
                 })
