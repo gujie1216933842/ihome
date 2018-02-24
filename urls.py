@@ -1,4 +1,4 @@
-from handlers import Passport, IndexHandler,House,RegisterHandler,VerifyCode,ProfileHandler
+from handlers import Passport, IndexHandler,House,RegisterHandler,VerifyCode,ProfileHandler,Orders
 from config import setting
 import os
 from handlers.BaseHandler import StaticFileBaseHandler as StaticFileHandler
@@ -12,7 +12,9 @@ urls = [
     (r"/house/image", House.HouseImageHandler),  #上传房屋图片接口
 
     (r"/house/list", House.HouseList),  #搜索房屋列表
+
     (r"/order/checklogin", Passport.CheckLoginHandler),  #订单页面检查是登录接口
+    (r"/order/order", Orders.OrderHandler),  #提交订单接口
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
