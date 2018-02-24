@@ -503,5 +503,47 @@ class HouseList(BaseHandler):
         else:
             total_page = int(math.ceil(ret["count"] / float(constant.HOUSE_LIST_PAGE_CAPACITY)))
             page = int(page)
-            if page>total_page:
+            if page > total_page:
                 return self.write(dict(code="00", msg="OK", data=[], total_page=total_page))
+
+        # 排序
+        if "new" == sort_key:  # 按最新上传时间排序
+            sql += " order by hi_ctime desc"
+        elif "booking" == sort_key:  # 最受欢迎
+            sql += " order by hi_order_count desc"
+        elif "price-inc" == sort_key:  # 价格由低到高
+            sql += " order by hi_price asc"
+        elif "price-des" == sort_key:  # 价格由高到低
+            sql += " order by hi_price desc"
+
+        # 分页
+        # limit 10 返回前10条
+        # limit 20,3 从20条开始，返回3条数据
+        if 1 == page:
+            sql += " limit %s" % constant.HOUSE_LIST_PAGE_CAPACITY
+        else:
+            sql += " limit %s,%s" % (
+                (page - 1) * constant.HOUSE_LIST_PAGE_CAPACITY, constant.HOUSE_LIST_PAGE_CAPACITY)
+
+        logging.debug(sql)
+        try:
+            ret = self.db.query(sql, **sql_params)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code="01", msg="查询出错"))
+        data = []
+        if ret:
+            for l in ret:
+                house = dict(
+                    house_id=l["hi_house_id"],
+                    title=l["hi_title"],
+                    price=l["hi_price"],
+                    room_count=l["hi_room_count"],
+                    address=l["hi_address"],
+                    order_count=l["hi_order_count"],
+                    avatar=config.qiniu_url + l["up_avatar"] if l.get("up_avatar") else "",
+                    image_url=config.qiniu_url + l["hi_index_image_url"] if l.get(
+                        "hi_index_image_url") else ""
+                )
+                data.append(house)
+        self.write(dict(code="00", errmsg="OK", data=data, total_page=total_page))
