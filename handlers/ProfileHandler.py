@@ -65,11 +65,8 @@ class ProfileShowEdit(BaseHandler):
     def get(self):
         '''
            展示图片和用户名修改页面的初始化数据接口
-        :return:
         '''
         userinfo_data = self.session.data
-        logging.info('session中的用户信息:')
-        logging.info(userinfo_data)
         return self.write(dict(code='00', msg='ok', data=userinfo_data))
 
 

@@ -12,7 +12,7 @@ $(document).ready(function(){
             location.href = "/login.html";
         }
         else if ("00" == data.code) {
-            $("#user-name").html(data.data.name);
+            $("#user-name").html(data.data.nickname);
             $("#user-mobile").html(data.data.mobile);
             if (data.data.avatar) {
                 $("#user-avatar").attr("src", data.data.avatar);
