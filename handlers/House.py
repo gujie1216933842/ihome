@@ -443,3 +443,8 @@ class HouseInfoHandle(BaseHandler):
             logging.error(e)
         resp = '{"code":"00", "msg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
         self.write(resp)
+
+
+class HouseList(BaseHandler):
+    def get(self, *args, **kwargs):
+        pass

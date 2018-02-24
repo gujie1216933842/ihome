@@ -11,7 +11,7 @@ urls = [
     (r"/house/info", House.HouseInfoHandle),  #加载房屋信息接口,上传房屋图片接口
     (r"/house/image", House.HouseImageHandler),  #上传房屋图片接口
 
-
+    (r"/house/list", House.HouseList),  #搜索房屋列表
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),

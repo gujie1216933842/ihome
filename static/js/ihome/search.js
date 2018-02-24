@@ -37,9 +37,9 @@ function updateHouseData(action="append") {
         sk:sortKey,
         p:next_page
     };
-    $.get("/api/house/list2", params, function(data){
+    $.get("/house/list2", params, function(data){
         house_data_querying = false;
-        if ("0" == data.errcode) {
+        if ("00" == data.code) {
             if (0 == data.total_page) {
                 $(".house-list").html("暂时没有符合您查询的房屋信息。");
             } else {
