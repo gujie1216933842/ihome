@@ -47,7 +47,25 @@ class OrderHandler(BaseHandler):
               "where oi_house_id=%(house_id)s and oi_begin_date<%(end_date)s " \
               "and oi_end_date>%(start_date)s "
         try:
-            self.db.get(sql, house_id=house_id, end_date=end_date, start_date=start_date)
+            ret = self.db.get(sql, house_id=house_id, end_date=end_date, start_date=start_date)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code="06", msg="查询房屋是否被预定出错!"))
+            return self.write(dict(code="06", msg="该房屋已经被人预定"))
+
+        if ret['counts'] > 0:
+            return self.write(dict(code="07", msg="serve data error"))
+
+        amount = days * house['hi_price']
+
+        # 开始保存订单数据
+        sql = " insert into ih_order_info(oi_user_id,oi_house_id,oi_begin_date,oi_end_date,oi_days,oi_house_price,oi_amount)" \
+              " values(%(user_id)s,%(house_id)s,%(begin_date)s,%(end_date)s,%(days)s,%(price)s,%(amount)s); " \
+              "update ih_house_info set hi_order_count=hi_order_count+1 where hi_house_id=%(house_id)s;"
+        try:
+            self.db.execute(sql, user_id=user_id, house_id=house_id, begin_date=start_date, end_date=end_date,
+                            days=days, price=house["hi_price"], amount=amount)
+        except Exception as e:
+            logging.info(e)
+            return self.write(dict(code="08", msg="保存订单失败"))
+
+        return self.write(dict(code="00", msg="ok"))
