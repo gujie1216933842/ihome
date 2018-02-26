@@ -53,6 +53,9 @@
             'success': function (data) {
                 if(data.code == '00'){
                     window.location.href = '/'
+                }else{
+                    $("#password-err span").html(data.errmsg);
+                    $("#password-err").show();
                 }
             }
         })
