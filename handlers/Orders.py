@@ -64,7 +64,7 @@ class OrderHandler(BaseHandler):
         sql2 = " update ih_house_info set hi_order_count=hi_order_count+1 where hi_house_id=%(house_id)s "
         # 第一步订单表插入数据
         try:
-            order_id = self.db.execute_count(sql1, user_id=user_id, house_id=house_id, begin_date=start_date,
+            order_id = self.db.execute_rowcount(sql1, user_id=user_id, house_id=house_id, begin_date=start_date,
                                              end_date=end_date,
                                              days=days, price=house["hi_price"], amount=amount)
         except Exception as e:
