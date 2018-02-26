@@ -73,7 +73,7 @@ $(document).ready(function () {
                 "end_date": endDate
             };
             $.ajax({
-                url: "/api/order",
+                url: "/order/order",
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json",
