@@ -59,14 +59,26 @@ class OrderHandler(BaseHandler):
         amount = days * house['hi_price']
 
         # 开始保存订单数据
-        sql = " insert into ih_order_info(oi_user_id,oi_house_id,oi_begin_date,oi_end_date,oi_days,oi_house_price,oi_amount)" \
-              " values(%(user_id)s,%(house_id)s,%(begin_date)s,%(end_date)s,%(days)s,%(price)s,%(amount)s); " \
-              "update ih_house_info set hi_order_count=hi_order_count+1 where hi_house_id=%(house_id)s;"
+        sql1 = " insert into ih_order_info(oi_user_id,oi_house_id,oi_begin_date,oi_end_date,oi_days,oi_house_price,oi_amount)" \
+               " values(%(user_id)s,%(house_id)s,%(begin_date)s,%(end_date)s,%(days)s,%(price)s,%(amount)s) "
+        sql2 = " update ih_house_info set hi_order_count=hi_order_count+1 where hi_house_id=%(house_id)s "
+        # 第一步订单表插入数据
         try:
-            self.db.execute(sql, user_id=user_id, house_id=house_id, begin_date=start_date, end_date=end_date,
-                            days=days, price=house["hi_price"], amount=amount)
+            order_id = self.db.execute_count(sql1, user_id=user_id, house_id=house_id, begin_date=start_date,
+                                             end_date=end_date,
+                                             days=days, price=house["hi_price"], amount=amount)
         except Exception as e:
-            logging.info(e)
-            return self.write(dict(code="08", msg="保存订单失败"))
-
+            logging.error(e)
+            return self.write(dict(code="08", msg="ih_order_info表插入数据失败"))
+        # 第二步房屋信息表更新数据
+        try:
+            self.db.execute(sql2, house_id=house_id)
+        except Exception as e:
+            logging.error(e)
+            logging.info("ih_house_info表更新失败,rollback begin")
+            try:
+                self.db.execute(" delete from ih_order_info where oi_order_id = %s ", order_id)
+            except Exception as e:
+                logging.error(e)
+                return self.write(dict(code="09", msg="rollback failed"))
         return self.write(dict(code="00", msg="ok"))
