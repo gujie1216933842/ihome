@@ -12,6 +12,7 @@ import constant
 class OrderHandler(BaseHandler):
     '''提交订单接口'''
 
+    @require_logined
     def post(self):
         # 获取参数(提交订单的用户id,房屋id,订单开始时间,订单结束时间)
         user_id = self.session.data['user_id']
