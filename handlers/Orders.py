@@ -59,14 +59,14 @@ class OrderHandler(BaseHandler):
         amount = days * house['hi_price']
 
         # 开始保存订单数据
-        sql1 = " insert into ih_order_info(oi_user_id,oi_house_id,oi_begin_date,oi_end_date,oi_days,oi_house_price,oi_amount)" \
-               " values(%(user_id)s,%(house_id)s,%(begin_date)s,%(end_date)s,%(days)s,%(price)s,%(amount)s) "
+        sql1 = " insert into ih_order_info(oi_user_id,oi_house_id,oi_begin_date,oi_end_date,oi_days,oi_house_price,oi_amount,oi_ctime)" \
+               " values(%(user_id)s,%(house_id)s,%(begin_date)s,%(end_date)s,%(days)s,%(price)s,%(amount)s,now()) "
         sql2 = " update ih_house_info set hi_order_count=hi_order_count+1 where hi_house_id=%(house_id)s "
         # 第一步订单表插入数据
         try:
             order_id = self.db.execute_rowcount(sql1, user_id=user_id, house_id=house_id, begin_date=start_date,
-                                             end_date=end_date,
-                                             days=days, price=house["hi_price"], amount=amount)
+                                                end_date=end_date,
+                                                days=days, price=house["hi_price"], amount=amount)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="08", msg="ih_order_info表插入数据失败"))
