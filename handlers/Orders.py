@@ -25,7 +25,7 @@ class OrderHandler(BaseHandler):
             return self.write(dict(code='01', msg="参数确实"))
 
         # 查看预定的房屋是否存在
-        sql = " select hi_price,hi_user_id from hi_house_info where hi_house_id = %s "
+        sql = " select hi_price,hi_user_id from ih_house_info where hi_house_id = %s "
         try:
             house = self.db.get(sql, house_id)
         except Exception as e:
