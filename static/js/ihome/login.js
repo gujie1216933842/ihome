@@ -28,7 +28,7 @@ $(document).ready(function() {
         $(this).serializeArray().map(function(x){data[x.name] = x.value;});
         var jsonData = JSON.stringify(data);
         $.ajax({
-            url:"/api/login",
+            url:"/tologin",
             type:"POST",
             data: jsonData,
             contentType: "application/json",
@@ -37,7 +37,7 @@ $(document).ready(function() {
                 "X-XSRFTOKEN":getCookie("_xsrf"),
             },
             success: function (data) {
-                if ("0" == data.errcode) {
+                if ("00" == data.code) {
                     location.href = "/";
                     return;
                 }
