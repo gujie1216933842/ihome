@@ -82,3 +82,44 @@ class OrderHandler(BaseHandler):
                 logging.error(e)
                 return self.write(dict(code="09", msg="rollback failed"))
         return self.write(dict(code="00", msg="ok"))
+
+
+class OrderListHandler(BaseHandler):
+    """我的订单"""
+
+    @require_logined
+    def get(self):
+        user_id = self.session.data["user_id"]
+
+        # 用户的身份，用户想要查询作为房客下的单，还是想要查询作为房东 被人下的单
+        role = self.get_argument("role", "")
+        try:
+            # 查询房东订单
+            if "landlord" == role:
+                ret = self.db.query("select oi_order_id,hi_title,hi_index_image_url,oi_begin_date,oi_end_date,oi_ctime,"
+                                    "oi_days,oi_amount,oi_status,oi_comment from ih_order_info inner join ih_house_info "
+                                    "on oi_house_id=hi_house_id where hi_user_id=%s order by oi_ctime desc", user_id)
+            else:
+                ret = self.db.query("select oi_order_id,hi_title,hi_index_image_url,oi_begin_date,oi_end_date,oi_ctime,"
+                                    "oi_days,oi_amount,oi_status,oi_comment from ih_order_info inner join ih_house_info "
+                                    "on oi_house_id=hi_house_id where oi_user_id=%s order by oi_ctime desc", user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write({"code": "00", "msg": "get data error"})
+        orders = []
+        if ret:
+            for l in ret:
+                order = {
+                    "order_id": l["oi_order_id"],
+                    "title": l["hi_title"],
+                    "img_url": config.qiniu_url + l["hi_index_image_url"] if l["hi_index_image_url"] else "",
+                    "start_date": l["oi_begin_date"].strftime("%Y-%m-%d"),
+                    "end_date": l["oi_end_date"].strftime("%Y-%m-%d"),
+                    "ctime": l["oi_ctime"].strftime("%Y-%m-%d"),
+                    "days": l["oi_days"],
+                    "amount": l["oi_amount"],
+                    "status": l["oi_status"],
+                    "comment": l["oi_comment"] if l["oi_comment"] else ""
+                }
+                orders.append(order)
+        self.write({"code": "00", "errmsg": "ok", "orders": orders})

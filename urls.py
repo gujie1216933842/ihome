@@ -15,6 +15,7 @@ urls = [
 
     (r"/order/checklogin", Passport.CheckLoginHandler),  #订单页面检查是登录接口
     (r"/order/order", Orders.OrderHandler),  #提交订单接口
+    (r"/order/orderlist", Orders.OrderListHandler),
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
