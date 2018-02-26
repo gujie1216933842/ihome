@@ -54,7 +54,7 @@
                 if(data.code == '00'){
                     window.location.href = '/'
                 }else{
-                    $("#password-err span").html(data.errmsg);
+                    $("#password-err span").html(data.msg);
                     $("#password-err").show();
                 }
             }
