@@ -82,11 +82,11 @@ $(document).ready(function () {
                     "X-XSRFTOKEN": getCookie("_xsrf"),
                 },
                 success: function (data) {
-                    if ("4101" == data.errcode) {
+                    if ("aa" == data.code) {
                         location.href = "/login.html";
-                    } else if ("4004" == data.errcode) {
+                    } else if ("06" == data.code) {
                         showErrorMsg("房间已被抢定，请重新选择日期！");
-                    } else if ("0" == data.errcode) {
+                    } else if ("00" == data.code) {
                         location.href = "/orders.html";
                     }
                 }
