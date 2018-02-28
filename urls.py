@@ -15,7 +15,10 @@ urls = [
 
     (r"/order/checklogin", Passport.CheckLoginHandler),  #订单页面检查是登录接口
     (r"/order/order", Orders.OrderHandler),  #提交订单接口
-    (r"/order/orderlist", Orders.OrderListHandler),
+    (r"/order/orderlist", Orders.OrderListHandler),  #订单列表,对于每一个用户包括我的订单和客户订单
+    (r'/order/accept', Orders.AcceptOrderHandler), # 接单
+    (r'/order/reject', Orders.RejectOrderHandler), # 拒单
+    (r'/order/comment', Orders.OrderCommentHandler),
 
     (r"/register", RegisterHandler.RegisterHandler),
     (r"/login", IndexHandler.LoginHandler),
