@@ -76,3 +76,5 @@ git reset --hard HASH #返回到某个节点，不保留修改。
 git reset --soft HASH #返回到某个节点。保留修改
 
 
+json.dumps()  将dict转换为str     相当于php中   json_encode()
+json.loads()  将str转换为dict     相当于php中   json_decode()
