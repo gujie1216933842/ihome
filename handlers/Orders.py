@@ -122,4 +122,78 @@ class OrderListHandler(BaseHandler):
                     "comment": l["oi_comment"] if l["oi_comment"] else ""
                 }
                 orders.append(order)
-        self.write({"code": "00", "errmsg": "ok", "orders": orders})
+        self.write({"code": "00", "msg": "ok", "orders": orders})
+
+
+class AcceptOrderHandler(BaseHandler):
+    """接单"""
+
+    @require_logined
+    def post(self):
+        # 处理的订单编号
+        order_id = self.json_args.get("order_id")
+        user_id = self.session.data["user_id"]
+        if not order_id:
+            return self.write({"code": "01", "msg": "params error"})
+
+        try:
+            # 确保房东只能修改属于自己房子的订单
+            self.db.execute("update ih_order_info set oi_status=3 where oi_order_id=%(order_id)s and oi_house_id in "
+                            "(select hi_house_id from ih_house_info where hi_user_id=%(user_id)s) and oi_status=0",
+                            # update ih_order_info inner join ih_house_info on oi_house_id=hi_house_id set oi_status=3 where
+                            # oi_order_id=%(order_id)s and hi_user_id=%(user_id)s
+                            order_id=order_id, user_id=user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write({"code": "02", "msg": "DB error"})
+        self.write({"code": "00", "msg": "OK"})
+
+
+class RejectOrderHandler(BaseHandler):
+    """拒单"""
+
+    @require_logined
+    def post(self):
+        user_id = self.session.data["user_id"]
+        order_id = self.json_args.get("order_id")
+        reject_reason = self.json_args.get("reject_reason")
+        if not all((order_id, reject_reason)):
+            return self.write({"code": "01", "msg": "params error"})
+        try:
+            self.db.execute("update ih_order_info set oi_status=6,oi_comment=%(reject_reason)s "
+                            "where oi_order_id=%(order_id)s and oi_house_id in (select hi_house_id from ih_house_info "
+                            "where hi_user_id=%(user_id)s) and oi_status=0",
+                            reject_reason=reject_reason, order_id=order_id, user_id=user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write({"code": "02", "msg": "DB error"})
+        self.write({"code": "00", "msg": "OK"})
+
+
+class OrderCommentHandler(BaseHandler):
+    """评论"""
+
+    @require_logined
+    def post(self):
+        user_id = self.session.data["user_id"]
+        order_id = self.json_args.get("order_id")
+        comment = self.json_args.get("comment")
+        if not all((order_id, comment)):
+            return self.write({"code": "01", "msg": "params error"})
+        try:
+            # 需要确保只能评论自己下的订单
+            self.db.execute(
+                "update ih_order_info set oi_status=4,oi_comment=%(comment)s where oi_order_id=%(order_id)s "
+                "and oi_status=3 and oi_user_id=%(user_id)s", comment=comment, order_id=order_id, user_id=user_id)
+        except Exception as e:
+            logging.error(e)
+            return self.write({"code": "02", "msg": "DB error"})
+
+        # 同步更新redis缓存中关于该房屋的评论信息，此处的策略是直接删除redis缓存中的该房屋数据
+        try:
+            ret = self.db.get("select oi_house_id from ih_order_info where oi_order_id=%s", order_id)
+            if ret:
+                self.redis.delete("house_info_%s" % ret["oi_house_id"])
+        except Exception as e:
+            logging.error(e)
+        self.write({"code": "00", "msg": "OK"})
