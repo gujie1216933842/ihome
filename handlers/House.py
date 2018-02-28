@@ -220,7 +220,7 @@ class Indexhandler(BaseHandler):
                 logging.error(e)
                 return self.write(dict(code="01", msg=" get error from redis "))
         resp = '{"code":"00", "msg":"OK", "houses":%s, "areas":%s}' % (json_houses, json_areas)
-        return self.write(resp)
+        return self.write(json.loads(resp))
 
 
 class HouseInfoHandle(BaseHandler):

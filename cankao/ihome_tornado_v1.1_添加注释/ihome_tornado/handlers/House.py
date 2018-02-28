@@ -408,7 +408,7 @@ class IndexHandler(BaseHandler):
             except Exception as e:
                 logging.error(e)
         resp = '{"errcode":"0", "errmsg":"OK", "houses":%s, "areas":%s}' % (json_houses, json_areas)
-        self.write(resp)
+        self.write(json.loads(resp))
 
 
 class HouseListHandler(BaseHandler):
