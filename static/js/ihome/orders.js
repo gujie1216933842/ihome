@@ -33,7 +33,7 @@ $(document).ready(function(){
                     comment:comment
                 };
                 $.ajax({
-                    url:"/api/order/comment",
+                    url:"/order/comment",
                     type:"POST",
                     data:JSON.stringify(data),
                     contentType:"application/json",
@@ -42,9 +42,9 @@ $(document).ready(function(){
                         "X-XSRFTOKEN":getCookie("_xsrf"),
                     },
                     success:function (data) {
-                        if ("4101" == data.errcode) {
+                        if ("aa" == data.code) {
                             location.href = "/login.html";
-                        } else if ("0" == data.errcode) {
+                        } else if ("00" == data.code) {
                             $(".orders-list>li[order-id="+ orderId +"]>div.order-content>div.order-text>ul li:eq(4)>span").html("已完成");
                             $(".order-operate").hide();
                             $("#comment-modal").modal("hide");
