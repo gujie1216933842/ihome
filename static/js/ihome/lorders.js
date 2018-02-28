@@ -17,7 +17,7 @@ function getCookie(name) {
 $(document).ready(function(){
     $('.modal').on('show.bs.modal', centerModals);      //当模态框出现的时候
     $(window).on('resize', centerModals);
-    $.get("/order/my?role=landlord", function(data){
+    $.get("/order/orderlist?role=landlord", function(data){
         if ("0" == data.errcode) {
             $(".orders-list").html(template("orders-list-tmpl", {orders:data.orders}));
             $(".order-accept").on("click", function(){
