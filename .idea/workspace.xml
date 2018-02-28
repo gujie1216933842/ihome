@@ -8,7 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="54dfca19-4813-4775-b4c8-e84786662964" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/ihome/orders.js" afterPath="$PROJECT_DIR$/static/js/ihome/orders.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/handlers/Orders.py" afterPath="$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/handlers/Orders.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,21 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orders.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="orders.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/ihome/orders.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
               <caret line="46" column="48" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="30" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -87,26 +77,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Orders.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Orders.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/handlers/Orders.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+            <state relative-caret-position="356">
+              <caret line="172" column="8" lean-forward="false" selection-start-line="172" selection-start-column="8" selection-end-line="172" selection-end-column="8" />
               <folding>
                 <element signature="e#16#30#0" expanded="true" />
-                <element signature="e#5006#6014#0" expanded="false" />
-                <element signature="e#6060#6981#0" expanded="false" />
-                <element signature="e#7028#8148#0" expanded="false" />
-                <marker date="1516673130224" expanded="true" signature="710:776" ph="select hi_pr... ih_house_info" />
-                <marker date="1516673130224" expanded="true" signature="1604:1771" ph="select count... ih_order_info" />
-                <marker date="1516673130224" expanded="true" signature="2238:2468" ph="insert into ih_order_info... " />
-                <marker date="1516673130224" expanded="true" signature="2500:2587" ph="update ih_ho... " />
-                <marker date="1516673130224" expanded="true" signature="3281:3593" ph="select oi_or... ih_order_info" />
-                <marker date="1516673130224" expanded="true" signature="3660:3972" ph="select oi_or... ih_order_info" />
-                <marker date="1516673130224" expanded="true" signature="5351:5553" ph="update ih_or... " />
-                <marker date="1516673130224" expanded="true" signature="6436:6698" ph="update ih_or... " />
-                <marker date="1516673130224" expanded="true" signature="7415:7579" ph="update ih_or... " />
-                <marker date="1516673130224" expanded="true" signature="7872:7930" ph="select oi_ho... ih_order_info" />
+                <marker date="1519788733595" expanded="true" signature="710:776" ph="select hi_pr... ih_house_info" />
+                <marker date="1519788733595" expanded="true" signature="1604:1771" ph="select count... ih_order_info" />
+                <marker date="1519788733595" expanded="true" signature="2238:2468" ph="insert into ih_order_info... " />
+                <marker date="1519788733595" expanded="true" signature="2500:2587" ph="update ih_ho... " />
+                <marker date="1519788733595" expanded="true" signature="3281:3593" ph="select oi_or... ih_order_info" />
+                <marker date="1519788733595" expanded="true" signature="3660:3972" ph="select oi_or... ih_order_info" />
+                <marker date="1519788733595" expanded="true" signature="5351:5553" ph="update ih_or... " />
+                <marker date="1519788733595" expanded="true" signature="6436:6698" ph="update ih_or... " />
+                <marker date="1519788733595" expanded="true" signature="7415:7579" ph="update ih_or... " />
+                <marker date="1519788733595" expanded="true" signature="7872:7930" ph="select oi_ho... ih_order_info" />
               </folding>
             </state>
           </provider>
@@ -193,6 +180,7 @@
         <option value="$PROJECT_DIR$/urls.py" />
         <option value="$PROJECT_DIR$/static/js/ihome/lorders.js" />
         <option value="$PROJECT_DIR$/static/js/ihome/orders.js" />
+        <option value="$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/handlers/Orders.py" />
       </list>
     </option>
   </component>
@@ -233,20 +221,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ihome" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ihome" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ihome" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -441,13 +415,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1516673003117</updated>
-    </task>
-    <task id="LOCAL-00035" summary="html">
-      <created>1519380551887</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1519380551887</updated>
     </task>
     <task id="LOCAL-00036" summary="html">
       <created>1519436999339</created>
@@ -785,11 +752,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519783991793</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="html">
+      <created>1519784514384</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1519784514393</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -798,7 +772,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5335516" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23903178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23903178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1216,52 +1190,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/Orders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="189" column="49" lean-forward="false" selection-start-line="189" selection-start-column="49" selection-end-line="189" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <marker date="1519783542493" expanded="true" signature="720:751" ph="select hi_pr... " />
-            <marker date="1519783542493" expanded="true" signature="720:752" ph="select hi_pr... hi" />
-            <marker date="1519783542493" expanded="true" signature="720:788" ph="select hi_pr... hi_house_info" />
-            <marker date="1519783542493" expanded="true" signature="1605:1777" ph="select count... ih_order_info" />
-            <marker date="1519783542493" expanded="true" signature="2195:2429" ph="insert into ih_order_info... " />
-            <marker date="1519783542493" expanded="true" signature="2449:2536" ph="update ih_ho... " />
-            <marker date="1519783542493" expanded="true" signature="3249:3297" ph="delete from " />
-            <marker date="1519783542493" expanded="true" signature="3847:4159" ph="select oi_or... ih_order_info" />
-            <marker date="1519783542493" expanded="true" signature="4226:4538" ph="select oi_or... ih_order_info" />
-            <marker date="1519783542493" expanded="true" signature="5893:6095" ph="update ih_or... " />
-            <marker date="1519783542493" expanded="true" signature="6953:7215" ph="update ih_or... " />
-            <marker date="1519783542493" expanded="true" signature="7924:8076" ph="update ih_or... " />
-            <marker date="1519783542493" expanded="true" signature="8360:8418" ph="select oi_ho... ih_order_info" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/handlers/Orders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#30#0" expanded="true" />
-            <element signature="e#5006#6014#0" expanded="false" />
-            <element signature="e#6060#6981#0" expanded="false" />
-            <element signature="e#7028#8148#0" expanded="false" />
-            <marker date="1516673130224" expanded="true" signature="710:776" ph="select hi_pr... ih_house_info" />
-            <marker date="1516673130224" expanded="true" signature="1604:1771" ph="select count... ih_order_info" />
-            <marker date="1516673130224" expanded="true" signature="2238:2468" ph="insert into ih_order_info... " />
-            <marker date="1516673130224" expanded="true" signature="2500:2587" ph="update ih_ho... " />
-            <marker date="1516673130224" expanded="true" signature="3281:3593" ph="select oi_or... ih_order_info" />
-            <marker date="1516673130224" expanded="true" signature="3660:3972" ph="select oi_or... ih_order_info" />
-            <marker date="1516673130224" expanded="true" signature="5351:5553" ph="update ih_or... " />
-            <marker date="1516673130224" expanded="true" signature="6436:6698" ph="update ih_or... " />
-            <marker date="1516673130224" expanded="true" signature="7415:7579" ph="update ih_or... " />
-            <marker date="1516673130224" expanded="true" signature="7872:7930" ph="select oi_ho... ih_order_info" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -1293,6 +1221,49 @@
         <state relative-caret-position="340">
           <caret line="46" column="48" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/Orders.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="189" column="49" lean-forward="false" selection-start-line="189" selection-start-column="49" selection-end-line="189" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <marker date="1519783542493" expanded="true" signature="720:751" ph="select hi_pr... " />
+            <marker date="1519783542493" expanded="true" signature="720:752" ph="select hi_pr... hi" />
+            <marker date="1519783542493" expanded="true" signature="720:788" ph="select hi_pr... hi_house_info" />
+            <marker date="1519783542493" expanded="true" signature="1605:1777" ph="select count... ih_order_info" />
+            <marker date="1519783542493" expanded="true" signature="2195:2429" ph="insert into ih_order_info... " />
+            <marker date="1519783542493" expanded="true" signature="2449:2536" ph="update ih_ho... " />
+            <marker date="1519783542493" expanded="true" signature="3249:3297" ph="delete from " />
+            <marker date="1519783542493" expanded="true" signature="3847:4159" ph="select oi_or... ih_order_info" />
+            <marker date="1519783542493" expanded="true" signature="4226:4538" ph="select oi_or... ih_order_info" />
+            <marker date="1519783542493" expanded="true" signature="5893:6095" ph="update ih_or... " />
+            <marker date="1519783542493" expanded="true" signature="6953:7215" ph="update ih_or... " />
+            <marker date="1519783542493" expanded="true" signature="7924:8076" ph="update ih_or... " />
+            <marker date="1519783542493" expanded="true" signature="8360:8418" ph="select oi_ho... ih_order_info" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cankao/ihome_tornado_v1.1_添加注释/ihome_tornado/handlers/Orders.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="172" column="8" lean-forward="false" selection-start-line="172" selection-start-column="8" selection-end-line="172" selection-end-column="8" />
+          <folding>
+            <element signature="e#16#30#0" expanded="true" />
+            <marker date="1519788733595" expanded="true" signature="710:776" ph="select hi_pr... ih_house_info" />
+            <marker date="1519788733595" expanded="true" signature="1604:1771" ph="select count... ih_order_info" />
+            <marker date="1519788733595" expanded="true" signature="2238:2468" ph="insert into ih_order_info... " />
+            <marker date="1519788733595" expanded="true" signature="2500:2587" ph="update ih_ho... " />
+            <marker date="1519788733595" expanded="true" signature="3281:3593" ph="select oi_or... ih_order_info" />
+            <marker date="1519788733595" expanded="true" signature="3660:3972" ph="select oi_or... ih_order_info" />
+            <marker date="1519788733595" expanded="true" signature="5351:5553" ph="update ih_or... " />
+            <marker date="1519788733595" expanded="true" signature="6436:6698" ph="update ih_or... " />
+            <marker date="1519788733595" expanded="true" signature="7415:7579" ph="update ih_or... " />
+            <marker date="1519788733595" expanded="true" signature="7872:7930" ph="select oi_ho... ih_order_info" />
+          </folding>
         </state>
       </provider>
     </entry>
