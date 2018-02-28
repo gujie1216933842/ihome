@@ -219,13 +219,8 @@ class Indexhandler(BaseHandler):
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg=" get error from redis "))
-        data_info = {
-            "code": "00",
-            "msg": "ok",
-            "houses": json.loads(json_houses.decode()),
-            "areas": json.loads(json_areas.decode())
-        }
-        return self.write(data_info)
+        resp = '{"code":"00", "msg":"OK", "houses":%s, "areas":%s}' % (json_houses, json_areas)
+        return self.write(resp)
 
 
 class HouseInfoHandle(BaseHandler):
