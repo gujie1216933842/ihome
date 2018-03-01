@@ -185,8 +185,8 @@ class Indexhandler(BaseHandler):
                 logging.error(e)
                 return self.write(dict(code="02", msg="set redis error"))
                 # 成功设置redis
-
-        # 首页城区数据
+            json_houses = json.dumps(json_houses)
+            # 首页城区数据
         # 在redis中取数据
         try:
             ret = self.redis.get("area_info")
@@ -219,6 +219,7 @@ class Indexhandler(BaseHandler):
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg=" get error from redis "))
+            json_areas = json.dumps(json_areas)
         resp = '{"code":"00", "msg":"OK", "houses":%s, "areas":%s}' % (json_houses, json_areas)
         return self.write(json.loads(resp))
 
