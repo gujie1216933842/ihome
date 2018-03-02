@@ -34,7 +34,12 @@ class ProfileHandler(BaseHandler):
             img_url = ret['up_avatar']
         else:
             img_url = None
-        self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=ret['up_mobile']
+        # 判断用户的用户名是否存在,如果存在,则用用户名,如果不存在,则用手机号
+        if ret['up_name']:
+            name = ret['up_name']
+        else:
+            name = ret['up_mobile']
+        self.write(dict(code='00', msg='ok', data=dict(user_id=user_id, name=name
                                                        , mobile=ret['up_mobile'], avatar=img_url)))
 
 
@@ -180,9 +185,3 @@ class AuthHandler(BaseHandler):
             return self.write(dict(code="bb", msg="数据库执行出错!"))
         # 实名认证成功,返回信息
         return self.write(dict(code="00", msg="ok,实名认证成功", data=dict(real_name=real_name, id_card=id_card)))
-
-
-
-
-
-
