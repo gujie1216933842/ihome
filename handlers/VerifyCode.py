@@ -49,18 +49,22 @@ class regiser(BaseHandler):
         password = self.get_argument('password')
         password2 = self.get_argument('password2')
 
-
         '''
         1.比较验证码是否正确
         2.比较两次密码是否一致
         3.判断用户是否已经注册
         4.用户数据入库
         '''
-        if not all((mobile, imagecode, password, password2)):
-            # all()方法等价于   if mobile  and imagecode and password and password2
-            return self.write(dict(code='01', msg='参数缺失'))
+        if not mobile:
+            return self.write(dict(code="11", msg="手机号不能为空!"))
         if not re.match(r"^1\d{10}$", mobile):
-            return self.write(dict(code='02', msg='手机号格式不对'))
+            return self.write(dict(code='02', msg='手机号格式不对!'))
+        if not imagecode:
+            return self.write(dict(code="11", msg="图片验证码不能为空!"))
+        if not password:
+            return self.write(dict(code='12', msg='密码不能为空!'))
+        if not password2:
+            return self.write(dict(code='13', msg='确认密码不能为空!'))
 
         # 开始验证图片验证码
         '''
@@ -78,11 +82,10 @@ class regiser(BaseHandler):
         if not real_piccode:
             return self.write(dict(code='04', msg='redis中图片验证码过期'))
 
-        #把输入的图片验证码都变成小写
+        # 把输入的图片验证码都变成小写
         lower_picocde = ''
         for i in range(len(imagecode)):
             lower_picocde += imagecode[i].lower()
-
 
         # 输入的图片验证码和redis中的比较
         if real_piccode.decode() != lower_picocde:
@@ -110,7 +113,7 @@ class regiser(BaseHandler):
             if 0 != ret['n']:
                 return self.write(dict(code='07', msg='手机号已经注册'))
             else:
-                #把用户密码sha1加密
+                # 把用户密码sha1加密
                 psw = sha1()
                 psw.update(password.encode('utf8'))
                 spwdSha1 = psw.hexdigest()
@@ -118,7 +121,7 @@ class regiser(BaseHandler):
                 sql = "insert into ih_user_profile (up_name,up_mobile,up_passwd,up_ctime)" \
                       "VALUES(%(up_name)s,%(up_mobile)s,%(up_passwd)s,now()) "
                 try:
-                    self.db.execute(sql, up_name = mobile,up_mobile=mobile, up_passwd=spwdSha1)
+                    self.db.execute(sql, up_name=mobile, up_mobile=mobile, up_passwd=spwdSha1)
                 except Exception as e:
                     logging.error(e)
                     return self.write(dict(code='08', msg='sql插入出错'))
