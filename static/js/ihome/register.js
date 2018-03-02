@@ -123,7 +123,7 @@ $(document).ready(function() {
     });
 
     // 当用户点击表单提交按钮时执行自己定义的函数
-    $(".form-register").submit(function(e){
+/*    $(".form-register").submit(function(e){
         // 组织浏览器对于表单的默认行为
         e.preventDefault();
 
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
             }
         })
-    });
+    });*/
 
 
 // $(".form-register").serializeArray()
@@ -212,33 +212,5 @@ $(document).ready(function() {
 //         x.value
 //         dict[x.name] = x.value
 //     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })
