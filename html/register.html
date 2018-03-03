@@ -93,7 +93,6 @@
             'success': function (data) {
                 if (data.code == '00') {
                     showSuccessMsg();
-                    window.location.href = "/login";
                 } else {
                     $("#phone-code-err>span").html(data.msg);
                     $("#phone-code-err").show();
