@@ -1,7 +1,7 @@
 import logging
 from hashlib import sha1
 from .BaseHandler import BaseHandler
-import constants,config
+import constants, config
 from utils.DIY_captcha.DIY_captcha import DIY_Verifycode
 import re
 
@@ -117,10 +117,11 @@ class regiser(BaseHandler):
         psw.update(password.encode('utf8'))
         spwdSha1 = psw.hexdigest()
         # 插入数据库
-        sql = "insert into ih_user_profile (up_name,up_mobile,up_passwd,up_ctime)" \
-              "VALUES(%(up_name)s,%(up_mobile)s,%(up_passwd)s,now()) "
+        sql = "insert into ih_user_profile (up_name,up_mobile,up_passwd,up_ctime,up_avatar,up_real_pwd)" \
+              "VALUES(%(up_name)s,%(up_mobile)s,%(up_passwd)s,now(),%(up_avatar)s,%(up_real_pwd)s) "
         try:
-            self.db.execute(sql, up_name=mobile, up_mobile=mobile, up_passwd=spwdSha1)
+            self.db.execute(sql, up_name=mobile, up_mobile=mobile, up_passwd=spwdSha1, up_avatar=config.default_avatar,
+                            up_real_pwd=password)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code='08', msg='sql插入出错'))
