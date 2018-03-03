@@ -95,11 +95,11 @@ body {
     display: none;
 }
 
-#image-code-error {
+#image-code-err {
     display: none;
 }
 
-#password-error {
+#password-err {
     display: none;
 }
 
