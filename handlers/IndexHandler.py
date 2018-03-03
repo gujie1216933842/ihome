@@ -17,11 +17,15 @@ class ToLoginHandler(BaseHandler):
         '''
         mobile = self.get_argument('mobile')
         pwd = self.get_argument('pwd')
-        if not all((mobile, pwd)):
-            return self.write(dict(code='01', msg='参数缺失'))
+
+        if not mobile:
+            return self.write(dict(code="01",msg="手机号不能为空!"))
 
         if not re.match(r"^1\d{10}$", mobile):
-            return self.write(dict(code='02', msg='手机号格式不对'))
+            return self.write(dict(code='02', msg='手机号格式不对!'))
+
+        if not pwd:
+            return self.write(dict(code="03",msg="密码不能为空!"))
 
         sha = sha1()
         sha.update(pwd.encode('utf-8'))
@@ -32,7 +36,7 @@ class ToLoginHandler(BaseHandler):
             ret = self.db.get(sql, up_mobile=mobile, up_passwd=pwdsha1)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code='03', msg='数据查询失败'))
+            return self.write(dict(code='13', msg='数据查询失败'))
         else:
             if not ret:
                 return self.write(dict(code='04', msg='您输入的用户名和密码有误,请重新输入!'))

@@ -52,11 +52,18 @@
                 "X-Xsrftoken": getCookie("_xsrf")
             },
             'success': function (data) {
-                if(data.code == '00'){
+                if (data.code == '00') {
                     window.location.href = '/'
-                }else{
+                } else if (data.code == "01" || data.code == "02") {
+                    $("#mobile-err span").html(data.msg);
+                    $("#mobile-err").show();
+                    $("#password-err").hide();
+                } else if (data.code == "03" || data.code == "04") {
                     $("#password-err span").html(data.msg);
                     $("#password-err").show();
+                    $("#mobile-err").hide();
+                } else {
+                    alert(data.msg);
                 }
             }
         })
