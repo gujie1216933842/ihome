@@ -50,12 +50,4 @@ class ToLoginHandler(BaseHandler):
                 return self.write(dict(code="00", msg='登录成功!'))
 
 
-class IndexHandler(BaseHandler):
-    def get(self):
-        '''
-        1.判断用户是否有登录态
-          方法:读session
-        2.如果有登陆态,
-        3.如果
-        '''
-        self.render('index.html')
+
