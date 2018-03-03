@@ -19,7 +19,7 @@ mysql_options = dict(
 
 # redis
 redis_options = dict(
-    host='47.97.165.75',
+    host='127.0.0.1',
     port=6379,
 )
 
