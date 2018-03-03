@@ -11,7 +11,7 @@ setting = {
 
 # mysql
 mysql_options = dict(
-    host="47.97.165.75",
+    host="127.0.0.1",
     database="ihome",
     user='root',
     password='123',
