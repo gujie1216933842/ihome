@@ -25,7 +25,7 @@ class DIY_Verifycode(BaseHandler):
 
     def randon_code(self, length=6):
         code = ''
-        char = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ'
+        char = '23456789abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
         for i in range(length):
             index = random.randint(0, 53)
             code += char[index]
