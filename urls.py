@@ -1,4 +1,4 @@
-from handlers import Passport, IndexHandler,House,RegisterHandler,VerifyCode,ProfileHandler,Orders
+from handlers import Passport, IndexHandler,House,VerifyCode,ProfileHandler,Orders
 import os
 from handlers.BaseHandler import StaticFileBaseHandler as StaticFileHandler
 from utils.DIY_captcha import DIY_captcha
