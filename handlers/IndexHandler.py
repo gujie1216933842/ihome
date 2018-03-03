@@ -39,7 +39,7 @@ class ToLoginHandler(BaseHandler):
             return self.write(dict(code='13', msg='数据查询失败'))
         else:
             if not ret:
-                return self.write(dict(code='04', msg='您输入的用户名和密码有误,请重新输入!'))
+                return self.write(dict(code='04', msg='用户名或密码有误,请重新输入!'))
             else:
                 # 把用户名,昵称,手机号保存入session
                 self.data = {'user_id': ret['up_user_id'], 'nickname': ret['up_name'], 'mobile': mobile}
