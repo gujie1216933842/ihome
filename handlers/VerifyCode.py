@@ -60,11 +60,11 @@ class regiser(BaseHandler):
         if not re.match(r"^1\d{10}$", mobile):
             return self.write(dict(code='02', msg='手机号格式不对!'))
         if not imagecode:
-            return self.write(dict(code="11", msg="图片验证码不能为空!"))
+            return self.write(dict(code="12", msg="图片验证码不能为空!"))
         if not password:
-            return self.write(dict(code='12', msg='密码不能为空!'))
+            return self.write(dict(code='13', msg='密码不能为空!'))
         if not password2:
-            return self.write(dict(code='13', msg='确认密码不能为空!'))
+            return self.write(dict(code='14', msg='确认密码不能为空!'))
 
         # 开始验证图片验证码
         '''

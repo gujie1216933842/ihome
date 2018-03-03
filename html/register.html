@@ -93,10 +93,22 @@
             'success': function (data) {
                 if (data.code == '00') {
                     showSuccessMsg();
-                } else {
+                } else if (data.code == "11") {
                     $("#phone-code-err>span").html(data.msg);
                     $("#phone-code-err").show();
+                } else if (data.code == "12") {
+                    $("#image-code-err>span").html(data.msg);
+                    $("#image-code-err").show();
+                } else if (data.code == "13") {
+                    $("#password-err>span").html(data.msg);
+                    $("#password-err").show();
+                } else if (data.code == "14") {
+                    $("#password-err2>span").html(data.msg);
+                    $("#password-err2").show();
+                } else {
+                    alert(data.msg)
                 }
+
             }
 
         })
