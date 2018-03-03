@@ -2,11 +2,15 @@ from .BaseHandler import BaseHandler
 import re
 from hashlib import sha1
 import logging
+from utils.common import require_logined
 from utils import session
 import json
 from config import qiniu_url
 
 
+class LoginHandler(BaseHandler):
+    def get(self):
+        self.render('login.html')
 
 
 class ToLoginHandler(BaseHandler):
@@ -52,4 +56,12 @@ class ToLoginHandler(BaseHandler):
                 return self.write(dict(code="00", msg='登录成功!'))
 
 
-
+class IndexHandler(BaseHandler):
+    def get(self):
+        '''
+        1.判断用户是否有登录态
+          方法:读session
+        2.如果有登陆态,
+        3.如果
+        '''
+        self.render('index.html')
