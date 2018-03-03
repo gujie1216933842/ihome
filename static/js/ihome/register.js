@@ -24,6 +24,16 @@ function generateImageCode() {
     imageCodeId = picId;
 }
 
+function showSuccessMsg() {
+    $('.popup_con').fadeIn('fast', function () {
+        setTimeout(function () {
+            $('.popup_con').fadeOut('fast', function () {
+            });
+        }, 1000)
+    });
+}
+
+
 function sendSMSCode() {
     $(".phonecode-a").removeAttr("onclick");
     var mobile = $("#mobile").val();
