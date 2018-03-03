@@ -93,22 +93,22 @@
                     $("#image-code-err>span").html(data.msg);
                     $("#image-code-err").show();
 
-                    $("#mobile-err").show();
+                    $("#mobile-err").hide();
                     $("#password-err").hide();
                     $("#password2-err").hide();
                 } else if (data.code == "13") {
                     $("#password-err>span").html(data.msg);
                     $("#password-err").show();
 
-                    $("#image-code-err").show();
-                    $("#mobile-err").show();
+                    $("#image-code-err").hide();
+                    $("#mobile-err").hide();
                     $("#password2-err").hide();
                 } else if (data.code == "14" || data.code == "15") {
                     $("#password2-err>span").html(data.msg);
                     $("#password2-err").show();
 
-                    $("#image-code-err").show();
-                    $("#mobile-err").show();
+                    $("#image-code-err").hide();
+                    $("#mobile-err").hide();
                     $("#password-err").hide();
                 } else {
                     alert(data.msg)
