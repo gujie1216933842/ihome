@@ -27,7 +27,7 @@ function showSuccessMsg() {
     $('.popup_con').fadeIn('fast', function () {
         setTimeout(function () {
             $('.popup_con').fadeOut('fast', function () {
-                window.location.href = "/login";
+                window.location.href = "/login.html";
             });
         }, 1000)
     });
