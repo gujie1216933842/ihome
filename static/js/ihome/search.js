@@ -24,7 +24,10 @@ function updateFilterDateDisplay() {
     }
 }
 
-function updateHouseData(action="append") {
+function updateHouseData(action) {
+    if( action=="" || action==undefined ){
+        action = "append";
+    }
     var areaId = $(".filter-area>li.active").attr("area-id");
     if (undefined == areaId) areaId = "";
     var startDate = $("#start-date").val();
