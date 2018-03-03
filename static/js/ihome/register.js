@@ -116,7 +116,7 @@ function sendSMSCode() {
 
 $(document).ready(function () {
     generateImageCode();
-    $("#mobile").focus(function () {
+    /*$("#mobile").focus(function () {
         $("#mobile-err").hide();
     });
     $("#imagecode").focus(function () {
@@ -131,7 +131,7 @@ $(document).ready(function () {
     });
     $("#password2").focus(function () {
         $("#password2-err").hide();
-    });
+    });*/
 
     // 当用户点击表单提交按钮时执行自己定义的函数
     /*    $(".form-register").submit(function(e){
