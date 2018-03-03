@@ -59,20 +59,26 @@ class regiser(BaseHandler):
             return self.write(dict(code="11", msg="手机号不能为空!"))
         if not re.match(r"^1\d{10}$", mobile):
             return self.write(dict(code='02', msg='手机号格式不对!'))
+        # 判断手机号是否已经注册过
+        sql = "select count(*) as n from ih_user_profile where up_mobile = %s "
+        try:
+            ret = self.db.get(sql, mobile)
+        except Exception as e:
+            logging.error(e)
+            return self.write(dict(code='10', msg='查询数据库出错'))
+        if 0 != ret['n']:
+            return self.write(dict(code='07', msg='手机号已经注册'))
+
         if not imagecode:
             return self.write(dict(code="12", msg="图片验证码不能为空!"))
-        if not password:
-            return self.write(dict(code='13', msg='密码不能为空!'))
-        if not password2:
-            return self.write(dict(code='14', msg='确认密码不能为空!'))
 
-        # 开始验证图片验证码
+        # 验证图片验证码是否正确
         '''
-        1.查询redis可能出错
-        2.查询的redis可能为空
-        3.如果查询redis中有对应的value值,删除redis
-        4.与前台传入的图片验证码做比较,注:都是转为小写字母比较
-        '''
+                1.查询redis可能出错
+                2.查询的redis可能为空
+                3.如果查询redis中有对应的value值,删除redis
+                4.与前台传入的图片验证码做比较,注:都是转为小写字母比较
+                '''
         try:
             real_piccode = self.redis.get('image_code_' + code_id)
         except Exception as e:
@@ -98,32 +104,27 @@ class regiser(BaseHandler):
             logging.error(e)
             return self.write(dict(code='05', msg='删除redis失败'))
 
-        # 判断用户两次输入的密码是否一致
-        if password != password2:
-            return self.write(dict(code='06', msg='两次密码设置不一致,请重新设置'))
+        # 判断密码
+        if not password:
+            return self.write(dict(code='13', msg='密码不能为空!'))
+        if not password2:
+            return self.write(dict(code='14', msg='确认密码不能为空!'))
 
-        # 检查手机号是否在数据库中存在(需要查询数据库)
-        sql = "select count(*) as n from ih_user_profile where up_mobile = %s "
+        if password != password2:
+            return self.write(dict(code="15", msg="两次输入密码不一致!"))
+
+        # 初始信息都验证正确
+        # 把用户密码sha1加密
+        psw = sha1()
+        psw.update(password.encode('utf8'))
+        spwdSha1 = psw.hexdigest()
+        # 插入数据库
+        sql = "insert into ih_user_profile (up_name,up_mobile,up_passwd,up_ctime)" \
+              "VALUES(%(up_name)s,%(up_mobile)s,%(up_passwd)s,now()) "
         try:
-            ret = self.db.get(sql, mobile)
+            self.db.execute(sql, up_name=mobile, up_mobile=mobile, up_passwd=spwdSha1)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code='10', msg='查询数据库出错'))
+            return self.write(dict(code='08', msg='sql插入出错'))
         else:
-            if 0 != ret['n']:
-                return self.write(dict(code='07', msg='手机号已经注册'))
-            else:
-                # 把用户密码sha1加密
-                psw = sha1()
-                psw.update(password.encode('utf8'))
-                spwdSha1 = psw.hexdigest()
-                # 插入数据库
-                sql = "insert into ih_user_profile (up_name,up_mobile,up_passwd,up_ctime)" \
-                      "VALUES(%(up_name)s,%(up_mobile)s,%(up_passwd)s,now()) "
-                try:
-                    self.db.execute(sql, up_name=mobile, up_mobile=mobile, up_passwd=spwdSha1)
-                except Exception as e:
-                    logging.error(e)
-                    return self.write(dict(code='08', msg='sql插入出错'))
-                else:
-                    return self.write(dict(code='00', msg='恭喜,注册成功,跳往登录页面'))
+            return self.write(dict(code='00', msg='恭喜,注册成功,跳往登录页面'))

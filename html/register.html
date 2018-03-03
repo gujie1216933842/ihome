@@ -82,16 +82,16 @@
             'success': function (data) {
                 if (data.code == '00') {
                     showSuccessMsg();
-                } else if (data.code == "11"||data.code=="02") {
+                } else if (data.code == "11" || data.code == "02" || data.code == "07") {
                     $("#mobile-err>span").html(data.msg);
                     $("#mobile-err").show();
-                } else if (data.code == "12") {
+                } else if (data.code == "12" || data.code == "04" || data.code == "09") {
                     $("#image-code-err>span").html(data.msg);
                     $("#image-code-err").show();
                 } else if (data.code == "13") {
                     $("#password-err>span").html(data.msg);
                     $("#password-err").show();
-                } else if (data.code == "14") {
+                } else if (data.code == "14" || data.code == "15") {
                     $("#password2-err>span").html(data.msg);
                     $("#password2-err").show();
                 } else {
