@@ -92,7 +92,7 @@
             },
             'success': function (data) {
                 if (data.code == '00') {
-                    generateImageCode();
+                    showSuccessMsg();
                     window.location.href = "/login";
                 } else {
                     $("#phone-code-err>span").html(data.msg);
