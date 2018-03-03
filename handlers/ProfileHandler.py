@@ -3,7 +3,7 @@ from handlers.BaseHandler import BaseHandler
 import logging
 import re
 from utils.common import require_logined
-import config
+import config,constants
 from utils.image_storage import storage
 
 

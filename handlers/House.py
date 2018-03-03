@@ -8,7 +8,7 @@ from utils.common import require_logined
 from utils.image_storage import storage
 import datetime
 import math
-import constant
+import constants
 
 
 class MyHouseHandler(BaseHandler):
@@ -131,7 +131,7 @@ class AreaInfoHandler(BaseHandler):
         # 在给用户返回数据之前,先在redis中保存一下副本
         json_areas = json.dumps(areas)
         try:
-            self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
+            self.redis.setex("area_info", constants.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
         except Exception as e:
             logging.error(e)
             return self.write(dict(code="03", msg="set redis error"))
@@ -180,7 +180,7 @@ class Indexhandler(BaseHandler):
             json_houses = json.dumps(houses)
             # 把数据保存在redis中
             try:
-                self.redis.setex("home_page_data", config.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, json_houses)
+                self.redis.setex("home_page_data", constants.HOME_PAGE_DATA_REDIS_EXPIRE_SECOND, json_houses)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="02", msg="set redis error"))
@@ -215,7 +215,7 @@ class Indexhandler(BaseHandler):
             json_areas = json.dumps(areas)
             # 信息存入redis
             try:
-                self.redis.setex("area_info", config.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
+                self.redis.setex("area_info", constants.REDIS_AREA_INFO_EXPIRES_SECONDES, json_areas)
             except Exception as e:
                 logging.error(e)
                 return self.write(dict(code="01", msg=" get error from redis "))
@@ -436,7 +436,7 @@ class HouseInfoHandle(BaseHandler):
         # 存入redis
         json_data = json.dumps(data)
         try:
-            self.redis.setex("house_info_%s" % (house_id), config.REDIS_HOUSE_INFO_EXPIRES_SECONDES, json_data)
+            self.redis.setex("house_info_%s" % (house_id), constants.REDIS_HOUSE_INFO_EXPIRES_SECONDES, json_data)
         except Exception as e:
             logging.error(e)
         resp = '{"code":"00", "msg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
@@ -497,7 +497,7 @@ class HouseList(BaseHandler):
             logging.error(e)
             total_page = -1
         else:
-            total_page = int(math.ceil(ret["count"] / float(constant.HOUSE_LIST_PAGE_CAPACITY)))
+            total_page = int(math.ceil(ret["count"] / float(constants.HOUSE_LIST_PAGE_CAPACITY)))
             page = int(page)
             if page > total_page:
                 return self.write(dict(code="00", msg="OK", data=[], total_page=total_page))
@@ -516,10 +516,10 @@ class HouseList(BaseHandler):
         # limit 10 返回前10条
         # limit 20,3 从20条开始，返回3条数据
         if 1 == page:
-            sql += " limit %s" % constant.HOUSE_LIST_PAGE_CAPACITY
+            sql += " limit %s" % constants.HOUSE_LIST_PAGE_CAPACITY
         else:
             sql += " limit %s,%s" % (
-                (page - 1) * constant.HOUSE_LIST_PAGE_CAPACITY, constant.HOUSE_LIST_PAGE_CAPACITY)
+                (page - 1) * constants.HOUSE_LIST_PAGE_CAPACITY, constants.HOUSE_LIST_PAGE_CAPACITY)
 
         logging.debug(sql)
         try:

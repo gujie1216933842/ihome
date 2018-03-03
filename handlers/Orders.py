@@ -6,7 +6,7 @@ from utils.common import require_logined
 from utils.image_storage import storage
 import datetime
 import math
-import constant
+import constants
 
 
 class OrderHandler(BaseHandler):
