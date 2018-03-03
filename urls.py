@@ -19,8 +19,6 @@ urls = [
     (r'/order/reject', Orders.RejectOrderHandler), # 拒单
     (r'/order/comment', Orders.OrderCommentHandler),
 
-    #(r"/register", RegisterHandler.RegisterHandler),
-    (r"/login", IndexHandler.LoginHandler),
     (r"/tologin", IndexHandler.ToLoginHandler),
     (r"/register_new", VerifyCode.regiser),
     (r"/checklogin",ProfileHandler.ProfileHandler ),
