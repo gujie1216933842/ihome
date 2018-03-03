@@ -1,10 +1,8 @@
 import logging
 from hashlib import sha1
-from utils.captcha import captcha
 from .BaseHandler import BaseHandler
 import constant
 from utils.DIY_captcha.DIY_captcha import DIY_Verifycode
-import json
 import re
 
 
