@@ -26,7 +26,7 @@ urls = [
     (r"/register_new", VerifyCode.regiser),
     (r"/checklogin",ProfileHandler.ProfileHandler ),
     (r"/api/imagecode", VerifyCode.ImageCodeHandler), #注册页面的验证码的路由
-    (r"/api/new_imagecode", DIY_captcha.DIY_Verifycode), #注册页面的验证码的路由
+    #(r"/api/new_imagecode", DIY_captcha.DIY_Verifycode), #注册页面的验证码的路由
     (r"/profile/ucenter", ProfileHandler.UcenterHander), #个人中心路由
     (r"/profile/ProfileShowEdit", ProfileHandler.ProfileShowEdit), #修改用户头像和用户名初始化页面显示接口
     (r"/profile/UploadHandler", ProfileHandler.UploadHandler), #用户修改头像上传图片接口
