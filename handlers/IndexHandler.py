@@ -7,12 +7,6 @@ from utils import session
 import json
 from config import qiniu_url
 
-
-class LoginHandler(BaseHandler):
-    def get(self):
-        self.render('login.html')
-
-
 class ToLoginHandler(BaseHandler):
     def post(self):
         '''
