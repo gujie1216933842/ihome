@@ -59,6 +59,9 @@ $(document).ready(function () {
         }
     }, "json");
     $(".submit-btn").on("click", function (e) {
+        if("#order_days".html() == 0){
+               return false;
+        }
         if ($(".order-amount>span").html()) {
             $(this).prop("disabled", true);
             var startDate = $("#start-date").val();
