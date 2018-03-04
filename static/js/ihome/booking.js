@@ -46,7 +46,7 @@ $(document).ready(function () {
         days = (ed - sd) / (1000 * 3600 * 24) + 1;
         var price = $(".house-text>p>span").html();
         var amount = (days-1) * parseFloat(price);
-        $(".order-amount>span").html(amount.toFixed(2) + "(共" + days-1 + "晚)");
+        $(".order-amount>span").html(amount.toFixed(2) + "(共" + (days-1) + "晚)");
 
     });
     var queryData = decodeQuery();
