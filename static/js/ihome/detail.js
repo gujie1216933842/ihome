@@ -29,6 +29,8 @@ $(document).ready(function(){
                 $(".book-house").attr("href", "/booking.html?hid="+house_id);
                 $(".book-house").show();
             }
+        }else if ( "aa" == data.code ) {
+           window.location.href = "/login.html";
         }
     }, "json")
 });
