@@ -54,7 +54,7 @@ class OrderHandler(BaseHandler):
             return self.write(dict(code="06", msg="get data error"))
 
         if ret['counts'] > 0:
-            return self.write(dict(code="07", msg="该房屋已经被人预定"))
+            return self.write(dict(code="07", msg="该房屋在您选定的时间段已被预定"))
 
         amount = days * house['hi_price']
 

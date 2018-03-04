@@ -89,8 +89,8 @@ $(document).ready(function () {
                 success: function (data) {
                     if ("aa" == data.code) {
                         location.href = "/login.html";
-                    } else if ("06" == data.code) {
-                        showErrorMsg("房间已被抢定，请重新选择日期！");
+                    } else if ("04" == data.code || "05" == data.code || "07" == data.code) {
+                        showErrorMsg(data.msg);
                     } else if ("00" == data.code) {
                         location.href = "/orders.html";
                     }
