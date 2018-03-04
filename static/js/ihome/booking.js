@@ -41,17 +41,13 @@ $(document).ready(function () {
     $(".input-daterange").on("changeDate", function () {
         var startDate = $("#start-date").val();
         var endDate = $("#end-date").val();
+        var sd = new Date(startDate);
+        var ed = new Date(endDate);
+        days = (ed - sd) / (1000 * 3600 * 24) + 1;
+        var price = $(".house-text>p>span").html();
+        var amount = (days-1) * parseFloat(price);
+        $(".order-amount>span").html(amount.toFixed(2) + "(共" + days-1 + "晚)");
 
-        if (startDate && endDate && startDate > endDate) {
-            showErrorMsg("日期有误，请重新选择！");
-        } else {
-            var sd = new Date(startDate);
-            var ed = new Date(endDate);
-            days = (ed - sd) / (1000 * 3600 * 24) + 1;
-            var price = $(".house-text>p>span").html();
-            var amount = days * parseFloat(price);
-            $(".order-amount>span").html(amount.toFixed(2) + "(共" + days + "晚)");
-        }
     });
     var queryData = decodeQuery();
     var houseId = queryData["hid"];
