@@ -321,16 +321,14 @@ class HouseInfoHandle(BaseHandler):
         # 两个表中的数据都插入成功,返回成功的信息
         return self.write(dict(code="00", msg="ok", house_id=house_id))
 
-    @require_logined
+    # @require_logined
     def get(self):
         '''
         获取房屋信息
         :return:
         '''
         # 获取user_id 和 house_id 作为参数信息, user_id 在session中取,house_id在get参数上获取
-        user_id = self.session.data['user_id']
         house_id = self.get_argument('house_id')
-        logging.info("用户id: %s" % (user_id))
         logging.info("房屋id: %s" % (house_id))
 
         # 校验参数
@@ -345,7 +343,7 @@ class HouseInfoHandle(BaseHandler):
             # return  self.write(dict(code="02",msg="get error from redis"))
             ret = None
             # 把获取到的房屋信息数据返回给前端
-            resp = '{"errcode":"0", "errmsg":"OK", "data":%s, "user_id":%s}' % (ret, user_id)
+            resp = '{"errcode":"0", "errmsg":"OK", "data":%s}' % (ret)
             return self.write(resp)
 
         # 如果redis中没有数据,则需要去查看数据库 (连表)
@@ -439,7 +437,7 @@ class HouseInfoHandle(BaseHandler):
             self.redis.setex("house_info_%s" % (house_id), constants.REDIS_HOUSE_INFO_EXPIRES_SECONDES, json_data)
         except Exception as e:
             logging.error(e)
-        resp = '{"code":"00", "msg":"OK", "data":%s, "user_id":%s}' % (json_data, user_id)
+        resp = '{"code":"00", "msg":"OK", "data":%s}' % (json_data)
         self.write(resp)
 
 
