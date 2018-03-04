@@ -25,7 +25,7 @@ class DIY_Verifycode(BaseHandler):
 
     def randon_code(self, length=6):
         code = ''
-        char = '23456789abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
+        char = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
         for i in range(length):
             index = random.randint(0, 53)
             code += char[index]
@@ -61,7 +61,7 @@ class DIY_Verifycode(BaseHandler):
         code_lower = ''  # 验证码code信息都变成小写
         # 随机颜色验证码写到图片上
         for t in range(length):
-            draw.text((40 * t + 5, 5), code[t], font=font, fill=self.randon_color(32, 127))
+            draw.text((40 * t + 10, 5), code[t], font=font, fill=self.randon_color(32, 127))
             code_lower += code[t].lower()
 
 
