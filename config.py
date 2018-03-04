@@ -23,7 +23,7 @@ redis_options = dict(
     port=6379,
 )
 
-session_expires = 86400    #session过期时间一天
+session_expires = 864000    #session过期时间一天
 
 qiniu_url='http://p2yatani0.bkt.clouddn.com/'
 default_avatar = "FiaSbumysMdx89r9rzxdNjDPfuvh" #新用户有一个默认头像
