@@ -59,7 +59,13 @@ $(document).ready(function () {
         }
     }, "json");
     $(".submit-btn").on("click", function (e) {
-        if("#order_days".html() == 0){
+        var startDate = $("#start-date").val();
+        var endDate = $("#end-date").val();
+        var sd = new Date(startDate);
+        var ed = new Date(endDate);
+        days = (ed - sd) / (1000 * 3600 * 24);
+        console.log(days);
+        if( days == 0){
                return false;
         }
         if ($(".order-amount>span").html()) {
