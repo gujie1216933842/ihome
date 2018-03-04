@@ -80,4 +80,4 @@ json.dumps()  将dict转换为str     相当于php中   json_encode()
 json.loads()  将str转换为dict     相当于php中   json_decode()
 
 
-nohup python3 server.py &
+nohup python3 server.py &   关闭linux终端之后还能python脚本还能继续执行
