@@ -40,7 +40,7 @@ class OrderHandler(BaseHandler):
 
         # 校验结束时间是否比开始时间小
         days = (datetime.datetime.strptime(end_date, "%Y-%m-%d") - datetime.datetime.strptime(start_date,
-                                                                                              "%Y-%m-%d")).days + 1
+                                                                                              "%Y-%m-%d")).days
         if days <= 0:
             return self.write(dict(code="05", msg="时间参数不对!"))
         # 判断预定的日期是否可行,(是否别的用户已经预定),需要转化为datetime比较
