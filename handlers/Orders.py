@@ -51,10 +51,10 @@ class OrderHandler(BaseHandler):
             ret = self.db.get(sql, house_id=house_id, end_date=end_date, start_date=start_date)
         except Exception as e:
             logging.error(e)
-            return self.write(dict(code="06", msg="该房屋已经被人预定"))
+            return self.write(dict(code="06", msg="get data error"))
 
         if ret['counts'] > 0:
-            return self.write(dict(code="07", msg="serve data error"))
+            return self.write(dict(code="07", msg="该房屋已经被人预定"))
 
         amount = days * house['hi_price']
 
