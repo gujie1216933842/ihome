@@ -1,10 +1,12 @@
 linux查看进程是否启动
 ps  -ef | grep redis    以redis为例
-ps -aux | grep python   以python为例
+ps aux | grep python   以python为例
 显示结果
 root      7900  0.4  2.5 237752 26492 pts/1    S+   17:21   1:00 python3 server.py
 7900进程
 kill -9 7900
+
+ps aux | grep xxx   查看linux启动哪些服务
 
 七牛注册邮箱     gujientsy@163.com
 
@@ -18,6 +20,11 @@ pip-9.0.1.tar.gz (md5, pgp)	   Source
 
 然后配置pip环境变量,   C:\Python34\Scripts;  假定个人电脑装的python在C下版本3.4
 如果图省事,可直接进script目录,用pip下载
+
+
+
+linux服务器进入mysql 
+./mysql -h 127.0.0.1 -uroot -p123
 
 
 
@@ -81,3 +88,261 @@ json.loads()  将str转换为dict     相当于php中   json_decode()
 
 
 nohup python3 server.py &   关闭linux终端之后还能python脚本还能继续执行
+
+
+linux 开机启动reids服务
+一、新建、编写开机自启动脚本（redis-auto为新建的文件）
+vi /etc/init.d/redis-auto  
+ 
+
+二、在文件redis-auto加入如下内容：（注意Redis具体的安装路径，你的可能不一样）
+
+shell脚本代码
+#!/bin/sh  
+#chkconfig: 2345 80 90  
+# Simple Redis init.d script conceived to work on Linux systems  
+# as it does use of the /proc filesystem.  
+REDISPORT=6379  
+REDISPATH=/home/java/run/redis-3.2.9/bin   #代码需要根据实际路径 
+EXEC=${REDISPATH}/redis-server  
+CLIEXEC=${REDISPATH}/redis-cli  
+PIDFILE=/var/run/redis_${REDISPORT}.pid  
+CONF="${REDISPATH}/redis.conf"  
+case "$1" in  
+  start)  
+    if [ -f $PIDFILE ]  
+    then  
+        echo "$PIDFILE exists, process is already running or crashed"  
+    else  
+        echo "Starting Redis server..."  
+        $EXEC $CONF  
+    fi  
+    ;;  
+  stop)  
+    if [ ! -f $PIDFILE ]  
+    then  
+        echo "$PIDFILE does not exist, process is not running"  
+    else  
+        PID=$(cat $PIDFILE)  
+        echo "Stopping ..."  
+        $CLIEXEC -p $REDISPORT shutdown  
+        while [ -x /proc/${PID} ]  
+        do  
+          echo "Waiting for Redis to shutdown ..."  
+          sleep 1  
+        done  
+        echo "Redis stopped"  
+    fi  
+    ;;  
+  *)  
+    echo "Please use start or stop as first argument"  
+    ;;  
+esac  
+ 
+
+ 
+
+ 
+
+ 
+
+三、保存退出
+
+Java代码  收藏代码
+wq  
+四、设置文件redis-auto的权限，让Linux可以执行
+
+Java代码  收藏代码
+chmod 755 redis-auto  
+ 
+
+五、启动Redis服务测试，此处启动用的是第二步设置的启动脚本
+
+Java代码  收藏代码
+/etc/init.d/redis-auto start  
+ 如果看到Redis启动的小盒子就表示成功。
+
+不过你可以进一步打开redis-cli客户端进行测试
+
+ 
+
+六、设置开机自启动，即：
+
+chkconfig redis-auto on  
+
+七、经过测试，Linux系统在重新启动时，Redis的数据会自动丢失，解决方案见：
+Linux Redis 重启数据丢失解决方案，Linux重启后Redis数据丢失解决方案
+
+步骤如下：
+1、编辑 sysctl.conf 配置文件
+
+vi /etc/sysctl.conf  
+
+2、另起一行增加参数 vm.overcommit_memory 配置，如下
+vm.overcommit_memory = 1  
+
+3、使配置文件生效
+sysctl -p   
+
+到这里已经结束，在Redis增加些数据，再重启Linux系统查看数据有没有丢失。
+
+经过本人测试，最后数据没有丢失，解决了Linux重启后Redis数据丢失的问题
+
+
+
+
+
+
+
+
+
+linux开机启动nginx服务
+#!/bin/sh
+#
+# nginx - this script starts and stops the nginx daemon
+#
+# chkconfig:   - 85 15
+# description:  NGINX is an HTTP(S) server, HTTP(S) reverse \
+#               proxy and IMAP/POP3 proxy server
+# processname: nginx
+# config:      /etc/nginx/nginx.conf
+# config:      /etc/sysconfig/nginx
+# pidfile:     /var/run/nginx.pid
+# Source function library.
+. /etc/rc.d/init.d/functions
+# Source networking configuration.
+. /etc/sysconfig/network
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+nginx="/application/nginx/sbin/nginx"
+prog=$(basename $nginx)
+NGINX_CONF_FILE="/application/nginx/conf/nginx.conf"
+[ -f /etc/sysconfig/nginx ] && . /etc/sysconfig/nginx
+lockfile=/var/lock/subsys/nginx
+make_dirs() {
+   # make required directories
+   user=`$nginx -V 2>&1 | grep "configure arguments:" | sed 's/[^*]*--user=\([^ ]*\).*/\1/g' -`
+   if [ -z "`grep $user /etc/passwd`" ]; then
+       useradd -M -s /bin/nologin $user
+   fi
+   options=`$nginx -V 2>&1 | grep 'configure arguments:'`
+   for opt in $options; do
+       if [ `echo $opt | grep '.*-temp-path'` ]; then
+           value=`echo $opt | cut -d "=" -f 2`
+           if [ ! -d "$value" ]; then
+               # echo "creating" $value
+               mkdir -p $value && chown -R $user $value
+           fi
+       fi
+   done
+}
+start() {
+    [ -x $nginx ] || exit 5
+    [ -f $NGINX_CONF_FILE ] || exit 6
+    make_dirs
+    echo -n $"Starting $prog: "
+    daemon $nginx -c $NGINX_CONF_FILE
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -QUIT
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+restart() {
+    configtest || return $?
+    stop
+    sleep 1
+    start
+}
+reload() {
+    configtest || return $?
+    echo -n $"Reloading $prog: "
+    killproc $nginx -HUP
+    RETVAL=$?
+    echo
+}
+force_reload() {
+    restart
+}
+configtest() {
+  $nginx -t -c $NGINX_CONF_FILE
+}
+rh_status() {
+    status $prog
+}
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+case "$1" in
+    start)
+        rh_status_q && exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest)
+        $1
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    force-reload)
+        force_reload
+        ;;
+    status)
+        rh_status
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 0
+            ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+        exit 2
+esac
+
+然后就 添加nginx到service服务
+
+复制代码
+#修改权限
+chmod 755 /etc/init.d/nginx
+
+#添加 nginx服务
+chkconfig --add nginx
+
+#添加开机自动启动服务
+chkconfig  nginx on
+
+
+#以下就可以允许这些服务
+service nginx start
+service nginx stop
+service nginx reload
+复制代码
+
+
+python脚本设置为linux服务
+https://blog.csdn.net/h335146502/article/details/50700776
+https://www.cnblogs.com/niocai/archive/2012/07/12/2587780.html
+
+
+
+
+
+
+
+
+
+
+
+
+
