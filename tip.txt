@@ -335,6 +335,75 @@ https://blog.csdn.net/h335146502/article/details/50700776
 https://www.cnblogs.com/niocai/archive/2012/07/12/2587780.html
 
 
+实现方法：
+
+1，给编写好的python脚本开头加上
+
+[python] view plain copy
+#!/usr/bin/python
+
+2，启动shell 脚本 编写
+vi  pystock.sh
+
+[plain] view plain copy
+#vim /etc/init.d/httpd
+#!bin/bash
+[plain] view plain copy
+lock="py_stock.py"
+[plain] view plain copy
+#启动服务方法
+start(){
+        echo "service start...."
+        su root -c "python /root/python/py_stock/src/crawler/py_stock.py &"  #此处python用绝对路径
+}
+[plain] view plain copy
+<pre name="code" class="plain">#停止服务方法
+stop(){ echo "service stop...." pkill -f $lock}
+[plain] view plain copy
+#查看服务状态
+status(){
+        if [ -e $lock ];then
+            echo "$0 service start"
+        else
+            echo "$0 service stop"
+        fi
+}
+[plain] view plain copy
+#重新启动
+restart(){
+        stop
+        start
+}
+case "$1" in
+"start")
+        start
+        ;;
+"stop")
+        stop
+        ;;
+"status")
+        status
+        ;;
+"restart")
+        restart
+        ;;
+*)
+        echo "$0 start|stop|status|restart"
+        ;;
+esac
+
+3，复制脚本到/etc/init.d/目录下：cp pystock.sh /etc/init.d/
+4，给shell脚本赋予执行权限 ：chmod +x /etc/init.d/pystock.sh
+
+5，添加服务：chkconfig --add pystock.sh
+
+6，设置服务为开机启动：chkconfig --level 35 pystock.sh on
+
+
+
+
+
+
 
 
 
