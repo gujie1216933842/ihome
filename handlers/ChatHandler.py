@@ -1,4 +1,4 @@
-
+from tornado.websocket import WebSocketHandler
 from .BaseHandler import BaseHandler
 import logging
 import config
@@ -10,8 +10,42 @@ import math
 import constants
 from utils import session
 
-class ChatHandler(BaseHandler):
+class ShowChatHandler(BaseHandler):
     def get(self):
         self.render('chat.html')
+
+class ChatHandler():
+    users = []
+    def open(self):
+        for users in self.users:
+            users.write_message("%s上线了"%self.request.remote_ip)
+        self.users.append(self)
+
+    def on_message(self,msg):
+        for users in self.users:
+            users.write_message("%s说:%s" % (self.request.remote_ip,msg))
+
+    def on_close(self):
+        users.remove(self)
+        for users in self.users:
+            users.write_message("%s下线了" % self.request.remote_ip)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
