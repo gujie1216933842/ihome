@@ -1,14 +1,6 @@
 from tornado.websocket import WebSocketHandler
 from .BaseHandler import BaseHandler
-import logging
-import config
-import json
-from utils.common import require_logined
-from utils.image_storage import storage
-import datetime
-import math
-import constants
-from utils import session
+
 
 class ShowChatHandler(BaseHandler):
     def get(self):
