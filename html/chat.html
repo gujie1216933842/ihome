@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+</head>
+<body>
+<div id="contents" style="height: 500px;overflow: auto"></div>
+<div>
+    <textarea name="" id="msg" cols="30" rows="10"></textarea>
+    <a href="javascript:;" onclick="sendMsg()">发送</a>
+
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script type="text/javascript">
+    var ws = new WebSocket("ws://47.97.165.75:9000/chat");
+    ws.onmessage = function (data) {
+        $("#contents").append("<p>" + data.data + "</p>")
+    };
+    function sendMsg() {
+        var msg = $("#msg").val();
+        if (msg) {
+            ws.send(msg);
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
