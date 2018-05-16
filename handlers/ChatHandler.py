@@ -12,6 +12,6 @@ from utils import session
 
 class ChatHandler(BaseHandler):
     def get(self):
-        pass
+        self.render('chat.html')
 
 
