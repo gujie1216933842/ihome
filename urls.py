@@ -1,4 +1,4 @@
-from handlers import Passport, IndexHandler,House,VerifyCode,ProfileHandler,Orders,ShowChatHandler
+from handlers import Passport, IndexHandler,House,VerifyCode,ProfileHandler,Orders,ChatHandler
 import os
 from handlers.BaseHandler import StaticFileBaseHandler as StaticFileHandler
 from utils.DIY_captcha import DIY_captcha
@@ -30,7 +30,7 @@ urls = [
     (r"/profile/NickNameEdit", ProfileHandler.NickNameEdit), #用户修改昵称接口
     (r"/profile/LogoutHandler", ProfileHandler.LogoutHandler), #用户退出登录接口
     (r"/profile/AuthHandler", ProfileHandler.AuthHandler), #用户实名认证接口
-    (r"/chat", ShowChatHandler.ChatHandler), #用户实名认证接口
+    (r"/chat", ChatHandler.ShowChatHandler), #用户实名认证接口
     (r"/(.*)", StaticFileHandler,
     dict(path=os.path.join(os.path.dirname(__file__), "html"), default_filename="index.html"))
 ]
