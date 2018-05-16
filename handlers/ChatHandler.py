@@ -26,7 +26,7 @@ class ChatHandler():
             users.write_message("%s说:%s" % (self.request.remote_ip,msg))
 
     def on_close(self):
-        users.remove(self)
+        self.users.remove(self)
         for users in self.users:
             users.write_message("%s下线了" % self.request.remote_ip)
 
