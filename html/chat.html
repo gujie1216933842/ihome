@@ -14,7 +14,7 @@
 
 <script src="/static/js/jquery.min.js"></script>
 <script type="text/javascript">
-    var ws = new WebSocket("ws://47.97.165.75:9000/chat");
+    var ws = new WebSocket("ws://47.97.165.75/chat");
     ws.onmessage = function (data) {
         $("#contents").append("<p>" + data.data + "</p>")
     };
