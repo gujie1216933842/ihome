@@ -21,6 +21,7 @@ mysql_options = dict(
 redis_options = dict(
     host='127.0.0.1',
     port=6379,
+    password='123',
 )
 
 session_expires = 864000    #session过期时间一天
